@@ -132,7 +132,7 @@ unsigned char* I2CDevice::readRegisters(unsigned int number, unsigned int fromAd
 	this->write(fromAddress);
 	unsigned char* data = new unsigned char[number];
     if(::read(this->file, data, number)!=(int)number){
-       perror("IC2: Failed to read in the full buffer.\n");
+       perror("I2C: Failed to read in the full buffer.\n");
 	   return NULL;
     }
 	return data;
