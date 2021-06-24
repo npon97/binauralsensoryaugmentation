@@ -31,10 +31,60 @@
 // This means 2Fh registers are used for the magnetometer.
 #define BUFFER_SIZE 0x2F
 
-
-class LSM303AGR_MAG:protected I2CDevice
+class LSM303AGR_MAG : protected I2CDevice
 {
+public:
+    // Resolution and power mode of the sensor
+    enum RESOLUTION
+    {
+        HIGH = 0, // High resolution high power
+        LOW = 1   // Low resolution low power
+    };
 
+    // Output data rate (ODR)
+    enum OUTPUT_DATA_RATE
+    {
+        TEN_HERTZ = 0,
+        TWENTY_HERTZ = 1, // This can be 2 as well
+        HUNDRED_HERTZ = 3
+    };
+
+    enum SYSTEM_MODE
+    {
+        CONTINUOUS = 0, // Continously fills raw data registers
+        SINGLE = 1,     // Performs a single measurement, sets DRDY high and
+                        // returns to idle mode.
+        IDLE = 2        // This can be 3 as well
+    };
+
+private:
+    unsigned int I2CBus, I2CAddress;
+    u_int8_t *registers;
+    LSM303AGR_MAG::RESOLUTION resolution;
+    LSM303AGR_MAG::OUTPUT_DATA_RATE outputDataRate;
+    LSM303AGR_MAG::SYSTEM_MODE systemMode;
+    u_int16_t magX, magY, magZ; // Raw 2's complement magnetic values
+
+    u_int16_t combineRegisters(u_int8_t msb, u_int8_t lsb);
+    virtual int updateRegisters();
+
+public:
+    LSM303AGR_MAG(unsigned int I2CBus, unsigned int I2CAddress = 0x1E);
+    virtual int readSensorState();
+
+    virtual void setResolution(LSM303AGR_MAG::RESOLUTION resolution);
+    virtual LSM303AGR_MAG::RESOLUTION getResolution();
+    virtual void setOutputDataRate(
+        LSM303AGR_MAG::OUTPUT_DATA_RATE outputDataRate);
+    virtual LSM303AGR_MAG::OUTPUT_DATA_RATE getOutputDataRate();
+    virtual void setSystemMode(LSM303AGR_MAG::SYSTEM_MODE systemMode);
+    virtual LSM303AGR_MAG::SYSTEM_MODE getSystemMode();
+
+    virtual u_int16_t getMagX() { return this->magX; }
+    virtual u_int16_t getMagY() { return this->magY; }
+    virtual u_int16_t getMagZ() { return this->magZ; }
+
+    virtual ~LSM303AGR_MAG();
 };
 
 #endif /* LSM303AGR_MAG */

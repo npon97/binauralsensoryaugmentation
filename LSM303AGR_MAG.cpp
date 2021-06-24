@@ -22,29 +22,30 @@
 #include "LSM303AGR_MAG.h"
 #include <iostream>
 
-#define OFFSET_X_REG_L 0x45
-#define OFFSET_X_REG_H 0x46
-#define OFFSET_Y_REG_L 0x47
-#define OFFSET_Y_REG_H 0x48
-#define OFFSET_Z_REG_L 0x49
-#define OFFSET_Z_REG_H 0x4A
-#define WHO_AM_I       0x4F
-#define CFG_REG_A      0x60
-#define CFG_REG_B      0x61
-#define CFG_REG_C      0x62
-#define INT_CTRL_REG   0x63
-#define INT_SOURCE_REG 0x64
-#define INT_THS_L_REG  0x65 // Threashold value register for interrupt
-#define INT_THS_H_REG  0x66
-#define STATUS_REG     0x67
-#define OUTX_L_REG     0x68
-#define OUTX_H_REG     0x69
-#define OUTY_L_REG     0x6A
-#define OUTY_H_REG     0x6B
-#define OUTZ_L_REG     0x6C
-#define OUTZ_H_REG     0x6D
-
-
+#define OFFSET_X_REG_L 0x45 // X hard-iron offset least significant bit (LSB). 
+#define OFFSET_X_REG_H 0x46 // X hard-iron offset most significant bit (MSB).
+#define OFFSET_Y_REG_L 0x47 // Y hard-iron offset LSB. 
+#define OFFSET_Y_REG_H 0x48 // Y hard-iron offset MSB.
+#define OFFSET_Z_REG_L 0x49 // Z hard-iron offset LSB. 
+#define OFFSET_Z_REG_H 0x4A // Z hard-iron offset MSB.
+#define WHO_AM_I       0x4F // [READ ONLY] Identification register. Value: 40h 
+#define CFG_REG_A      0x60 // Soft reset, power mode, ODR and mode select.
+#define CFG_REG_B      0x61 // Offset interrupt, set pulse frequency, offset 
+                            //  cancellation enable and low-pass filter enable.
+#define CFG_REG_C      0x62 // Magnetometer interrupt, I2C disable, bad data
+                            //  update, data inversion, self test and 
+                            //  DRDY pin output enable.
+#define INT_CTRL_REG   0x63 // Interrupt control for interrupt recognition.
+#define INT_SOURCE_REG 0x64 // Positive-negative interrupt values and event bit
+#define INT_THS_L_REG  0x65 // LSB threshold value register for interrupt
+#define INT_THS_H_REG  0x66 // MSB threshold value register for interrupt
+#define STATUS_REG     0x67 // [READ ONLY] device status
+#define OUTX_L_REG     0x68 // LSB X axis raw magnetic data
+#define OUTX_H_REG     0x69 // MSB X axis raw magnetic data
+#define OUTY_L_REG     0x6A // LSB Y axis raw magnetic data
+#define OUTY_H_REG     0x6B // MSB Y axis raw magnetic data
+#define OUTZ_L_REG     0x6C // LSB Z axis raw magnetic data
+#define OUTZ_H_REG     0x6D // MSB Z axis raw magnetic data
 
 /**
  * Method to combine two 8-bit registers into a single short, which is 16-bits 
@@ -56,7 +57,17 @@
  * Modified from:
  * https://github.com/derekmolloy/exploringrpi/blob/master/chp08/i2c/cpp/ADXL345.cpp
  */
-u_int16_t LSM303AGR_MAG::combineRegisters(unsigned char msb, unsigned char lsb){
-   //shift the MSB left by 8 bits and OR with LSB
-   return ((u_int16_t)msb<<8)|(u_int16_t)lsb;
+u_int16_t LSM303AGR_MAG::combineRegisters(u_int8_t msb, u_int8_t lsb)
+{
+    //shift the MSB left by 8 bits and OR with LSB
+    return ((u_int16_t)msb << 8) | (u_int16_t)lsb;
+}
+
+LSM303AGR_MAG::RESOLUTION LSM303AGR_MAG getResolution()
+{
+    return this->resolution;
+}
+LSM303AGR_MAG::OUTPUT_DATA_RATE LSM303AGR_MAG::getOutputDataRate()
+{
+    return this->outputDataRate;
 }
