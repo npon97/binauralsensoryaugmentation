@@ -21,15 +21,31 @@
  * chapter 8 repository code which can be found here:
  * https://github.com/derekmolloy/exploringrpi/blob/master/chp08/i2c/
  * 
+ * [WARNING]: Registers marked as Reserved must not be changed. Writing to those
+ *            registers may cause permanent damage to the device.
  */
 
-#ifndef LSM303AGR_MAG
-#define LSM303AGR_MAG
-#include "I2CDevice.h"
 
-// On the LSM303AGR, registers 40h through 6Fh are dedicated to the magnetometer.
-// This means 2Fh registers are used for the magnetometer.
-#define BUFFER_SIZE 0x2F
+#ifndef LSM303AGR_MAG_H_
+#define LSM303AGR_MAG_H_
+
+#include "I2CDevice.h"
+#include <stdint.h>
+
+/* On the LSM303AGR, registers 40h through 6Fh are dedicated to the magnetometer.
+*  Because there are reserved registers, there are 3 buffers of registers which
+*  are defined so that those reserved registers are not read from or written to.
+*  These buffers are defined as follows:
+*  * 0x45 -> 0x4A = BUFFER_OFFSET
+*  * 0x4F         = BUFFER_DEVID
+*  * 0x60 -> 0x6D = BUFFER_CFG_STATUS_DATA
+* 
+*  Each of these buffers' sizes are then defined
+*/
+
+#define BUFFER_OFFSET_SIZE      0x06
+#define BUFFER_DEVID_SIZE       0x01
+#define BUFFER_CFG_STATUS_DATA  0x0E
 
 class LSM303AGR_MAG : protected I2CDevice
 {
@@ -59,13 +75,13 @@ public:
 
 private:
     unsigned int I2CBus, I2CAddress;
-    u_int8_t *registers;
+    uint8_t *registers;
     LSM303AGR_MAG::RESOLUTION resolution;
     LSM303AGR_MAG::OUTPUT_DATA_RATE outputDataRate;
     LSM303AGR_MAG::SYSTEM_MODE systemMode;
-    u_int16_t magX, magY, magZ; // Raw 2's complement magnetic values
+    uint16_t magX, magY, magZ; // Raw 2's complement magnetic values
 
-    u_int16_t combineRegisters(u_int8_t msb, u_int8_t lsb);
+    uint16_t combineRegisters(uint8_t msb, uint8_t lsb);
     virtual int updateRegisters();
 
 public:
@@ -80,11 +96,11 @@ public:
     virtual void setSystemMode(LSM303AGR_MAG::SYSTEM_MODE systemMode);
     virtual LSM303AGR_MAG::SYSTEM_MODE getSystemMode();
 
-    virtual u_int16_t getMagX() { return this->magX; }
-    virtual u_int16_t getMagY() { return this->magY; }
-    virtual u_int16_t getMagZ() { return this->magZ; }
+    virtual uint16_t getMagX() { return this->magX; }
+    virtual uint16_t getMagY() { return this->magY; }
+    virtual uint16_t getMagZ() { return this->magZ; }
 
     virtual ~LSM303AGR_MAG();
 };
 
-#endif /* LSM303AGR_MAG */
+#endif /* LSM303AGR_MAG_H_ */
