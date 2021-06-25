@@ -1,5 +1,5 @@
 /*
- * LSM303AGR_MAG.cpp  Created on: 24 June 2021
+ * LSM303AGR_MAG.h  Created on: 24 June 2021
  * Copyright (c) 2021 Nathan Phipps O'Neill (www.nathanphippsoneill.com)
  * Licensed under the EUPL V.1.1
  *
@@ -17,6 +17,12 @@
  * of warranty is an essential part of the License and a condition for 
  * the grant of any rights to this Software.
  * 
+ * Many parts are specifically modified from or inspired by Derek Molloy's
+ * chapter 8 repository code which can be found here:
+ * https://github.com/derekmolloy/exploringrpi/blob/master/chp08/i2c/
+ * 
+ * [WARNING]: Registers marked as Reserved must not be changed. Writing to those
+ *            registers may cause permanent damage to the device.
  */
 
 #include "LSM303AGR_MAG.h"
@@ -47,6 +53,22 @@
 #define OUTZ_L_REG     0x6C // LSB Z axis raw magnetic data
 #define OUTZ_H_REG     0x6D // MSB Z axis raw magnetic data
 
+
+// Constructor
+LSM303AGR_MAG::LSM303AGR_MAG(unsigned int I2CBus, unsigned int I2CAddress)
+    :   I2CDevice(I2CBus, I2CAddress)
+{
+    this->I2CAddress = I2CAddress;
+	this->I2CBus = I2CBus;
+    this->registers = NULL;
+    this->magX = 0;
+    this->magY = 0;
+    this->magZ = 0;
+    this->resolution = LSM303AGR_MAG::HIGH;
+    this->outputDataRate = LSM303AGR_MAG::TEN_HERTZ;
+    this->systemMode = LSM303AGR_MAG::CONTINUOUS;
+}
+
 /**
  * Method to combine two 8-bit registers into a single short, which is 16-bits 
  * on the Raspberry Pi. It shifts the MSB 8-bits to the left and then ORs the
@@ -57,13 +79,18 @@
  * Modified from:
  * https://github.com/derekmolloy/exploringrpi/blob/master/chp08/i2c/cpp/ADXL345.cpp
  */
-u_int16_t LSM303AGR_MAG::combineRegisters(u_int8_t msb, u_int8_t lsb)
+uint16_t LSM303AGR_MAG::combineRegisters(uint8_t msb, uint8_t lsb)
 {
     //shift the MSB left by 8 bits and OR with LSB
     return ((u_int16_t)msb << 8) | (u_int16_t)lsb;
 }
 
-LSM303AGR_MAG::RESOLUTION LSM303AGR_MAG getResolution()
+int LSM303AGR_MAG::readSensorState()
+{
+    this->registers = this->readRegisters(BUFFER_SIZE, )
+}
+
+LSM303AGR_MAG::RESOLUTION LSM303AGR_MAG::getResolution()
 {
     return this->resolution;
 }
@@ -71,3 +98,5 @@ LSM303AGR_MAG::OUTPUT_DATA_RATE LSM303AGR_MAG::getOutputDataRate()
 {
     return this->outputDataRate;
 }
+
+LSM303AGR_MAG::~LSM303AGR_MAG() {}
