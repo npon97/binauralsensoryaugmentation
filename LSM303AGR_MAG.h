@@ -32,20 +32,7 @@
 #include "I2CDevice.h"
 #include <stdint.h>
 
-/* On the LSM303AGR, registers 40h through 6Fh are dedicated to the magnetometer.
-*  Because there are reserved registers, there are 3 buffers of registers which
-*  are defined so that those reserved registers are not read from or written to.
-*  These buffers are defined as follows:
-*  * 0x45 -> 0x4A = BUFFER_OFFSET
-*  * 0x4F         = BUFFER_DEVID
-*  * 0x60 -> 0x6D = BUFFER_CFG_STATUS_DATA
-* 
-*  Each of these buffers' sizes are then defined
-*/
 
-#define BUFFER_OFFSET_SIZE      0x06
-#define BUFFER_DEVID_SIZE       0x01
-#define BUFFER_CFG_STATUS_DATA  0x0E
 
 class LSM303AGR_MAG : protected I2CDevice
 {
@@ -75,7 +62,9 @@ public:
 
 private:
     unsigned int I2CBus, I2CAddress;
-    uint8_t *registers;
+    uint8_t *offset_registers;
+    uint8_t *devid_register;
+    uint8_t *cfg_status_data_registers;
     LSM303AGR_MAG::RESOLUTION resolution;
     LSM303AGR_MAG::OUTPUT_DATA_RATE outputDataRate;
     LSM303AGR_MAG::SYSTEM_MODE systemMode;
