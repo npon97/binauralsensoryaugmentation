@@ -54,25 +54,12 @@
 #define OUTZ_H_REG 0x6D     // MSB Z axis raw magnetic data
 
 /* On the LSM303AGR, registers 40h through 6Fh are dedicated to the magnetometer.
-*  Because there are reserved registers, there are 3 buffers of registers which
-*  are defined so that those reserved registers are not read from or written to.
-*  These buffers are defined as follows:
-*  * 0x45 -> 0x4A = BUFFER_OFFSET
-*  * 0x4F         = BUFFER_DEVID
-*  * 0x60 -> 0x6D = BUFFER_CFG_STATUS_DATA
-* 
-*  Each of these buffers' sizes are defined
+*  There are reserved registers 0x4B through 0x4E and 0x50 through 0x5F which 
+*   should not be written to.
 */
 
-// Size of buffers
-#define BUFFER_OFFSET_SIZE 0x06
-#define BUFFER_DEVID_SIZE 0x01
-#define BUFFER_CFG_STATUS_DATA_SIZE 0x0E
-
-// Start of buffers
-#define BUFFER_OFFSET_START OFFSET_X_REG_L
-#define BUFFER_DEVID_START WHO_AM_I
-#define BUFFER_CFG_STATUS_DATA_START CFG_REG_A
+// Size of buffer / Number of registers
+#define BUFFER_SIZE 0x6D
 
 // Constructor
 LSM303AGR_MAG::LSM303AGR_MAG(unsigned int I2CBus, unsigned int I2CAddress)
@@ -80,9 +67,7 @@ LSM303AGR_MAG::LSM303AGR_MAG(unsigned int I2CBus, unsigned int I2CAddress)
 {
     this->I2CAddress = I2CAddress;
     this->I2CBus = I2CBus;
-    this->offset_registers = NULL;
-    this->devid_register = NULL;
-    this->cfg_status_data_registers = NULL;
+    this->registers = NULL;
     this->magX = 0;
     this->magY = 0;
     this->magZ = 0;
@@ -109,27 +94,31 @@ uint16_t LSM303AGR_MAG::combineRegisters(uint8_t msb, uint8_t lsb)
 
 int LSM303AGR_MAG::readSensorState()
 {
+    uint8_t cfg_reg_a; // Config register read in
+
     // Read in the three register buffers
-    this->offset_registers = this->readRegisters(
-        BUFFER_OFFSET_SIZE, BUFFER_OFFSET_START);
-    this->devid_register = this->readRegisters(
-        BUFFER_DEVID_SIZE, BUFFER_DEVID_START);
-    this->cfg_status_data_registers = this->readRegisters(
-        BUFFER_CFG_STATUS_DATA_SIZE, BUFFER_CFG_STATUS_DATA_START);
+    this->registers = this->readRegisters(
+        BUFFER_SIZE, 0x00);
+
+    // Throw an error if the device ID doesnt match
+    if(*(this->registers+WHO_AM_I)!=0x40)
+    {
+        perror("LSM303AGR Magnetometer: Failure Condition - Sensor ID invalid");
+        return -1;
+    }
 
     // Combine the MSB and LSB from the raw magnetic data
-    this->magX = this->combineRegisters(
-        *(cfg_status_data_registers - BUFFER_CFG_STATUS_DATA_START + OUTX_H_REG),
-        *(cfg_status_data_registers - BUFFER_CFG_STATUS_DATA_START + OUTX_L_REG));
-    this->magY = this->combineRegisters(
-        *(cfg_status_data_registers - BUFFER_CFG_STATUS_DATA_START + OUTY_H_REG),
-        *(cfg_status_data_registers - BUFFER_CFG_STATUS_DATA_START + OUTY_L_REG));
-    this->magZ = this->combineRegisters(
-        *(cfg_status_data_registers - BUFFER_CFG_STATUS_DATA_START + OUTZ_H_REG),
-        *(cfg_status_data_registers - BUFFER_CFG_STATUS_DATA_START + OUTZ_L_REG));
+    this->magX = this->combineRegisters(*(registers + OUTX_H_REG),
+        *(registers + OUTX_L_REG));
+    this->magY = this->combineRegisters(*(registers + OUTY_H_REG),
+        *(registers + OUTY_L_REG));
+    this->magZ = this->combineRegisters(*(registers + OUTZ_H_REG),
+        *(registers + OUTZ_L_REG));
 
-    this->resolution = (LSM303AGR_MAG::RESOLUTION) 
-        *(cfg_status_data_registers - BUFFER_CFG_STATUS_DATA_START + CFG_REG_A);
+    cfg_reg_a = *(registers + CFG_REG_A);
+    
+
+    return 0;
 }
 
 LSM303AGR_MAG::RESOLUTION LSM303AGR_MAG::getResolution()

@@ -62,9 +62,7 @@ public:
 
 private:
     unsigned int I2CBus, I2CAddress;
-    uint8_t *offset_registers;
-    uint8_t *devid_register;
-    uint8_t *cfg_status_data_registers;
+    uint8_t *registers;
     LSM303AGR_MAG::RESOLUTION resolution;
     LSM303AGR_MAG::OUTPUT_DATA_RATE outputDataRate;
     LSM303AGR_MAG::SYSTEM_MODE systemMode;
