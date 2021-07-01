@@ -94,7 +94,6 @@ uint16_t LSM303AGR_MAG::combineRegisters(uint8_t msb, uint8_t lsb)
 
 int LSM303AGR_MAG::readSensorState()
 {
-    uint8_t cfg_reg_a; // Config register read in
 
     // Read in the three register buffers
     this->registers = this->readRegisters(
@@ -115,8 +114,14 @@ int LSM303AGR_MAG::readSensorState()
     this->magZ = this->combineRegisters(*(registers + OUTZ_H_REG),
         *(registers + OUTZ_L_REG));
 
-    cfg_reg_a = *(registers + CFG_REG_A);
+    // Retrieve only the bits that are needed by using bitwise & and
+    //  shifting the value back. Notice how the LP bit on the data sheet
+    //  overlaps with the only HIGH binary bit that is written here.
+    this->resolution = (LSM303AGR_MAG::RESOLUTION) 
+        (((*(registers + CFG_REG_A)) & 0b00010000) >> 4);
     
+    this->outputDataRate = (LSM303AGR_MAG::OUTPUT_DATA_RATE)
+        (((*(registers + CFG_REG_A))));
 
     return 0;
 }
