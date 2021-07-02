@@ -67,8 +67,10 @@ private:
     LSM303AGR_MAG::OUTPUT_DATA_RATE outputDataRate;
     LSM303AGR_MAG::SYSTEM_MODE systemMode;
     uint16_t magX, magY, magZ; // Raw 2's complement magnetic values
+    float azimuth, elevation;
 
     uint16_t combineRegisters(uint8_t msb, uint8_t lsb);
+    void calculateAzimuthAndElevation();
     virtual int updateRegisters();
 
 public:
@@ -86,6 +88,8 @@ public:
     virtual uint16_t getMagX() { return this->magX; }
     virtual uint16_t getMagY() { return this->magY; }
     virtual uint16_t getMagZ() { return this->magZ; }
+
+    virtual void displayAzimuthAndElevation(int iterations = 600);
 
     virtual ~LSM303AGR_MAG();
 };
