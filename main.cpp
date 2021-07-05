@@ -12,7 +12,7 @@ int main(int argc, char* argv[])
     // Create an accelerometer object
     try
     {
-        magnetometer = new LSM303AGR_MAG(1);
+        magnetometer = new LSM303AGR_MAG(1, 0x1E);
     }
     catch(int i) // Stops the program if any errors occur
     {

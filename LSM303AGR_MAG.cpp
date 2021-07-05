@@ -68,7 +68,7 @@
 #define M_FS        49.152f // Magnetic Dynamic Range
 #define M_GN        1.5f    // Magnetic Sensitivity
 
-#define DISPLAY_SUPERLOOP_uS  100000 // Debug display superloop delay
+#define DISPLAY_SUPERLOOP_uS  200000 // Debug display superloop delay
 
 // Constructor
 LSM303AGR_MAG::LSM303AGR_MAG(unsigned int I2CBus, unsigned int I2CAddress)
@@ -76,7 +76,7 @@ LSM303AGR_MAG::LSM303AGR_MAG(unsigned int I2CBus, unsigned int I2CAddress)
 {
     this->I2CAddress = I2CAddress;
     this->I2CBus = I2CBus;
-    this->registers = NULL;
+    this->registers = new uint8_t[BUFFER_SIZE];
     this->magX = 0;
     this->magY = 0;
     this->magZ = 0;
@@ -108,12 +108,10 @@ int LSM303AGR_MAG::readSensorState()
 {
     int i;
     uint8_t *hard_iron_reg, *who_am_i_reg, *cfg_status_data_reg;
-    uint8_t *res_reg;
-
+    
     hard_iron_reg = NULL;
     who_am_i_reg  = NULL;
     cfg_status_data_reg = NULL;
-    res_reg = NULL;
 
     // Read in the register buffers that are allows to be read from
     hard_iron_reg = this->readRegisters(
@@ -123,45 +121,44 @@ int LSM303AGR_MAG::readSensorState()
     cfg_status_data_reg = this->readRegisters(
         BUFFER_CFG_STATUS_DATA_SIZE, CFG_REG_A);
 
+
     // Fill the register array with 0s in read forbidden register data and
     //  fill the other registers with the relevant data
     for(i = 0; i < BUFFER_SIZE; i++)
     {
         if((i >= 0) && (i < OFFSET_X_REG_L))
         {
-            *(this->registers + i) = 0; 
+            this->registers[i] = 0; 
         }
         else if((i >= OFFSET_X_REG_L) && (i <= OFFSET_Z_REG_H))
         {
-            *(this->registers + i) = hard_iron_reg[i - OFFSET_X_REG_L];
+            this->registers[i] = hard_iron_reg[i - OFFSET_X_REG_L];
         }
         else if((i > OFFSET_Z_REG_H) && (i < WHO_AM_I))
         {
-            *(this->registers + i) = 0;
+            this->registers[i] = 0;
         }
         else if(i == WHO_AM_I)
         {
-            *(this->registers + i) = who_am_i_reg[i - WHO_AM_I];
+            this->registers[i] = who_am_i_reg[i - WHO_AM_I];
         }
         else if((i > WHO_AM_I) && (i < CFG_REG_A))
         {
-            *(this->registers + i) = 0;
+            this->registers[i] = 0;
         }
         else if((i >= CFG_REG_A) && (i <= OUTZ_H_REG))
         {
-            *(this->registers + i) = cfg_status_data_reg[i - CFG_REG_A];
+            this->registers[i] = cfg_status_data_reg[i - CFG_REG_A];
         }
         else if((i > OUTZ_H_REG) && (i < BUFFER_SIZE))
         {
-            *(this->registers + i) = 0;
+            this->registers[i] = 0;
         }
         else
         {
             perror("LSM303AGR_MAG: [ERROR] Incorrect register index");
             return -1;
         }
-
-        return 0;
     }
 
     // Throw an error if the device ID doesnt match
