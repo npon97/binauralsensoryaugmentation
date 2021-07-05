@@ -129,7 +129,7 @@ unsigned char I2CDevice::readRegister(unsigned int registerAddress){
  * @return a pointer of type unsigned char* that points to the first element in the block of registers
  */
 unsigned char* I2CDevice::readRegisters(unsigned int number, unsigned int fromAddress){
-	//this->write(fromAddress);
+	this->write(fromAddress);
 	unsigned char* data = new unsigned char[number];
     if(::read(this->file, data, number)!=(int)number){
        perror("I2C: Failed to read in the full buffer.\n");

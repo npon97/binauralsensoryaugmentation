@@ -30,9 +30,6 @@
 #include <unistd.h>
 
 /* Register Mapping */
-#define STATUS_REG_AUX_A 0x07
-#define REG_OFFSET STATUS_REG_AUX_A
-
 #define OFFSET_X_REG_L 0x45 // X hard-iron offset least significant bit (LSB).
 #define OFFSET_X_REG_H 0x46 // X hard-iron offset most significant bit (MSB).
 #define OFFSET_Y_REG_L 0x47 // Y hard-iron offset LSB.
@@ -63,7 +60,10 @@
 *   should not be written to.
 */
 
-#define BUFFER_SIZE 0x70 // Size of buffer / Number of registers
+#define BUFFER_SIZE           0x70 // Size of buffer / Number of registers
+#define BUFFER_HARD_IRON_SIZE 0x06
+#define BUFFER_WHO_AM_I_SIZE  0x01
+#define BUFFER_CFG_STATUS_DATA_SIZE 0x0E
 
 #define M_FS        49.152f // Magnetic Dynamic Range
 #define M_GN        1.5f    // Magnetic Sensitivity
@@ -74,6 +74,7 @@
 LSM303AGR_MAG::LSM303AGR_MAG(unsigned int I2CBus, unsigned int I2CAddress)
     : I2CDevice(I2CBus, I2CAddress)
 {
+    *(this->registers + OFFSET_X_REG_L) = hard_iron_reg;
     this->I2CAddress = I2CAddress;
     this->I2CBus = I2CBus;
     this->registers = NULL;
@@ -85,6 +86,7 @@ LSM303AGR_MAG::LSM303AGR_MAG(unsigned int I2CBus, unsigned int I2CAddress)
     this->resolution = LSM303AGR_MAG::HIGH;
     this->outputDataRate = LSM303AGR_MAG::TEN_HERTZ;
     this->systemMode = LSM303AGR_MAG::CONTINUOUS;
+    this->updateRegisters();
 }
 
 /**
@@ -105,10 +107,26 @@ uint16_t LSM303AGR_MAG::combineRegisters(uint8_t msb, uint8_t lsb)
 
 int LSM303AGR_MAG::readSensorState()
 {
+    int i;
+    uint8_t *hard_iron_reg, *who_am_i_reg, *cfg_status_data_reg;
 
     // Read in the register buffers
-    this->registers = this->readRegisters(
-        BUFFER_SIZE, 0x00);
+    hard_iron_reg = this->readRegisters(
+        BUFFER_HARD_IRON_SIZE, OFFSET_X_REG_L);
+    who_am_i_reg = this->readRegisters(
+        BUFFER_WHO_AM_I_SIZE, WHO_AM_I);
+    cfg_status_data_reg = this->readRegisters(
+        BUFFER_CFG_STATUS_DATA_SIZE, CFG_REG_A);
+
+    for(i = 0; i < BUFFER_SIZE; i++)
+    {
+        switch(i)
+        {
+            case((i >= 0) && (i < OFFSET_X_REG_L)):
+                this->registers[i] = 0;
+            case((i >= OFFSET_X_REG_L) && (i <= ))
+        }
+    }
 
     // Throw an error if the device ID doesnt match
     if(*(this->registers+WHO_AM_I)!=0x40)
@@ -129,13 +147,13 @@ int LSM303AGR_MAG::readSensorState()
     //  shifting the value back. Notice how the LP bit on the data sheet
     //  overlaps with the only HIGH binary bit that is written here.
     this->resolution = (LSM303AGR_MAG::RESOLUTION) 
-        (((*(registers + CFG_REG_A - REG_OFFSET)) & 0b00010000) >> 4);
+        (((*(registers + CFG_REG_A)) & 0b00010000) >> 4);
     
     this->outputDataRate = (LSM303AGR_MAG::OUTPUT_DATA_RATE)
-        (((*(registers + CFG_REG_A - REG_OFFSET)) & 0b00001100) >> 2);
+        (((*(registers + CFG_REG_A)) & 0b00001100) >> 2);
 
     this->systemMode = (LSM303AGR_MAG::SYSTEM_MODE)
-        (((*(registers + CFG_REG_A - REG_OFFSET)) & 0b00000011) );
+        (((*(registers + CFG_REG_A)) & 0b00000011) );
 
     return 0;
 }
@@ -189,7 +207,7 @@ void LSM303AGR_MAG::displayAzimuthAndElevation(int iterations)
     int i;
     for(i = 0; i < iterations; i++)
     {
-        std::cout << "Azimuth: " << this->azimuth << "Elevation: " <<
+        std::cout << "Azimuth: " << this->azimuth << "\tElevation: " <<
          this->elevation << "\t\r" << std::flush;
         usleep(DISPLAY_SUPERLOOP_uS);
         this->readSensorState();
