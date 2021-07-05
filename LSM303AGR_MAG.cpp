@@ -74,7 +74,6 @@
 LSM303AGR_MAG::LSM303AGR_MAG(unsigned int I2CBus, unsigned int I2CAddress)
     : I2CDevice(I2CBus, I2CAddress)
 {
-    *(this->registers + OFFSET_X_REG_L) = hard_iron_reg;
     this->I2CAddress = I2CAddress;
     this->I2CBus = I2CBus;
     this->registers = NULL;
@@ -109,8 +108,14 @@ int LSM303AGR_MAG::readSensorState()
 {
     int i;
     uint8_t *hard_iron_reg, *who_am_i_reg, *cfg_status_data_reg;
+    uint8_t *res_reg;
 
-    // Read in the register buffers
+    hard_iron_reg = NULL;
+    who_am_i_reg  = NULL;
+    cfg_status_data_reg = NULL;
+    res_reg = NULL;
+
+    // Read in the register buffers that are allows to be read from
     hard_iron_reg = this->readRegisters(
         BUFFER_HARD_IRON_SIZE, OFFSET_X_REG_L);
     who_am_i_reg = this->readRegisters(
@@ -118,14 +123,45 @@ int LSM303AGR_MAG::readSensorState()
     cfg_status_data_reg = this->readRegisters(
         BUFFER_CFG_STATUS_DATA_SIZE, CFG_REG_A);
 
+    // Fill the register array with 0s in read forbidden register data and
+    //  fill the other registers with the relevant data
     for(i = 0; i < BUFFER_SIZE; i++)
     {
-        switch(i)
+        if((i >= 0) && (i < OFFSET_X_REG_L))
         {
-            case((i >= 0) && (i < OFFSET_X_REG_L)):
-                this->registers[i] = 0;
-            case((i >= OFFSET_X_REG_L) && (i <= ))
+            *(this->registers + i) = 0; 
         }
+        else if((i >= OFFSET_X_REG_L) && (i <= OFFSET_Z_REG_H))
+        {
+            *(this->registers + i) = hard_iron_reg[i - OFFSET_X_REG_L];
+        }
+        else if((i > OFFSET_Z_REG_H) && (i < WHO_AM_I))
+        {
+            *(this->registers + i) = 0;
+        }
+        else if(i == WHO_AM_I)
+        {
+            *(this->registers + i) = who_am_i_reg[i - WHO_AM_I];
+        }
+        else if((i > WHO_AM_I) && (i < CFG_REG_A))
+        {
+            *(this->registers + i) = 0;
+        }
+        else if((i >= CFG_REG_A) && (i <= OUTZ_H_REG))
+        {
+            *(this->registers + i) = cfg_status_data_reg[i - CFG_REG_A];
+        }
+        else if((i > OUTZ_H_REG) && (i < BUFFER_SIZE))
+        {
+            *(this->registers + i) = 0;
+        }
+        else
+        {
+            perror("LSM303AGR_MAG: [ERROR] Incorrect register index");
+            return -1;
+        }
+
+        return 0;
     }
 
     // Throw an error if the device ID doesnt match
@@ -208,7 +244,7 @@ void LSM303AGR_MAG::displayAzimuthAndElevation(int iterations)
     for(i = 0; i < iterations; i++)
     {
         std::cout << "Azimuth: " << this->azimuth << "\tElevation: " <<
-         this->elevation << "\t\r" << std::flush;
+         this->elevation << "\t\r" << std::endl;
         usleep(DISPLAY_SUPERLOOP_uS);
         this->readSensorState();
     }
