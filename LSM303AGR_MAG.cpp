@@ -68,7 +68,7 @@
 #define M_FS        49.152f // Magnetic Dynamic Range
 #define M_GN        1.5f    // Magnetic Sensitivity
 
-#define DISPLAY_SUPERLOOP_uS  200000 // Debug display superloop delay
+#define DISPLAY_SUPERLOOP_uS  100000 // Debug display superloop delay
 
 // Constructor
 LSM303AGR_MAG::LSM303AGR_MAG(unsigned int I2CBus, unsigned int I2CAddress)
@@ -77,6 +77,9 @@ LSM303AGR_MAG::LSM303AGR_MAG(unsigned int I2CBus, unsigned int I2CAddress)
     this->I2CAddress = I2CAddress;
     this->I2CBus = I2CBus;
     this->registers = new uint8_t[BUFFER_SIZE];
+    this->hard_iron_reg = NULL;
+    this->who_am_i_reg  = NULL;
+    this->cfg_status_data_reg = NULL;
     this->magX = 0;
     this->magY = 0;
     this->magZ = 0;
@@ -107,20 +110,22 @@ uint16_t LSM303AGR_MAG::combineRegisters(uint8_t msb, uint8_t lsb)
 int LSM303AGR_MAG::readSensorState()
 {
     int i;
-    uint8_t *hard_iron_reg, *who_am_i_reg, *cfg_status_data_reg;
-    
-    hard_iron_reg = NULL;
-    who_am_i_reg  = NULL;
-    cfg_status_data_reg = NULL;
 
     // Read in the register buffers that are allows to be read from
-    hard_iron_reg = this->readRegisters(
-        BUFFER_HARD_IRON_SIZE, OFFSET_X_REG_L);
-    who_am_i_reg = this->readRegisters(
-        BUFFER_WHO_AM_I_SIZE, WHO_AM_I);
-    cfg_status_data_reg = this->readRegisters(
-        BUFFER_CFG_STATUS_DATA_SIZE, CFG_REG_A);
-
+    try
+    {    
+        this->hard_iron_reg = this->readRegisters(
+            BUFFER_HARD_IRON_SIZE, OFFSET_X_REG_L);
+        this->who_am_i_reg = this->readRegisters(
+            BUFFER_WHO_AM_I_SIZE, WHO_AM_I);
+        this->cfg_status_data_reg = this->readRegisters(
+            BUFFER_CFG_STATUS_DATA_SIZE, CFG_REG_A);
+    }
+    catch(const char * errmsg)
+    {
+        std::cerr << errmsg << std::endl;
+        return -1;
+    }
 
     // Fill the register array with 0s in read forbidden register data and
     //  fill the other registers with the relevant data
@@ -132,7 +137,7 @@ int LSM303AGR_MAG::readSensorState()
         }
         else if((i >= OFFSET_X_REG_L) && (i <= OFFSET_Z_REG_H))
         {
-            this->registers[i] = hard_iron_reg[i - OFFSET_X_REG_L];
+            this->registers[i] = this->hard_iron_reg[i - OFFSET_X_REG_L];
         }
         else if((i > OFFSET_Z_REG_H) && (i < WHO_AM_I))
         {
@@ -140,7 +145,7 @@ int LSM303AGR_MAG::readSensorState()
         }
         else if(i == WHO_AM_I)
         {
-            this->registers[i] = who_am_i_reg[i - WHO_AM_I];
+            this->registers[i] = this->who_am_i_reg[i - WHO_AM_I];
         }
         else if((i > WHO_AM_I) && (i < CFG_REG_A))
         {
@@ -148,7 +153,7 @@ int LSM303AGR_MAG::readSensorState()
         }
         else if((i >= CFG_REG_A) && (i <= OUTZ_H_REG))
         {
-            this->registers[i] = cfg_status_data_reg[i - CFG_REG_A];
+            this->registers[i] = this->cfg_status_data_reg[i - CFG_REG_A];
         }
         else if((i > OUTZ_H_REG) && (i < BUFFER_SIZE))
         {
@@ -175,6 +180,10 @@ int LSM303AGR_MAG::readSensorState()
         *(registers + OUTY_L_REG));
     this->magZ = this->combineRegisters(*(registers + OUTZ_H_REG),
         *(registers + OUTZ_L_REG));
+
+    // Calculate the resulting azimuth and elevation which depends on the 
+    //  previous raw magnetic data
+    this->calculateAzimuthAndElevation();
 
     // Retrieve only the bits that are needed by using bitwise & and
     //  shifting the value back. Notice how the LP bit on the data sheet
@@ -240,10 +249,10 @@ void LSM303AGR_MAG::displayAzimuthAndElevation(int iterations)
     int i;
     for(i = 0; i < iterations; i++)
     {
+        this->readSensorState();
         std::cout << "Azimuth: " << this->azimuth << "\tElevation: " <<
          this->elevation << "\t\r" << std::endl;
         usleep(DISPLAY_SUPERLOOP_uS);
-        this->readSensorState();
     }
 }
 

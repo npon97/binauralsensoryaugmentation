@@ -1,5 +1,6 @@
 {
     "files.associations": {
         "ostream": "cpp"
-    }
+    },
+    "testMate.cpp.log.logSentry": "disable_3"
 }

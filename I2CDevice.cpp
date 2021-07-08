@@ -98,7 +98,8 @@ int I2CDevice::writeRegister(unsigned int registerAddress, unsigned char value){
 int I2CDevice::write(unsigned char value){
    unsigned char buffer[1];
    buffer[0]=value;
-   if (::write(this->file, buffer, 1)!=1){
+   int writeLength = ::write(this->file, buffer, 1);
+   if (writeLength!=1){
       perror("I2C: Failed to write to the device\n");
       return 1;
    }
@@ -131,9 +132,12 @@ unsigned char I2CDevice::readRegister(unsigned int registerAddress){
 unsigned char* I2CDevice::readRegisters(unsigned int number, unsigned int fromAddress){
 	this->write(fromAddress);
 	unsigned char* data = new unsigned char[number];
-    if(::read(this->file, data, number)!=(int)number){
-       perror("I2C: Failed to read in the full buffer.\n");
-	   return NULL;
+   int readLength = ::read(this->file, data, number); // Modified by N
+    if(readLength!=(int)number)
+    {
+      // Modified by: Nathan Phipps O'Neill 
+      // Throw an error if the buffer length returned is not as expected.
+	   throw "I2C: Failed to read in the full buffer.\n";
     }
 	return data;
 }
