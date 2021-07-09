@@ -29,6 +29,7 @@
 #include <iostream>
 #include <iomanip>
 #include <unistd.h>
+#include <math.h>
 
 /* Register Mapping */
 #define OFFSET_X_REG_L 0x45 // X hard-iron offset least significant bit (LSB).
@@ -69,7 +70,7 @@
 #define M_FS        49.152f // Magnetic Dynamic Range
 #define M_GN        1.5f    // Magnetic Sensitivity
 
-#define DISPLAY_SUPERLOOP_uS  500000 // Debug display superloop delay
+#define DISPLAY_SUPERLOOP_uS  100000 // Debug display superloop delay
 #define DISPLAY_COL_WIDTH     11
 
 // Constructor
@@ -179,17 +180,18 @@ int LSM303AGR_MAG::readSensorState()
         return -1;
     }
 
-    // Combine the MSB and LSB from the raw magnetic data
+    // Combine the MSB and LSB from the raw magnetic data and multiply by the
+    //  sensitivity to gain the real magnetic measurement
     this->magX = this->combineRegisters(*(registers + OUTX_H_REG),
-        *(registers + OUTX_L_REG));
+        *(registers + OUTX_L_REG)) * M_GN;
     this->magY = this->combineRegisters(*(registers + OUTY_H_REG),
-        *(registers + OUTY_L_REG));
+        *(registers + OUTY_L_REG)) * M_GN;
     this->magZ = this->combineRegisters(*(registers + OUTZ_H_REG),
-        *(registers + OUTZ_L_REG));
+        *(registers + OUTZ_L_REG)) * M_GN;
 
-    // Calculate the resulting azimuth and elevation which depends on the 
-    //  previous raw magnetic data
-    this->calculateAzimuthAndElevation();
+    // Calculate the resulting azimuth which depends on the 
+    //  previous magnetic data
+    this->calculateAzimuth();
 
     // Retrieve only the bits that are needed by using bitwise & and
     //  shifting the value back. Notice how the LP bit on the data sheet
@@ -207,13 +209,26 @@ int LSM303AGR_MAG::readSensorState()
 }
 
 /**
- * Method to calculate the Azimuth and Elevation angles using the raw magnetic
+ * Method to calculate the Azimuth angles using the raw magnetic
  * data.
  */
-void LSM303AGR_MAG::calculateAzimuthAndElevation()
+void LSM303AGR_MAG::calculateAzimuth()
 {
-    this->azimuth = (int)(this->magX * M_GN);
-    this->elevation = (int)(this->magY * M_GN);
+    if(this->magX == 0)
+    {
+        if(this->magY < 0)
+            this->azimuth = 90;
+        else
+            this->azimuth = 0;
+    }
+    else
+    {
+        this->azimuth = atan2(this->magY, this->magX) * (180/M_PI);
+
+        if(this->azimuth > 360) this->azimuth -= 360;
+        else if(this->azimuth < 0) this->azimuth += 360;
+
+    }
 }
 
 /**
