@@ -27,6 +27,7 @@
 
 #include "LSM303AGR_MAG.h"
 #include <iostream>
+#include <iomanip>
 #include <unistd.h>
 
 /* Register Mapping */
@@ -69,6 +70,7 @@
 #define M_GN        1.5f    // Magnetic Sensitivity
 
 #define DISPLAY_SUPERLOOP_uS  500000 // Debug display superloop delay
+#define DISPLAY_COL_WIDTH     11
 
 // Constructor
 LSM303AGR_MAG::LSM303AGR_MAG(unsigned int I2CBus, unsigned int I2CAddress)
@@ -263,9 +265,16 @@ void LSM303AGR_MAG::displayPositionalData(int iterations)
     for(i = 0; i < iterations; i++)
     {
         this->readSensorState();
-        std::cout << "Azimuth: " << this->azimuth << "\tElevation: " << this->elevation <<
-         "\tMagnetic X: " << this->magX << "\tMagnetic Y: " << this->magY <<
-          "\tMagnetic Z: " << this->magZ << "\r" << std::flush;
+        std::cout << std::setw(DISPLAY_COL_WIDTH) << std::left << std::setfill(' ')
+         << "Azimuth: " << std::setw(DISPLAY_COL_WIDTH) << std::left << std::setfill(' ')
+         << this->azimuth << std::setw(DISPLAY_COL_WIDTH) << std::left << std::setfill(' ')
+         << "Elevation: " << std::setw(DISPLAY_COL_WIDTH) << std::left << std::setfill(' ')
+         << this->elevation << std::setw(DISPLAY_COL_WIDTH) << std::left << std::setfill(' ')
+         << "Magnetic X: " << std::setw(DISPLAY_COL_WIDTH) << std::left << std::setfill(' ')
+         << this->magX << std::setw(DISPLAY_COL_WIDTH) << std::left<< std::setfill(' ')
+         << "Magnetic Y: " << std::setw(DISPLAY_COL_WIDTH) << std::left << std::setfill(' ')
+         << this->magY << std::setw(DISPLAY_COL_WIDTH) << std::left << std::setfill(' ')
+         << "Magnetic Z: " << this->magZ << "\r" << std::flush;
         usleep(DISPLAY_SUPERLOOP_uS);
     }
 }
