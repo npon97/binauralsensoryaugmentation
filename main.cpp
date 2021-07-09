@@ -20,7 +20,7 @@ int main(int argc, char* argv[])
         return i;
     }
 
-    magnetometer->displayAzimuthAndElevation();
+    magnetometer->displayPositionalData();
 
 	return 0;
 }

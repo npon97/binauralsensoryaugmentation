@@ -68,7 +68,7 @@
 #define M_FS        49.152f // Magnetic Dynamic Range
 #define M_GN        1.5f    // Magnetic Sensitivity
 
-#define DISPLAY_SUPERLOOP_uS  100000 // Debug display superloop delay
+#define DISPLAY_SUPERLOOP_uS  500000 // Debug display superloop delay
 
 // Constructor
 LSM303AGR_MAG::LSM303AGR_MAG(unsigned int I2CBus, unsigned int I2CAddress)
@@ -104,9 +104,13 @@ LSM303AGR_MAG::LSM303AGR_MAG(unsigned int I2CBus, unsigned int I2CAddress)
 uint16_t LSM303AGR_MAG::combineRegisters(uint8_t msb, uint8_t lsb)
 {
     //shift the MSB left by 8 bits and OR with LSB
-    return ((u_int16_t)msb << 8) | (u_int16_t)lsb;
+    return ((uint16_t)msb << 8) | (uint16_t)lsb;
 }
 
+/**
+ * Method that reads in the sensor state and sets the LSM303AGR attributes
+ * @return an int that is -1 for read failure and 0 for read success.
+ */ 
 int LSM303AGR_MAG::readSensorState()
 {
     int i;
@@ -200,12 +204,21 @@ int LSM303AGR_MAG::readSensorState()
     return 0;
 }
 
+/**
+ * Method to calculate the Azimuth and Elevation angles using the raw magnetic
+ * data.
+ */
 void LSM303AGR_MAG::calculateAzimuthAndElevation()
 {
     this->azimuth = (int)(this->magX * M_GN);
     this->elevation = (int)(this->magY * M_GN);
 }
 
+/**
+ * Updates the device registers to set configuration data and any other bits 
+ * that change the devices behvaiour. For example, interrupt control or offset
+ * @return an int which is 1 for write failure and 0 for write success.
+ */
 int LSM303AGR_MAG::updateRegisters()
 {
     // Update CFG_REG_A
@@ -244,14 +257,15 @@ LSM303AGR_MAG::SYSTEM_MODE LSM303AGR_MAG::getSystemMode()
     return this->systemMode;
 }
 
-void LSM303AGR_MAG::displayAzimuthAndElevation(int iterations)
+void LSM303AGR_MAG::displayPositionalData(int iterations)
 {
     int i;
     for(i = 0; i < iterations; i++)
     {
         this->readSensorState();
-        std::cout << "Azimuth: " << this->azimuth << "\tElevation: " <<
-         this->elevation << "\t\r" << std::endl;
+        std::cout << "Azimuth: " << this->azimuth << "\tElevation: " << this->elevation <<
+         "\tMagnetic X: " << this->magX << "\tMagnetic Y: " << this->magY <<
+          "\tMagnetic Z: " << this->magZ << "\r" << std::flush;
         usleep(DISPLAY_SUPERLOOP_uS);
     }
 }
