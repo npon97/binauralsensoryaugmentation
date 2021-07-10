@@ -104,10 +104,10 @@ LSM303AGR_MAG::LSM303AGR_MAG(unsigned int I2CBus, unsigned int I2CAddress)
  * Modified from:
  * https://github.com/derekmolloy/exploringrpi/blob/master/chp08/i2c/cpp/ADXL345.cpp
  */
-uint16_t LSM303AGR_MAG::combineRegisters(uint8_t msb, uint8_t lsb)
+short LSM303AGR_MAG::combineRegisters(unsigned char msb, unsigne lsb)
 {
     //shift the MSB left by 8 bits and OR with LSB
-    return ((uint16_t)msb << 8) | (uint16_t)lsb;
+    return ((int16_t)msb << 8) | (int16_t)lsb;
 }
 
 /**
@@ -214,21 +214,60 @@ int LSM303AGR_MAG::readSensorState()
  */
 void LSM303AGR_MAG::calculateAzimuth()
 {
-    if(this->magX == 0)
-    {
-        if(this->magY < 0)
-            this->azimuth = 90;
-        else
-            this->azimuth = 0;
-    }
-    else
-    {
-        this->azimuth = atan2(this->magY, this->magX) * (180/M_PI);
+    // if(this->magX == 0)
+    // {
+    //     if(this->magY < 0)
+    //         this->azimuth = 90;
+    //     else
+    //         this->azimuth = 0;
+    // }
+    // else
+    // {
+    //     this->azimuth = atan2(this->magY, this->magX) * (180/M_PI);
 
-        if(this->azimuth > 360) this->azimuth -= 360;
-        else if(this->azimuth < 0) this->azimuth += 360;
+    //     if(this->azimuth > 360) this->azimuth -= 360;
+    //     else if(this->azimuth < 0) this->azimuth += 360;
 
+    // }
+
+    double atan2_result;
+    
+
+    // Account for older C++ versions throwing a domain error
+    try
+    {
+        atan2_result = atan2(this->magX, this->magY);
     }
+    catch(const std::exception& e)
+    {
+        std::cerr << "Caught: " <<  e.what() << '\n';
+        std::cerr << "Type: " << typeid(e).name() << '\n';
+    }
+    
+    /*
+    * Determined from:
+    * https://cdn-shop.adafruit.com/datasheets/AN203_Compass_Heading_Using_Magnetometers.pdf
+    */ 
+    if(this->magY > 0)
+    {
+        this->azimuth = 90 - atan2_result*(180/M_PI);
+    }
+    else if(this->magY < 0)
+    {
+        this->azimuth = 270 - atan2_result*(180/M_PI);
+    }
+    else // this->magY == 0
+    {
+        if(this->magX < 0)
+        {
+            this->azimuth = 180.0;
+        }
+        else // this->magX > 0
+        {
+            this->azimuth = 0.0;
+        }
+    }
+
 }
 
 /**

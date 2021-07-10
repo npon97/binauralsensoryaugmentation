@@ -69,7 +69,7 @@ private:
     LSM303AGR_MAG::SYSTEM_MODE systemMode;
     int32_t magX, magY, magZ; // 2's complement sensitivity adjusted
                               //  magnetic values
-    int azimuth, elevation;
+    double azimuth, elevation;
 
     uint16_t combineRegisters(uint8_t msb, uint8_t lsb);
     void calculateAzimuth();
