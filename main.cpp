@@ -2,6 +2,7 @@
 #include "LSM303AGR_MAG.h"
 #include <iostream>
 #include <unistd.h>
+#include <fstream>
 
 int main(int argc, char* argv[])
 {
@@ -23,4 +24,18 @@ int main(int argc, char* argv[])
     magnetometer->displayPositionalData();
 
 	return 0;
+}
+
+void storeMagnetometerCSV()
+{
+    std::fstream fout;
+    std::string sin;
+
+    std::cout << "Do you wish to write the magnetometer information to a csv " 
+    << "file? [Y/n] "; std::cin >> sin;
+
+    fout.open("~/masters_project/binauralsensoryaugmentation/coordinate.csv",
+        std::ios::out | std::ios::app);
+
+    
 }

@@ -67,6 +67,7 @@
 #define BUFFER_WHO_AM_I_SIZE  0x01
 #define BUFFER_CFG_STATUS_DATA_SIZE 0x0E
 
+// Both constants come from the data sheet and NOT from math.h
 #define M_FS        49.152f // Magnetic Dynamic Range
 #define M_GN        1.5f    // Magnetic Sensitivity
 
@@ -182,12 +183,12 @@ int LSM303AGR_MAG::readSensorState()
 
     // Combine the MSB and LSB from the raw magnetic data and multiply by the
     //  sensitivity to gain the real magnetic measurement
-    this->magX = this->combineRegisters(*(registers + OUTX_H_REG),
-        *(registers + OUTX_L_REG)) /* * M_GN*/;
-    this->magY = this->combineRegisters(*(registers + OUTY_H_REG),
-        *(registers + OUTY_L_REG)) /* * M_GN*/;
-    this->magZ = this->combineRegisters(*(registers + OUTZ_H_REG),
-        *(registers + OUTZ_L_REG)) /* * M_GN*/;
+    this->magX = (float) this->combineRegisters(*(registers + OUTX_H_REG),
+        *(registers + OUTX_L_REG)) * M_GN; 
+    this->magY = (float) this->combineRegisters(*(registers + OUTY_H_REG),
+        *(registers + OUTY_L_REG)) * M_GN;
+    this->magZ = (float) this->combineRegisters(*(registers + OUTZ_H_REG),
+        *(registers + OUTZ_L_REG)) * M_GN;
 
     // Calculate the resulting azimuth which depends on the 
     //  previous magnetic data
