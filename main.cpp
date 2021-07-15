@@ -8,7 +8,6 @@ int main(int argc, char* argv[])
 {
     int i = 0;
     LSM303AGR_MAG* magnetometer;
-    unsigned char* mag_out;
 
     // Create an accelerometer object
     try
@@ -21,21 +20,8 @@ int main(int argc, char* argv[])
         return i;
     }
 
-    magnetometer->displayPositionalData();
+    //magnetometer->displayPositionalData();
+    magnetometer->storePositionalDataInCSV();
 
 	return 0;
-}
-
-void storeMagnetometerCSV()
-{
-    std::fstream fout;
-    std::string sin;
-
-    std::cout << "Do you wish to write the magnetometer information to a csv " 
-    << "file? [Y/n] "; std::cin >> sin;
-
-    fout.open("~/masters_project/binauralsensoryaugmentation/coordinate.csv",
-        std::ios::out | std::ios::app);
-
-    
 }

@@ -30,6 +30,7 @@
 #include <iomanip>
 #include <unistd.h>
 #include <math.h>
+#include <fstream>
 
 /* Register Mapping */
 #define OFFSET_X_REG_L 0x45 // X hard-iron offset least significant bit (LSB).
@@ -72,6 +73,7 @@
 #define M_GN        1.5f    // Magnetic Sensitivity
 
 #define DISPLAY_SUPERLOOP_uS  100000 // Debug display superloop delay
+#define CSV_STORE_SUPERLOOP_uS 100000
 #define DISPLAY_COL_WIDTH     11
 
 // Constructor
@@ -197,7 +199,7 @@ int LSM303AGR_MAG::readSensorState()
 
     // Calculate the resulting azimuth which depends on the 
     //  previous magnetic data
-    this->calculateAzimuth();
+    this->calculateAzimuthAndElevation();
 
     // Retrieve only the bits that are needed by using bitwise & and
     //  shifting the value back. Notice how the LP bit on the data sheet
@@ -229,13 +231,16 @@ int LSM303AGR_MAG::readSensorState()
  * Method to calculate the Azimuth angle using the raw magnetic
  * data.
  */
-void LSM303AGR_MAG::calculateAzimuth()
+void LSM303AGR_MAG::calculateAzimuthAndElevation()
 {
     // Account for older C++ versions throwing a domain error
     try
     {
         this->azimuth_deg = atan2(static_cast<double>(this->magY_mG),
                                   static_cast<double>(this->magX_mG) ) *
+                            (180 / M_PI);
+        this->elevation_deg = atan2(static_cast<double>(this->magZ_mG),
+                                    static_cast<double>(this->magY_mG) ) *
                             (180 / M_PI);
     }
     catch(const std::exception& e)
@@ -254,7 +259,7 @@ int LSM303AGR_MAG::updateRegisters()
 {
     int updateStatus;
     uint8_t cfg_reg_a, cfg_reg_b, cfg_reg_c; // Temporary uint8_t to store
-                                             //  register values to write
+                                             //  register values for writing
 
     cfg_reg_a = 0x00, cfg_reg_b = 0x00, cfg_reg_c = 0x00;
 
@@ -268,7 +273,7 @@ int LSM303AGR_MAG::updateRegisters()
     // Updates the updateStatus by ANDing with the returned value of the 
     //  write register function which should return 0 for success and 1 
     //  otherwise. This means that the updateRegisters function will only return 
-    //  0 if the writing action completes successfully
+    //  0 if the writing action completes successfully.
     updateStatus = updateStatus && (this->writeRegister(CFG_REG_A, cfg_reg_a));
 
     // Update CFG_REG_B and check write success
@@ -342,8 +347,11 @@ LSM303AGR_MAG::OFFSET_CANCELLATION LSM303AGR_MAG::getOffsetCancellation()
 void LSM303AGR_MAG::displayPositionalData(int iterations)
 {
     int i;
+
     for(i = 0; i < iterations; i++)
     {
+        // Read the sensor and then print the values
+        // Trailing spaces are to overwrite the previous printed values
         this->readSensorState();
         std::cout << std::setw(DISPLAY_COL_WIDTH) << std::left
                   << std::setfill(' ')
@@ -363,10 +371,40 @@ void LSM303AGR_MAG::displayPositionalData(int iterations)
                   << std::left << std::setfill(' ')
                   << this->magY_mG << std::setw(DISPLAY_COL_WIDTH)
                   << std::left << std::setfill(' ')
-                  << "Magnetic Z: " << this->magZ_mG << "\r" << std::flush;
+                  << "Magnetic Z: " << this->magZ_mG << "     \r" << std::flush;
         //this->debugDumpRegisters(BUFFER_SIZE);
         usleep(DISPLAY_SUPERLOOP_uS);
     }
 }
+
+void LSM303AGR_MAG::storePositionalDataInCSV(int iterations)
+{
+    int i;
+    std::fstream csvfile;
+
+    csvfile.open(
+        "/home/pi/masters_project/binauralsensoryaugmentation/coordinates.csv",
+        std::ios::out | std::ios::app );
+
+    // Setup the first row which are the column names
+    csvfile << "Azimuth (degrees), Elevation (degrees), " <<
+        "x (milliGauss), y (milliGauss), z (milliGauss)\n";
+
+    for(i = 0; i < iterations; i++)
+    {
+        // Read the sensor and then store the values in a csv file
+        // Trailing spaces are to overwrite the previous stored values
+        this->readSensorState();
+        csvfile << this->azimuth_deg << ", " << this->elevation_deg << ", " 
+            << this->magX_mG << ", " 
+            << this->magY_mG << ", " 
+            << this->magZ_mG << "\n";
+        usleep(CSV_STORE_SUPERLOOP_uS);
+    }
+
+
+    csvfile.close();
+}
+
 
 LSM303AGR_MAG::~LSM303AGR_MAG() {}

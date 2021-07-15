@@ -83,7 +83,7 @@ private:
 
     short combineRegisters(unsigned char msb, unsigned char lsb);
 
-    void calculateAzimuth();
+    void calculateAzimuthAndElevation();
     virtual int updateRegisters();
 
 public:
@@ -105,9 +105,11 @@ public:
     virtual int getMagX() { return this->magX_mG; }
     virtual int getMagY() { return this->magY_mG; }
     virtual int getMagZ() { return this->magZ_mG; }
+    virtual int getAzimuth() { return this->azimuth_deg; }
+    virtual int getElevation() { return this->elevation_deg; }
 
     virtual void displayPositionalData(int iterations = 600);
-
+    virtual void storePositionalDataInCSV(int iterations = 500);
     virtual ~LSM303AGR_MAG();
 };
 
