@@ -84,14 +84,16 @@ LSM303AGR_MAG::LSM303AGR_MAG(unsigned int I2CBus, unsigned int I2CAddress)
     this->hard_iron_reg = NULL;
     this->who_am_i_reg  = NULL;
     this->cfg_status_data_reg = NULL;
-    this->magX = 0;
-    this->magY = 0;
-    this->magZ = 0;
-    this->azimuth = 0.0f;
-    this->elevation = 0.0f;
+    this->magX_mG = 0.0f;
+    this->magY_mG = 0.0f;
+    this->magZ_mG = 0.0f;
+    this->azimuth_deg = 0.0;
+    this->elevation_deg = 0.0;
     this->resolution = LSM303AGR_MAG::HIGH;
     this->outputDataRate = LSM303AGR_MAG::TEN_HERTZ;
     this->systemMode = LSM303AGR_MAG::CONTINUOUS;
+    this->lpf = LSM303AGR_MAG::ENABLE_LPF;
+    this->off_canc = LSM303AGR_MAG::DISABLE_OFFSET_CANC;
     this->updateRegisters();
 }
 
@@ -103,7 +105,7 @@ LSM303AGR_MAG::LSM303AGR_MAG(unsigned int I2CBus, unsigned int I2CAddress)
  * @param lsb an unsigned character that contains the least significant byte
  * 
  * Modified from:
- * https://github.com/derekmolloy/exploringrpi/blob/master/chp08/i2c/cpp/ADXL345.cpp
+* https://github.com/derekmolloy/exploringrpi/blob/master/chp08/i2c/cpp/ADXL345.cpp
  */
 short LSM303AGR_MAG::combineRegisters(unsigned char msb, unsigned char lsb)
 {
@@ -119,7 +121,7 @@ int LSM303AGR_MAG::readSensorState()
 {
     int i;
 
-    // Read in the register buffers that are allows to be read from
+    // Read in the register buffers that are allowed to be read from
     try
     {    
         this->hard_iron_reg = this->readRegisters(
@@ -183,12 +185,15 @@ int LSM303AGR_MAG::readSensorState()
 
     // Combine the MSB and LSB from the raw magnetic data and multiply by the
     //  sensitivity to gain the real magnetic measurement
-    this->magX = (float) this->combineRegisters(*(registers + OUTX_H_REG),
-        *(registers + OUTX_L_REG)) * M_GN; 
-    this->magY = (float) this->combineRegisters(*(registers + OUTY_H_REG),
-        *(registers + OUTY_L_REG)) * M_GN;
-    this->magZ = (float) this->combineRegisters(*(registers + OUTZ_H_REG),
-        *(registers + OUTZ_L_REG)) * M_GN;
+    this->magX_mG = static_cast<float>(this->combineRegisters(
+                        *(registers + OUTX_H_REG), *(registers + OUTX_L_REG))) *
+                    M_GN;
+    this->magY_mG = static_cast<float>(this->combineRegisters(
+                        *(registers + OUTY_H_REG), *(registers + OUTY_L_REG))) *
+                    M_GN;
+    this->magZ_mG = static_cast<float>(this->combineRegisters(
+                        *(registers + OUTZ_H_REG), *(registers + OUTZ_L_REG))) *
+                    M_GN;
 
     // Calculate the resulting azimuth which depends on the 
     //  previous magnetic data
@@ -196,21 +201,32 @@ int LSM303AGR_MAG::readSensorState()
 
     // Retrieve only the bits that are needed by using bitwise & and
     //  shifting the value back. Notice how the LP bit on the data sheet
-    //  overlaps with the only HIGH binary bit that is written here.
-    this->resolution = (LSM303AGR_MAG::RESOLUTION) 
-        (((*(registers + CFG_REG_A)) & 0b00010000) >> 4);
+    //  overlaps with the only HIGH binary bit.
+    this->resolution = static_cast<LSM303AGR_MAG::RESOLUTION>(
+        (((*(registers + CFG_REG_A)) & 0b00010000) >> 4)
+    );
     
-    this->outputDataRate = (LSM303AGR_MAG::OUTPUT_DATA_RATE)
-        (((*(registers + CFG_REG_A)) & 0b00001100) >> 2);
+    this->outputDataRate = static_cast<LSM303AGR_MAG::OUTPUT_DATA_RATE>(
+        (((*(registers + CFG_REG_A)) & 0b00001100) >> 2)
+    );
 
-    this->systemMode = (LSM303AGR_MAG::SYSTEM_MODE)
-        (((*(registers + CFG_REG_A)) & 0b00000011) );
+    this->systemMode = static_cast<LSM303AGR_MAG::SYSTEM_MODE>(
+        (((*(registers + CFG_REG_A)) & 0b00000011) )
+    );
+
+    this->off_canc = static_cast<LSM303AGR_MAG::OFFSET_CANCELLATION>(
+        (((*(registers + CFG_REG_B)) & 0b00000010) >> 1)
+    );
+
+    this->lpf = static_cast<LSM303AGR_MAG::LOW_PASS_FILTER>(
+        (((*(registers + CFG_REG_B)) & 0b00000001) )
+    );
 
     return 0;
 }
 
 /**
- * Method to calculate the Azimuth angles using the raw magnetic
+ * Method to calculate the Azimuth angle using the raw magnetic
  * data.
  */
 void LSM303AGR_MAG::calculateAzimuth()
@@ -218,8 +234,9 @@ void LSM303AGR_MAG::calculateAzimuth()
     // Account for older C++ versions throwing a domain error
     try
     {
-        this->azimuth = atan2((double) this->magY, (double) this->magX) * 
-            (180/M_PI);
+        this->azimuth_deg = atan2(static_cast<double>(this->magY_mG),
+                                  static_cast<double>(this->magX_mG) ) *
+                            (180 / M_PI);
     }
     catch(const std::exception& e)
     {
@@ -235,20 +252,43 @@ void LSM303AGR_MAG::calculateAzimuth()
  */
 int LSM303AGR_MAG::updateRegisters()
 {
-    // Update CFG_REG_A
-    uint8_t cfg_reg_a;
-    cfg_reg_a = cfg_reg_a | ((this->resolution) << 4);
-    cfg_reg_a = cfg_reg_a | ((this->outputDataRate) << 2);
-    cfg_reg_a = cfg_reg_a | ((this->systemMode));
-    return (this->writeRegister(CFG_REG_A, cfg_reg_a));
+    int updateStatus;
+    uint8_t cfg_reg_a, cfg_reg_b, cfg_reg_c; // Temporary uint8_t to store
+                                             //  register values to write
+
+    cfg_reg_a = 0x00, cfg_reg_b = 0x00, cfg_reg_c = 0x00;
+
+    // Update CFG_REG_A and check write success
+    // Casts the enum to a byte length. Then combines each numerical byte length
+    //  value to a single register value.
+    cfg_reg_a = cfg_reg_a | (static_cast<uint8_t>(this->resolution) << 4);
+    cfg_reg_a = cfg_reg_a | (static_cast<uint8_t>(this->outputDataRate) << 2);
+    cfg_reg_a = cfg_reg_a | (static_cast<uint8_t>(this->systemMode) );
+
+    // Updates the updateStatus by ANDing with the returned value of the 
+    //  write register function which should return 0 for success and 1 
+    //  otherwise. This means that the updateRegisters function will only return 
+    //  0 if the writing action completes successfully
+    updateStatus = updateStatus && (this->writeRegister(CFG_REG_A, cfg_reg_a));
+
+    // Update CFG_REG_B and check write success
+    cfg_reg_b = cfg_reg_b | (static_cast<uint8_t>(this->lpf) );
+    cfg_reg_b = cfg_reg_b | (static_cast<uint8_t>(this->off_canc) << 1);
+    updateStatus = updateStatus && (this->writeRegister(CFG_REG_B, cfg_reg_b));
+
+    return updateStatus;
 }
 
+// Appropriate get and set methods
+// TODO: Call updateRegisters when setters are called
 void LSM303AGR_MAG::setResolution(LSM303AGR_MAG::RESOLUTION resolution)
 {
     this->resolution = resolution;
+    this->updateRegisters();
 }
 LSM303AGR_MAG::RESOLUTION LSM303AGR_MAG::getResolution()
 {
+    this->readSensorState();
     return this->resolution;
 }
 
@@ -256,20 +296,48 @@ void LSM303AGR_MAG::setOutputDataRate(
         LSM303AGR_MAG::OUTPUT_DATA_RATE outputDataRate)
 {
     this->outputDataRate = outputDataRate;
+    this->updateRegisters();
 }
 LSM303AGR_MAG::OUTPUT_DATA_RATE LSM303AGR_MAG::getOutputDataRate()
 {
+    this->readSensorState();
     return this->outputDataRate;
 }
 
 void LSM303AGR_MAG::setSystemMode(LSM303AGR_MAG::SYSTEM_MODE systemMode)
 {
     this->systemMode = systemMode;
+    this->updateRegisters();
 }
 LSM303AGR_MAG::SYSTEM_MODE LSM303AGR_MAG::getSystemMode()
 {
+    this->readSensorState();
     return this->systemMode;
 }
+
+void LSM303AGR_MAG::setLPF(LSM303AGR_MAG::LOW_PASS_FILTER lpf)
+{
+    this->lpf = lpf;
+    this->updateRegisters();
+}
+LSM303AGR_MAG::LOW_PASS_FILTER LSM303AGR_MAG::getLPF()
+{
+    this->readSensorState();
+    return this->lpf;
+}
+
+void LSM303AGR_MAG::setOffsetCancellation(
+    LSM303AGR_MAG::OFFSET_CANCELLATION off_canc)
+{
+    this->off_canc = off_canc;
+    this->updateRegisters();
+}
+LSM303AGR_MAG::OFFSET_CANCELLATION LSM303AGR_MAG::getOffsetCancellation()
+{
+    this->readSensorState();
+    return this->off_canc;
+}
+
 
 void LSM303AGR_MAG::displayPositionalData(int iterations)
 {
@@ -277,16 +345,25 @@ void LSM303AGR_MAG::displayPositionalData(int iterations)
     for(i = 0; i < iterations; i++)
     {
         this->readSensorState();
-        std::cout << std::setw(DISPLAY_COL_WIDTH) << std::left << std::setfill(' ')
-         << "Azimuth: " << std::setw(DISPLAY_COL_WIDTH) << std::left << std::setfill(' ')
-         << this->azimuth << std::setw(DISPLAY_COL_WIDTH) << std::left << std::setfill(' ')
-         << "Elevation: " << std::setw(DISPLAY_COL_WIDTH) << std::left << std::setfill(' ')
-         << this->elevation << std::setw(DISPLAY_COL_WIDTH) << std::left << std::setfill(' ')
-         << "Magnetic X: " << std::setw(DISPLAY_COL_WIDTH) << std::left << std::setfill(' ')
-         << this->magX << std::setw(DISPLAY_COL_WIDTH) << std::left<< std::setfill(' ')
-         << "Magnetic Y: " << std::setw(DISPLAY_COL_WIDTH) << std::left << std::setfill(' ')
-         << this->magY << std::setw(DISPLAY_COL_WIDTH) << std::left << std::setfill(' ')
-         << "Magnetic Z: " << this->magZ << "\r" << std::flush;
+        std::cout << std::setw(DISPLAY_COL_WIDTH) << std::left
+                  << std::setfill(' ')
+                  << "Azimuth: " << std::setw(DISPLAY_COL_WIDTH)
+                  << std::left << std::setfill(' ')
+                  << this->azimuth_deg << std::setw(DISPLAY_COL_WIDTH)
+                  << std::left << std::setfill(' ')
+                  << "Elevation: " << std::setw(DISPLAY_COL_WIDTH)
+                  << std::left << std::setfill(' ')
+                  << this->elevation_deg << std::setw(DISPLAY_COL_WIDTH)
+                  << std::left << std::setfill(' ')
+                  << "Magnetic X: " << std::setw(DISPLAY_COL_WIDTH)
+                  << std::left << std::setfill(' ')
+                  << this->magX_mG << std::setw(DISPLAY_COL_WIDTH)
+                  << std::left << std::setfill(' ')
+                  << "Magnetic Y: " << std::setw(DISPLAY_COL_WIDTH)
+                  << std::left << std::setfill(' ')
+                  << this->magY_mG << std::setw(DISPLAY_COL_WIDTH)
+                  << std::left << std::setfill(' ')
+                  << "Magnetic Z: " << this->magZ_mG << "\r" << std::flush;
         //this->debugDumpRegisters(BUFFER_SIZE);
         usleep(DISPLAY_SUPERLOOP_uS);
     }

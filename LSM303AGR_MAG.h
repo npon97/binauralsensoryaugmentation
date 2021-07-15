@@ -25,14 +25,11 @@
  *            registers may cause permanent damage to the device.
  */
 
-
 #ifndef LSM303AGR_MAG_H_
 #define LSM303AGR_MAG_H_
 
 #include "I2CDevice.h"
 #include <stdint.h>
-
-
 
 class LSM303AGR_MAG : protected I2CDevice
 {
@@ -60,6 +57,18 @@ public:
         IDLE = 2        // This can be 3 as well
     };
 
+    enum LOW_PASS_FILTER
+    {
+        DISABLE_LPF = 0,
+        ENABLE_LPF = 1
+    };
+
+    enum OFFSET_CANCELLATION
+    {
+        DISABLE_OFFSET_CANC = 0,
+        ENABLE_OFFSET_CANC = 1 // Enables offset cancellation
+    };
+
 private:
     unsigned int I2CBus, I2CAddress;
     uint8_t *registers;
@@ -67,8 +76,10 @@ private:
     LSM303AGR_MAG::RESOLUTION resolution;
     LSM303AGR_MAG::OUTPUT_DATA_RATE outputDataRate;
     LSM303AGR_MAG::SYSTEM_MODE systemMode;
-    float magX, magY, magZ; //sensitivity adjusted magnetic values
-    double azimuth, elevation;
+    LSM303AGR_MAG::LOW_PASS_FILTER lpf;
+    LSM303AGR_MAG::OFFSET_CANCELLATION off_canc;
+    float magX_mG, magY_mG, magZ_mG; //sensitivity adjusted magnetic values
+    double azimuth_deg, elevation_deg;
 
     short combineRegisters(unsigned char msb, unsigned char lsb);
 
@@ -86,10 +97,14 @@ public:
     virtual LSM303AGR_MAG::OUTPUT_DATA_RATE getOutputDataRate();
     virtual void setSystemMode(LSM303AGR_MAG::SYSTEM_MODE systemMode);
     virtual LSM303AGR_MAG::SYSTEM_MODE getSystemMode();
-
-    virtual int getMagX() { return this->magX; }
-    virtual int getMagY() { return this->magY; }
-    virtual int getMagZ() { return this->magZ; }
+    virtual void setLPF(LSM303AGR_MAG::LOW_PASS_FILTER lpf);
+    virtual LSM303AGR_MAG::LOW_PASS_FILTER getLPF();
+    virtual void setOffsetCancellation(
+        LSM303AGR_MAG::OFFSET_CANCELLATION off_canc);
+    virtual LSM303AGR_MAG::OFFSET_CANCELLATION getOffsetCancellation();
+    virtual int getMagX() { return this->magX_mG; }
+    virtual int getMagY() { return this->magY_mG; }
+    virtual int getMagZ() { return this->magZ_mG; }
 
     virtual void displayPositionalData(int iterations = 600);
 
