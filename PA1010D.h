@@ -21,3 +21,29 @@
  * chapter 8 repository code which can be found here:
  * https://github.com/derekmolloy/exploringrpi/blob/master/chp08/i2c/
  */
+
+#ifndef PA1010D_H_
+#define PA1010D_H_
+
+#include "I2CDevice.h"
+#include <stdint.h>
+
+
+class PA1010D : protected I2CDevice
+{
+
+private:
+    unsigned int I2CBus, I2CAddress;
+    const char* sentenceFormat;
+    unsigned char *buffer;
+    float latitude, longitude;
+
+public:
+    PA1010D(const char* sentenceFormat, 
+        unsigned int I2CBus, unsigned int I2CAddress = 0x10);
+    virtual int readSensorState();
+
+    virtual ~PA1010D();
+};
+
+#endif /* PA1010D_H_ */

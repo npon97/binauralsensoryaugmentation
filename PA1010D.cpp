@@ -21,3 +21,43 @@
  * chapter 8 repository code which can be found here:
  * https://github.com/derekmolloy/exploringrpi/blob/master/chp08/i2c/
  */
+#include "PA1010D.h"
+
+#define MAX_TOKEN_LENGTH 5
+#define BUFFER_SIZE 0xFF
+
+
+PA1010D::PA1010D(const char* sentenceFormat, 
+    unsigned int I2CBus, unsigned int I2CAddress = 0x10) :
+    sentenceFormat(sentenceFormat), I2CDevice(I2CBus, I2CAddress) 
+{
+    this->buffer = new unsigned char[BUFFER_SIZE];
+    this->latitude = 0.0f;
+    this->longitude = 0.0f;
+
+}
+
+int PA1010D::readSensorState()
+{
+    int i, j;
+    unsigned char* token;
+
+    // Take in the full buffer for processing
+    this->buffer = this->readRegisters(BUFFER_SIZE, 0x00);
+
+    // Process the buffer
+    // Find the sentence
+    for(i = 0; i < BUFFER_SIZE; i++)
+    {
+        if(this->buffer[i] != '$')
+            continue;
+
+        for(j = 0; j < MAX_TOKEN_LENGTH; j++)
+        {
+            if()
+        }
+    }
+}
+
+
+PA1010D::~PA1010D() {}
