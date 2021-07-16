@@ -20,8 +20,18 @@ int main(int argc, char* argv[])
         return i;
     }
 
-    //magnetometer->displayPositionalData();
-    magnetometer->storePositionalDataInCSV();
+    if(argc == 1)
+    {
+        if(argv[0] == "--storecsv")
+        {
+            magnetometer->storePositionalDataInCSV();
+            return 0;
+        }
+    }
+    
+    magnetometer->displayPositionalData();
+
+
 
 	return 0;
 }
