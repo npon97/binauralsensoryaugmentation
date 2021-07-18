@@ -20,30 +20,43 @@
  * Many parts are specifically modified from or inspired by Derek Molloy's
  * chapter 8 repository code which can be found here:
  * https://github.com/derekmolloy/exploringrpi/blob/master/chp08/i2c/
+ * 
+ * The NMEAParser.h file and its implementations are subject to the MIT License.
+ * Please see the NMEAParser.h file included for MIT licence details.
+ * 
+ * NMEAParser can be found here:
+ * https://github.com/VisualGPS/NMEAParser
  */
 
 #ifndef PA1010D_H_
 #define PA1010D_H_
 
 #include "I2CDevice.h"
+#include "NMEAParser/Software/NMEAParserLib/NMEAParser.h"
 #include <stdint.h>
+#include <string.h>
 
 
-class PA1010D : protected I2CDevice
+class PA1010D : protected I2CDevice, public CNMEAParser
 {
 
 private:
     unsigned int I2CBus, I2CAddress;
-    const char* sentenceFormat;
+    std::string sentenceFormat;
     unsigned char *buffer;
-    float latitude, longitude;
+
+    virtual void OnError(CNMEAParserData::ERROR_E nError, char *pCmd);
 
 public:
-    PA1010D(const char* sentenceFormat, 
+    PA1010D(std::string sentenceFormat, 
         unsigned int I2CBus, unsigned int I2CAddress = 0x10);
     virtual int readSensorState();
+    virtual int sendCommand(std::string cmd);
 
     virtual ~PA1010D();
+
+protected:
+    virtual CNMEAParserData::ERROR_E ProcessRxCommand(char *pCmd, char *pData);
 };
 
 #endif /* PA1010D_H_ */

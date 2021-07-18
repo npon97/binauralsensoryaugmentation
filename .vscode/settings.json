@@ -44,7 +44,9 @@
         "sstream": "cpp",
         "stdexcept": "cpp",
         "streambuf": "cpp",
-        "typeinfo": "cpp"
+        "typeinfo": "cpp",
+        "map": "cpp"
     },
-    "testMate.cpp.log.logSentry": "disable_3"
+    "testMate.cpp.log.logSentry": "disable_3",
+    "cmake.configureOnOpen": true
 }

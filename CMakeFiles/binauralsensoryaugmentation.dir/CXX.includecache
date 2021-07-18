@@ -1,0 +1,30 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/pi/masters_project/binauralsensoryaugmentation/I2CDevice.h
+
+/home/pi/masters_project/binauralsensoryaugmentation/LSM303AGR_MAG.cpp
+LSM303AGR_MAG.h
+/home/pi/masters_project/binauralsensoryaugmentation/LSM303AGR_MAG.h
+iostream
+-
+iomanip
+-
+unistd.h
+-
+math.h
+-
+fstream
+-
+
+/home/pi/masters_project/binauralsensoryaugmentation/LSM303AGR_MAG.h
+I2CDevice.h
+/home/pi/masters_project/binauralsensoryaugmentation/I2CDevice.h
+stdint.h
+-
+

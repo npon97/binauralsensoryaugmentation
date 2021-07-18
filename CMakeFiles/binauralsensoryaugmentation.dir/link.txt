@@ -1,0 +1,1 @@
+/usr/bin/c++   -std=c++17 -g   CMakeFiles/binauralsensoryaugmentation.dir/main.cpp.o CMakeFiles/binauralsensoryaugmentation.dir/I2CDevice.cpp.o CMakeFiles/binauralsensoryaugmentation.dir/LSM303AGR_MAG.cpp.o CMakeFiles/binauralsensoryaugmentation.dir/NMEAParser/Software/NMEAParserLib/NMEAParser.cpp.o  -o binauralsensoryaugmentation 
