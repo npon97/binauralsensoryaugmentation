@@ -7,8 +7,6 @@
             "args": [
                 "-g",
                 "${file}",
-                "${fileDirname}/LSM303AGR_MAG.cpp",
-                "${fileDirname}/I2CDevice.cpp",
                 "-o",
                 "${fileDirname}/${fileBasenameNoExtension}"
             ],

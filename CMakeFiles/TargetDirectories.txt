@@ -1,3 +1,0 @@
-/home/pi/masters_project/binauralsensoryaugmentation/CMakeFiles/rebuild_cache.dir
-/home/pi/masters_project/binauralsensoryaugmentation/CMakeFiles/binauralsensoryaugmentation.dir
-/home/pi/masters_project/binauralsensoryaugmentation/CMakeFiles/edit_cache.dir

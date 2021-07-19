@@ -1,14 +1,20 @@
 cmake_minimum_required(VERSION 3.16)
 
-set(CMAKE_BUILD_TYPE Debug)
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++17")
+set(CMAKE_BUILD_TYPE Release)
 
 project(binauralsensoryaugmenation)
+set(EXECUTABLE_OUTPUT_PATH "${PROJECT_SOURCE_DIR}/bin")
 
-add_executable(
-    binauralsensoryaugmentation
-    main.cpp
-    I2CDevice.cpp
-    LSM303AGR_MAG.cpp
-    ./NMEAParser/Software/NMEAParserLib/NMEAParser.cpp
-)
+#For the static library:
+set ( PROJECT_LINK_LIBS libNMEAParserLib.a)
+link_directories(
+    "${PROJECT_SOURCE_DIR}/lib/NMEAParser/NMEAParserBuild/NMEAParserLib")
+include_directories(
+    "${PROJECT_SOURCE_DIR}/lib/NMEAParser/Software/NMEAParserLib")
+
+include_directories("${PROJECT_SOURCE_DIR}/include")
+
+file(GLOB SOURCES "src/*.cpp")
+
+add_executable(binauralsensoryaugmentation ${SOURCES})
+target_link_libraries(binauralsensoryaugmentation ${PROJECT_LINK_LIBS} )

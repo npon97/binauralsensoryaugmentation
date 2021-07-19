@@ -1,0 +1,13 @@
+# Target labels
+ NMEAParser
+# Source files and their labels
+/home/pi/masters_project/binauralsensoryaugmentation/build/CMakeFiles/NMEAParser
+/home/pi/masters_project/binauralsensoryaugmentation/build/CMakeFiles/NMEAParser.rule
+/home/pi/masters_project/binauralsensoryaugmentation/build/CMakeFiles/NMEAParser-complete.rule
+/home/pi/masters_project/binauralsensoryaugmentation/build/NMEAParser-prefix/src/NMEAParser-stamp/NMEAParser-install.rule
+/home/pi/masters_project/binauralsensoryaugmentation/build/NMEAParser-prefix/src/NMEAParser-stamp/NMEAParser-mkdir.rule
+/home/pi/masters_project/binauralsensoryaugmentation/build/NMEAParser-prefix/src/NMEAParser-stamp/NMEAParser-download.rule
+/home/pi/masters_project/binauralsensoryaugmentation/build/NMEAParser-prefix/src/NMEAParser-stamp/NMEAParser-update.rule
+/home/pi/masters_project/binauralsensoryaugmentation/build/NMEAParser-prefix/src/NMEAParser-stamp/NMEAParser-patch.rule
+/home/pi/masters_project/binauralsensoryaugmentation/build/NMEAParser-prefix/src/NMEAParser-stamp/NMEAParser-configure.rule
+/home/pi/masters_project/binauralsensoryaugmentation/build/NMEAParser-prefix/src/NMEAParser-stamp/NMEAParser-build.rule
