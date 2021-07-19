@@ -27,6 +27,10 @@ $GNGGA,1413,14.083,,,,,0,0,,,M,,M,,*5F
 `
 ### The NMEA parser
 A 3rd party NMEA parser is used to parse the sentence from the PA1010D. This 
-will simplify the process of getting numerical values from textual data. More 
-on this project can be found [here](https://github.com/VisualGPS/NMEAParser): 
+will simplify the process of getting numerical values from textual data. 
+The NMEAParser was downloaded on July 18 2021 but that version should be 
+contained within this project as the licence permits it.  
+
+More on this project can be found 
+[here](https://github.com/VisualGPS/NMEAParser):  
 https://github.com/VisualGPS/NMEAParser
