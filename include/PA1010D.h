@@ -36,7 +36,6 @@
 #include <stdint.h>
 #include <string.h>
 
-
 class PA1010D : protected I2CDevice, public CNMEAParser
 {
 private:
@@ -52,6 +51,7 @@ public:
         unsigned int I2CBus, unsigned int I2CAddress = 0x10);
     virtual int readSensorState();
     virtual int sendCommand(std::string cmd);
+    virtual void displayGPSData(int iterations = 1000, int delay_us = 10);
 
     virtual ~PA1010D();
 

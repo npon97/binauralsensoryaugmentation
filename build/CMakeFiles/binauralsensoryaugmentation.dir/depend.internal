@@ -24,4 +24,12 @@ CMakeFiles/binauralsensoryaugmentation.dir/src/main.cpp.o
  ../include/I2CDevice.h
  ../include/LSM303AGR_MAG.h
  ../include/PA1010D.h
+ ../lib/NMEAParser/Software/NMEAParserLib/NMEAParser.h
+ ../lib/NMEAParser/Software/NMEAParserLib/NMEAParserData.h
+ ../lib/NMEAParser/Software/NMEAParserLib/NMEAParserPacket.h
+ ../lib/NMEAParser/Software/NMEAParserLib/NMEASentenceBase.h
+ ../lib/NMEAParser/Software/NMEAParserLib/NMEASentenceGGA.h
+ ../lib/NMEAParser/Software/NMEAParserLib/NMEASentenceGSA.h
+ ../lib/NMEAParser/Software/NMEAParserLib/NMEASentenceGSV.h
+ ../lib/NMEAParser/Software/NMEAParserLib/NMEASentenceRMC.h
  /home/pi/masters_project/binauralsensoryaugmentation/src/main.cpp

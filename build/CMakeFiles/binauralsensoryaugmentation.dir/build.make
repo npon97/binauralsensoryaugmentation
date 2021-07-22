@@ -60,54 +60,54 @@ include CMakeFiles/binauralsensoryaugmentation.dir/flags.make
 CMakeFiles/binauralsensoryaugmentation.dir/src/I2CDevice.cpp.o: CMakeFiles/binauralsensoryaugmentation.dir/flags.make
 CMakeFiles/binauralsensoryaugmentation.dir/src/I2CDevice.cpp.o: ../src/I2CDevice.cpp
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/pi/masters_project/binauralsensoryaugmentation/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/binauralsensoryaugmentation.dir/src/I2CDevice.cpp.o"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/binauralsensoryaugmentation.dir/src/I2CDevice.cpp.o -c /home/pi/masters_project/binauralsensoryaugmentation/src/I2CDevice.cpp
+	/bin/g++-8  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/binauralsensoryaugmentation.dir/src/I2CDevice.cpp.o -c /home/pi/masters_project/binauralsensoryaugmentation/src/I2CDevice.cpp
 
 CMakeFiles/binauralsensoryaugmentation.dir/src/I2CDevice.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/binauralsensoryaugmentation.dir/src/I2CDevice.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/pi/masters_project/binauralsensoryaugmentation/src/I2CDevice.cpp > CMakeFiles/binauralsensoryaugmentation.dir/src/I2CDevice.cpp.i
+	/bin/g++-8 $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/pi/masters_project/binauralsensoryaugmentation/src/I2CDevice.cpp > CMakeFiles/binauralsensoryaugmentation.dir/src/I2CDevice.cpp.i
 
 CMakeFiles/binauralsensoryaugmentation.dir/src/I2CDevice.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/binauralsensoryaugmentation.dir/src/I2CDevice.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/pi/masters_project/binauralsensoryaugmentation/src/I2CDevice.cpp -o CMakeFiles/binauralsensoryaugmentation.dir/src/I2CDevice.cpp.s
+	/bin/g++-8 $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/pi/masters_project/binauralsensoryaugmentation/src/I2CDevice.cpp -o CMakeFiles/binauralsensoryaugmentation.dir/src/I2CDevice.cpp.s
 
 CMakeFiles/binauralsensoryaugmentation.dir/src/LSM303AGR_MAG.cpp.o: CMakeFiles/binauralsensoryaugmentation.dir/flags.make
 CMakeFiles/binauralsensoryaugmentation.dir/src/LSM303AGR_MAG.cpp.o: ../src/LSM303AGR_MAG.cpp
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/pi/masters_project/binauralsensoryaugmentation/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/binauralsensoryaugmentation.dir/src/LSM303AGR_MAG.cpp.o"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/binauralsensoryaugmentation.dir/src/LSM303AGR_MAG.cpp.o -c /home/pi/masters_project/binauralsensoryaugmentation/src/LSM303AGR_MAG.cpp
+	/bin/g++-8  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/binauralsensoryaugmentation.dir/src/LSM303AGR_MAG.cpp.o -c /home/pi/masters_project/binauralsensoryaugmentation/src/LSM303AGR_MAG.cpp
 
 CMakeFiles/binauralsensoryaugmentation.dir/src/LSM303AGR_MAG.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/binauralsensoryaugmentation.dir/src/LSM303AGR_MAG.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/pi/masters_project/binauralsensoryaugmentation/src/LSM303AGR_MAG.cpp > CMakeFiles/binauralsensoryaugmentation.dir/src/LSM303AGR_MAG.cpp.i
+	/bin/g++-8 $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/pi/masters_project/binauralsensoryaugmentation/src/LSM303AGR_MAG.cpp > CMakeFiles/binauralsensoryaugmentation.dir/src/LSM303AGR_MAG.cpp.i
 
 CMakeFiles/binauralsensoryaugmentation.dir/src/LSM303AGR_MAG.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/binauralsensoryaugmentation.dir/src/LSM303AGR_MAG.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/pi/masters_project/binauralsensoryaugmentation/src/LSM303AGR_MAG.cpp -o CMakeFiles/binauralsensoryaugmentation.dir/src/LSM303AGR_MAG.cpp.s
+	/bin/g++-8 $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/pi/masters_project/binauralsensoryaugmentation/src/LSM303AGR_MAG.cpp -o CMakeFiles/binauralsensoryaugmentation.dir/src/LSM303AGR_MAG.cpp.s
 
 CMakeFiles/binauralsensoryaugmentation.dir/src/PA1010D.cpp.o: CMakeFiles/binauralsensoryaugmentation.dir/flags.make
 CMakeFiles/binauralsensoryaugmentation.dir/src/PA1010D.cpp.o: ../src/PA1010D.cpp
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/pi/masters_project/binauralsensoryaugmentation/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/binauralsensoryaugmentation.dir/src/PA1010D.cpp.o"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/binauralsensoryaugmentation.dir/src/PA1010D.cpp.o -c /home/pi/masters_project/binauralsensoryaugmentation/src/PA1010D.cpp
+	/bin/g++-8  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/binauralsensoryaugmentation.dir/src/PA1010D.cpp.o -c /home/pi/masters_project/binauralsensoryaugmentation/src/PA1010D.cpp
 
 CMakeFiles/binauralsensoryaugmentation.dir/src/PA1010D.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/binauralsensoryaugmentation.dir/src/PA1010D.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/pi/masters_project/binauralsensoryaugmentation/src/PA1010D.cpp > CMakeFiles/binauralsensoryaugmentation.dir/src/PA1010D.cpp.i
+	/bin/g++-8 $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/pi/masters_project/binauralsensoryaugmentation/src/PA1010D.cpp > CMakeFiles/binauralsensoryaugmentation.dir/src/PA1010D.cpp.i
 
 CMakeFiles/binauralsensoryaugmentation.dir/src/PA1010D.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/binauralsensoryaugmentation.dir/src/PA1010D.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/pi/masters_project/binauralsensoryaugmentation/src/PA1010D.cpp -o CMakeFiles/binauralsensoryaugmentation.dir/src/PA1010D.cpp.s
+	/bin/g++-8 $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/pi/masters_project/binauralsensoryaugmentation/src/PA1010D.cpp -o CMakeFiles/binauralsensoryaugmentation.dir/src/PA1010D.cpp.s
 
 CMakeFiles/binauralsensoryaugmentation.dir/src/main.cpp.o: CMakeFiles/binauralsensoryaugmentation.dir/flags.make
 CMakeFiles/binauralsensoryaugmentation.dir/src/main.cpp.o: ../src/main.cpp
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/pi/masters_project/binauralsensoryaugmentation/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object CMakeFiles/binauralsensoryaugmentation.dir/src/main.cpp.o"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/binauralsensoryaugmentation.dir/src/main.cpp.o -c /home/pi/masters_project/binauralsensoryaugmentation/src/main.cpp
+	/bin/g++-8  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/binauralsensoryaugmentation.dir/src/main.cpp.o -c /home/pi/masters_project/binauralsensoryaugmentation/src/main.cpp
 
 CMakeFiles/binauralsensoryaugmentation.dir/src/main.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/binauralsensoryaugmentation.dir/src/main.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/pi/masters_project/binauralsensoryaugmentation/src/main.cpp > CMakeFiles/binauralsensoryaugmentation.dir/src/main.cpp.i
+	/bin/g++-8 $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/pi/masters_project/binauralsensoryaugmentation/src/main.cpp > CMakeFiles/binauralsensoryaugmentation.dir/src/main.cpp.i
 
 CMakeFiles/binauralsensoryaugmentation.dir/src/main.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/binauralsensoryaugmentation.dir/src/main.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/pi/masters_project/binauralsensoryaugmentation/src/main.cpp -o CMakeFiles/binauralsensoryaugmentation.dir/src/main.cpp.s
+	/bin/g++-8 $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/pi/masters_project/binauralsensoryaugmentation/src/main.cpp -o CMakeFiles/binauralsensoryaugmentation.dir/src/main.cpp.s
 
 # Object files for target binauralsensoryaugmentation
 binauralsensoryaugmentation_OBJECTS = \

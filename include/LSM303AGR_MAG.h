@@ -108,7 +108,7 @@ public:
     virtual int getAzimuth() { return this->azimuth_deg; }
     virtual int getElevation() { return this->elevation_deg; }
 
-    virtual void displayPositionalData(int iterations = 600);
+    virtual void displayPositionalData(int iterations = 600, int delay_us = 10);
     virtual void storePositionalDataInCSV(int iterations = 500);
     virtual ~LSM303AGR_MAG();
 };

@@ -5,6 +5,9 @@
 #include <unistd.h>
 #include <fstream>
 
+#define SUPERLOOP_uS 1000000
+#define NUM_DISPLAY_ITERATIONS 1000
+
 int main(int argc, char* argv[])
 {
     int i = 0;
@@ -15,7 +18,7 @@ int main(int argc, char* argv[])
     try
     {
         magnetometer = new LSM303AGR_MAG(1, 0x1E);
-        gps = new PA1010D(argv[0], 1, 0x10);
+        gps = new PA1010D("GPGGA", 1, 0x10);
     }
     catch(int i) // Stops the program if any errors occur
     {
@@ -25,15 +28,21 @@ int main(int argc, char* argv[])
 
     if(argc == 1)
     {
-        if(argv[0] == "--storecsv")
+        if(argv[1] == "--storecsv")
         {
             magnetometer->storePositionalDataInCSV();
             return 0;
         }
     }
 
-    magnetometer->displayPositionalData();
+    // Display the sensor data one after the other
+    for(i = 0; i < NUM_DISPLAY_ITERATIONS; i++)
+    {
+        magnetometer->displayPositionalData(1);
+        gps->displayGPSData(1);
 
+        usleep(SUPERLOOP_uS);
+    }
 
 
 	return 0;

@@ -217,7 +217,9 @@ CNMEAParserData::ERROR_E CNMEAParser::ProcessRxCommand(char * pCmd, char * pData
 	//
 	char *lpszSentenceID = &pCmd[2];
 
-	printf("Cmd: %s, TalkerID:%c%c, Sentence ID: %s\n", pCmd, (u16TalkerID >> 8) & 0xFF, (u16TalkerID) & 0xFF, lpszSentenceID);
+	fflush(stdout);
+	printf("Cmd: %s, TalkerID:%c%c, Sentence ID: %s\n", pCmd, (u16TalkerID >> 8)
+	 & 0xFF, (u16TalkerID) & 0xFF, lpszSentenceID);
 
 
 	//-----------------------------------------------------------------------------

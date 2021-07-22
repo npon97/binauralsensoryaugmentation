@@ -23,5 +23,13 @@ CMakeFiles/binauralsensoryaugmentation.dir/src/PA1010D.cpp.o: ../src/PA1010D.cpp
 CMakeFiles/binauralsensoryaugmentation.dir/src/main.cpp.o: ../include/I2CDevice.h
 CMakeFiles/binauralsensoryaugmentation.dir/src/main.cpp.o: ../include/LSM303AGR_MAG.h
 CMakeFiles/binauralsensoryaugmentation.dir/src/main.cpp.o: ../include/PA1010D.h
+CMakeFiles/binauralsensoryaugmentation.dir/src/main.cpp.o: ../lib/NMEAParser/Software/NMEAParserLib/NMEAParser.h
+CMakeFiles/binauralsensoryaugmentation.dir/src/main.cpp.o: ../lib/NMEAParser/Software/NMEAParserLib/NMEAParserData.h
+CMakeFiles/binauralsensoryaugmentation.dir/src/main.cpp.o: ../lib/NMEAParser/Software/NMEAParserLib/NMEAParserPacket.h
+CMakeFiles/binauralsensoryaugmentation.dir/src/main.cpp.o: ../lib/NMEAParser/Software/NMEAParserLib/NMEASentenceBase.h
+CMakeFiles/binauralsensoryaugmentation.dir/src/main.cpp.o: ../lib/NMEAParser/Software/NMEAParserLib/NMEASentenceGGA.h
+CMakeFiles/binauralsensoryaugmentation.dir/src/main.cpp.o: ../lib/NMEAParser/Software/NMEAParserLib/NMEASentenceGSA.h
+CMakeFiles/binauralsensoryaugmentation.dir/src/main.cpp.o: ../lib/NMEAParser/Software/NMEAParserLib/NMEASentenceGSV.h
+CMakeFiles/binauralsensoryaugmentation.dir/src/main.cpp.o: ../lib/NMEAParser/Software/NMEAParserLib/NMEASentenceRMC.h
 CMakeFiles/binauralsensoryaugmentation.dir/src/main.cpp.o: ../src/main.cpp
 

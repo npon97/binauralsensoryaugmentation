@@ -72,7 +72,6 @@
 #define M_FS        49.152f // Magnetic Dynamic Range
 #define M_GN        1.5f    // Magnetic Sensitivity
 
-#define DISPLAY_SUPERLOOP_uS  100000 // Debug display superloop delay
 #define CSV_STORE_SUPERLOOP_uS 100000
 #define DISPLAY_COL_WIDTH     11
 
@@ -344,7 +343,7 @@ LSM303AGR_MAG::OFFSET_CANCELLATION LSM303AGR_MAG::getOffsetCancellation()
 }
 
 
-void LSM303AGR_MAG::displayPositionalData(int iterations)
+void LSM303AGR_MAG::displayPositionalData(int iterations, int delay_us)
 {
     int i;
 
@@ -353,6 +352,7 @@ void LSM303AGR_MAG::displayPositionalData(int iterations)
         // Read the sensor and then print the values
         // Trailing spaces are to overwrite the previous printed values
         this->readSensorState();
+        std::cout << std::flush;
         std::cout << std::setw(DISPLAY_COL_WIDTH) << std::left
                   << std::setfill(' ')
                   << "Azimuth: " << std::setw(DISPLAY_COL_WIDTH)
@@ -371,9 +371,9 @@ void LSM303AGR_MAG::displayPositionalData(int iterations)
                   << std::left << std::setfill(' ')
                   << this->magY_mG << std::setw(DISPLAY_COL_WIDTH)
                   << std::left << std::setfill(' ')
-                  << "Magnetic Z: " << this->magZ_mG << "     \r" << std::flush;
+                  << "Magnetic Z: " << this->magZ_mG << "     \r" << std::endl;
         //this->debugDumpRegisters(BUFFER_SIZE);
-        usleep(DISPLAY_SUPERLOOP_uS);
+        usleep(delay_us);
     }
 }
 
