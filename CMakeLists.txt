@@ -2,6 +2,8 @@ cmake_minimum_required(VERSION 3.16)
 
 project(binauralsensoryaugmenation)
 set(EXECUTABLE_OUTPUT_PATH "${PROJECT_SOURCE_DIR}/bin")
+set(CMAKE_C_FLAGS_DEBUG "-g -DDEBUG")
+set(CMAKE_CXX_FLAGS_DEBUG "-g -DDEBUG")
 
 #For the static library:
 set ( PROJECT_LINK_LIBS libNMEAParserLib.a)

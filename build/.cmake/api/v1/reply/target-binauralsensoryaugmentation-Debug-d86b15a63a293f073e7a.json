@@ -26,17 +26,11 @@
 			{
 				"command" : 0,
 				"file" : 0,
-				"line" : 17,
+				"line" : 19,
 				"parent" : 0
 			},
 			{
 				"command" : 1,
-				"file" : 0,
-				"line" : 8,
-				"parent" : 0
-			},
-			{
-				"command" : 2,
 				"file" : 0,
 				"line" : 10,
 				"parent" : 0
@@ -44,7 +38,13 @@
 			{
 				"command" : 2,
 				"file" : 0,
-				"line" : 13,
+				"line" : 12,
+				"parent" : 0
+			},
+			{
+				"command" : 2,
+				"file" : 0,
+				"line" : 15,
 				"parent" : 0
 			}
 		]
@@ -55,7 +55,7 @@
 			"compileCommandFragments" : 
 			[
 				{
-					"fragment" : "-g  "
+					"fragment" : "-g -DDEBUG  "
 				}
 			],
 			"includes" : 
@@ -85,7 +85,7 @@
 		"commandFragments" : 
 		[
 			{
-				"fragment" : "-g",
+				"fragment" : "-g -DDEBUG",
 				"role" : "flags"
 			},
 			{

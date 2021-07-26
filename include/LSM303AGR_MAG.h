@@ -73,11 +73,11 @@ private:
     unsigned int I2CBus, I2CAddress;
     uint8_t *registers;
     uint8_t *hard_iron_reg, *who_am_i_reg, *cfg_status_data_reg;
-    LSM303AGR_MAG::RESOLUTION resolution;
-    LSM303AGR_MAG::OUTPUT_DATA_RATE outputDataRate;
-    LSM303AGR_MAG::SYSTEM_MODE systemMode;
-    LSM303AGR_MAG::LOW_PASS_FILTER lpf;
-    LSM303AGR_MAG::OFFSET_CANCELLATION off_canc;
+    RESOLUTION resolution;
+    OUTPUT_DATA_RATE outputDataRate;
+    SYSTEM_MODE systemMode;
+    LOW_PASS_FILTER lpf;
+    OFFSET_CANCELLATION off_canc;
     float magX_mG, magY_mG, magZ_mG; //sensitivity adjusted magnetic values
     double azimuth_deg, elevation_deg;
 
@@ -90,18 +90,16 @@ public:
     LSM303AGR_MAG(unsigned int I2CBus, unsigned int I2CAddress = 0x1E);
     virtual int readSensorState();
 
-    virtual void setResolution(LSM303AGR_MAG::RESOLUTION resolution);
-    virtual LSM303AGR_MAG::RESOLUTION getResolution();
-    virtual void setOutputDataRate(
-        LSM303AGR_MAG::OUTPUT_DATA_RATE outputDataRate);
-    virtual LSM303AGR_MAG::OUTPUT_DATA_RATE getOutputDataRate();
-    virtual void setSystemMode(LSM303AGR_MAG::SYSTEM_MODE systemMode);
-    virtual LSM303AGR_MAG::SYSTEM_MODE getSystemMode();
-    virtual void setLPF(LSM303AGR_MAG::LOW_PASS_FILTER lpf);
-    virtual LSM303AGR_MAG::LOW_PASS_FILTER getLPF();
-    virtual void setOffsetCancellation(
-        LSM303AGR_MAG::OFFSET_CANCELLATION off_canc);
-    virtual LSM303AGR_MAG::OFFSET_CANCELLATION getOffsetCancellation();
+    virtual void setResolution(RESOLUTION resolution);
+    virtual RESOLUTION getResolution();
+    virtual void setOutputDataRate(OUTPUT_DATA_RATE outputDataRate);
+    virtual OUTPUT_DATA_RATE getOutputDataRate();
+    virtual void setSystemMode(SYSTEM_MODE systemMode);
+    virtual SYSTEM_MODE getSystemMode();
+    virtual void setLPF(LOW_PASS_FILTER lpf);
+    virtual LOW_PASS_FILTER getLPF();
+    virtual void setOffsetCancellation(OFFSET_CANCELLATION off_canc);
+    virtual OFFSET_CANCELLATION getOffsetCancellation();
     virtual int getMagX() { return this->magX_mG; }
     virtual int getMagY() { return this->magY_mG; }
     virtual int getMagZ() { return this->magZ_mG; }

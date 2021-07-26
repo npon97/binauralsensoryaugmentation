@@ -35,23 +35,49 @@
 #include "NMEAParser.h"
 #include <stdint.h>
 #include <string.h>
+#include <unistd.h>
+#include <iostream>
 
 class PA1010D : protected I2CDevice, public CNMEAParser
 {
+public:
+    // Settings for the PMTK 353 Command
+    enum GPS{ GP_ENABLE = 1, GP_DISABLE = 0 };
+    enum GLONASS{ GL_ENABLE = 1, GL_DISABLE = 0 };
+    enum GALILEO{ GA_ENABLE = 1, GA_DISABLE = 0 };
+    enum BEIDOU{ BE_ENABLE = 1, BE_DISABLE = 0 };
+
 private:
     unsigned int I2CBus, I2CAddress;
     char* sentenceFormat;
     char *buffer;
     CNMEAParserData::GGA_DATA_T ggaData;
+    CNMEAParserData::GSV_DATA_T gsvData;
+    CNMEAParserData::RMC_DATA_T rmcData;
+    GLONASS gl_enabled;
+    GPS gp_enabled;
+    GALILEO ga_enabled;
+    BEIDOU be_enabled;
 
     virtual void OnError(CNMEAParserData::ERROR_E nError, char *pCmd);
-
+    virtual unsigned short getChecksum(std::string cmd);
 public:
     PA1010D(char* sentenceFormat, 
         unsigned int I2CBus, unsigned int I2CAddress = 0x10);
     virtual int readSensorState();
-    virtual int sendCommand(std::string cmd);
-    virtual void displayGPSData(int iterations = 1000, int delay_us = 10);
+    virtual int compileAndSendPMTK353Command();
+    virtual void displaySentenceData(int iterations = 1000, int delay_us = 10);
+    virtual void displayGGAData();
+    virtual void displayGSVData();
+    virtual void displayRMCData();
+    virtual void setGlEnabled(GLONASS gl_en) {this->gl_enabled = gl_en; }
+    virtual GLONASS getGlEnabled() { return this->gl_enabled; }
+    virtual void setGPEnabled(GPS gp_en) { this->gp_enabled = gp_en; }
+    virtual GPS getGpEnabled() { return this->gp_enabled; }
+    virtual void setGaEnabled(GALILEO ga_en) { this->ga_enabled = ga_en; }
+    virtual GALILEO getGaEnabled() { return this->ga_enabled; }
+    virtual void setBeEnabled(BEIDOU be_en) { this->be_enabled = be_en; }
+    virtual BEIDOU getBeEnabled() { return this->be_enabled; }
 
     virtual ~PA1010D();
 

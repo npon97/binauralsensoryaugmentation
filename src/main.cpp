@@ -18,7 +18,7 @@ int main(int argc, char* argv[])
     try
     {
         magnetometer = new LSM303AGR_MAG(1, 0x1E);
-        gps = new PA1010D("GPGGA", 1, 0x10);
+        gps = new PA1010D("GAGSV", 1, 0x10);
     }
     catch(int i) // Stops the program if any errors occur
     {
@@ -38,7 +38,7 @@ int main(int argc, char* argv[])
     // Display the sensor data one after the other
     for(i = 0; i < NUM_DISPLAY_ITERATIONS; i++)
     {
-        magnetometer->displayPositionalData(1);
+        magnetometer->displaySentenceData(1);
         gps->displayGPSData(1);
 
         usleep(SUPERLOOP_uS);

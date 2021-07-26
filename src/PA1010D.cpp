@@ -30,53 +30,93 @@
 #include "PA1010D.h"
 
 #define BUFFER_SIZE 0xFF
-#define END_OF_MESSAGE 0xDA     // <CR> <LF> in ASCII
+#define END_OF_MESSAGE 0xDA // <CR> <LF> in ASCII
 
 void PA1010D::OnError(CNMEAParserData::ERROR_E nError, char *pCmd)
 {
     printf("Error for Cmd: %s, Number: %d\n", pCmd, nError);
 }
 
-
-PA1010D::PA1010D(char* sentenceFormat, 
-    unsigned int I2CBus, unsigned int I2CAddress) :
-    sentenceFormat(sentenceFormat), I2CDevice(I2CBus, I2CAddress) 
+PA1010D::PA1010D(char *sentenceFormat,
+                 unsigned int I2CBus, unsigned int I2CAddress) : sentenceFormat(sentenceFormat), I2CDevice(I2CBus, I2CAddress)
 {
     // Initialize the buffer to store the byte info from the GPS
     this->buffer = new char[BUFFER_SIZE];
 
-    // Change format to GPGGA
-    this->sendCommand("$PMTK353,1,0,0,0,0*2A, $GNGGA"); // TODO: Undo hardcode
+    this->sentenceFormat = sentenceFormat;
 
+    // Set the command settings
+    this->gp_enabled = GP_DISABLE;
+    this->gl_enabled = GL_DISABLE;
+    this->ga_enabled = GA_ENABLE;
+    this->be_enabled = BE_DISABLE;
+
+    this->compileAndSendPMTK353Command();
 }
 
-int PA1010D::sendCommand(std::string cmd)
+/**
+ * @return: 0 on command send success and 1 on command send failure
+ * 
+ */
+int PA1010D::compileAndSendPMTK353Command()
 {
     int i;
+    std::string cmd = "$PMTK353,";
+    char chksum[2]; // The checksum is two bytes long
 
-    // If the command start is valid, send the command
-    // TODO: Make more robust to bad input
-    if(cmd.find("$PMTK") != std::string::npos)
-    {
-        for(i = 0; i < cmd.size(); i++)
-        {
-            this->write(cmd[i]);
-        }
+    // Compile the string by stringifying the x_enabled properties
+    cmd += std::to_string(this->gp_enabled) + ",";
+    cmd += std::to_string(this->gl_enabled) + ",";
+    cmd += std::to_string(this->ga_enabled) + ",";
+    cmd += "0,";                                   // GALILEO_FULL_ENABLED is phased out. Keep at 0.
+    cmd += std::to_string(this->be_enabled) + "*"; // '*' symbolises data end
+    try
+    { // Fail if the checksum is not calculated due to bad input
+        sprintf(chksum, "%X", this->getChecksum(cmd));
+        cmd += chksum; // Checksum of data field
     }
-    else
+    catch (const std::invalid_argument &e)
     {
-        perror("Not a valid MTK NMEA Command.");
+        perror(e.what());
         return 1;
+    }
+    cmd += END_OF_MESSAGE;
+
+    std::cout << "Sending command: " << cmd << std::endl;
+
+    for (i = 0; i < cmd.size(); i++)
+    {
+        this->write(cmd[i]);
     }
 
     return 0;
 }
 
+unsigned short PA1010D::getChecksum(std::string cmd)
+{
+    int i;
+    unsigned short checksum; // 2 bytes in size
+
+    // Check if the message starts with a preamble
+    if (cmd[0] != '$' && cmd[cmd.length() - 1] != '*')
+    {
+        throw std::invalid_argument("Error: Invalid PTMK353 command.");
+    }
+
+    checksum = 0;
+    for (i = 1; i < cmd.length() - 1; i++)
+    {
+        checksum ^= cmd[i];
+    }
+
+    return checksum;
+}
+
 int PA1010D::readSensorState()
 {
     // Take in the full buffer for processing
-    this->buffer = reinterpret_cast<char*>(
-        this->readRegisters(BUFFER_SIZE, 0x00) );
+    this->buffer = reinterpret_cast<char *>(
+        this->readRegisters(BUFFER_SIZE, 0x00));
 
     // Process the buffer of characters
     this->ProcessRxCommand(this->sentenceFormat, this->buffer);
@@ -84,39 +124,98 @@ int PA1010D::readSensorState()
     return 0;
 }
 
-void PA1010D::displayGPSData(int iterations, int delay_us)
+void PA1010D::displayGGAData()
+{
+    printf("GGA Data Parsed!\n");
+    printf("   Time:                %02d:%02d:%02d\n",
+            this->ggaData.m_nHour, this->ggaData.m_nMinute,
+            this->ggaData.m_nSecond);
+    printf("   Latitude:            %f\n",
+            this->ggaData.m_dLatitude);
+    printf("   Longitude:           %f\n",
+            this->ggaData.m_dLongitude);
+    printf("   Altitude:            %.01fM\n",
+            this->ggaData.m_dAltitudeMSL);
+    printf("   GPS Quality:         %d\n",
+            this->ggaData.m_nGPSQuality);
+    printf("   Satellites in view:  %d\n",
+            this->ggaData.m_nSatsInView);
+    printf("   HDOP:                %.02f\n",
+            this->ggaData.m_dHDOP);
+    printf("   Differential ID:     %d\n",
+            this->ggaData.m_nDifferentialID);
+    printf("   Differential age:    %f\n",
+            this->ggaData.m_dDifferentialAge);
+    printf("   Geoidal Separation:  %f\n",
+            this->ggaData.m_dGeoidalSep);
+    printf("   Vertical Speed:      %.02f\n",
+            this->ggaData.m_dVertSpeed);
+}
+
+void PA1010D::displayGSVData()
 {
     int i;
 
-    for(i = 0; i < iterations; i++)
+    printf("GSV Data Parsed!\n");
+    printf("   Number of messages:            %d\n",
+            this->gsvData.nTotalNumberOfSentences);
+    printf("   Sentence number:           %d\n",
+            this->gsvData.nSentenceNumber);
+    printf("   # of satellites in view:            %.01fM\n",
+            this->gsvData.nSatsInView);
+
+    printf("   SatInfo:         \n");
+    for(i = 0; i < CNMEAParserData::c_nMaxConstellation; i++)
+    {
+        printf("   Azimuth:             %f\n",
+                this->gsvData.SatInfo[i].dAzimuth);
+        printf("   Elevation:             %f\n",
+                this->gsvData.SatInfo[i].dElevation);
+        printf("   PRN:             %f\n",
+                this->gsvData.SatInfo[i].nPRN);
+        printf("   SNR:             %f\n",
+                this->gsvData.SatInfo[i].nSNR);
+    }
+}
+
+void PA1010D::displayRMCData()
+{
+    printf("RMC Data Parsed!\n");
+    printf("   Time:                %02d:%02d:%02d\n",
+            this->rmcData.m_nHour, this->rmcData.m_nMinute,
+            this->rmcData.m_nSecond);
+    printf("   Latitude:            %f\n",
+            this->rmcData.m_dLatitude);
+    printf("   Longitude:           %f\n",
+            this->rmcData.m_dLongitude);
+    printf("   Altitude:            %.01fM\n",
+            this->rmcData.m_dAltitudeMSL);
+    printf("   GPS Quality:         %d\n",
+            this->rmcData.m_nGPSQuality);
+    printf("   Satellites in view:  %d\n",
+            this->rmcData.m_nSatsInView);
+    printf("   HDOP:                %.02f\n",
+            this->rmcData.m_dHDOP);
+    printf("   Differential ID:     %d\n",
+            this->rmcData.m_nDifferentialID);
+    printf("   Differential age:    %f\n",
+            this->rmcData.m_dDifferentialAge);
+    printf("   Geoidal Separation:  %f\n",
+            this->rmcData.m_dGeoidalSep);
+    printf("   Vertical Speed:      %.02f\n",
+            this->rmcData.m_dVertSpeed);
+}
+
+void PA1010D::displaySentenceData(int iterations, int delay_us)
+{
+    int i;
+
+    for (i = 0; i < iterations; i++)
     {
         readSensorState();
         fflush(stdout);
-        printf("GPGGA Parsed!\n");
-        printf("   Time:                %02d:%02d:%02d\n", 
-            this->ggaData.m_nHour, this->ggaData.m_nMinute, 
-            this->ggaData.m_nSecond);
-        printf("   Latitude:            %f\n", 
-            this->ggaData.m_dLatitude);
-        printf("   Longitude:           %f\n", 
-            this->ggaData.m_dLongitude);
-        printf("   Altitude:            %.01fM\n", 
-            this->ggaData.m_dAltitudeMSL);
-        printf("   GPS Quality:         %d\n",
-            this->ggaData.m_nGPSQuality);
-        printf("   Satellites in view:  %d\n", 
-            this->ggaData.m_nSatsInView);
-        printf("   HDOP:                %.02f\n", 
-            this->ggaData.m_dHDOP);
-        printf("   Differential ID:     %d\n",
-            this->ggaData.m_nDifferentialID);
-        printf("   Differential age:    %f\n",
-            this->ggaData.m_dDifferentialAge);
-        printf("   Geoidal Separation:  %f\n", 
-            this->ggaData.m_dGeoidalSep);
-        printf("   Vertical Speed:      %.02f\n", 
-            this->ggaData.m_dVertSpeed);
-        
+        displayGGAData();
+
         usleep(delay_us);
     }
 }
@@ -126,16 +225,24 @@ CNMEAParserData::ERROR_E PA1010D::ProcessRxCommand(
 {
     // Call base class to process the command
     CNMEAParser::ProcessRxCommand(pCmd, pData);
-    
+
     // Check if this is the GPGGA command. If it is, then display some data
-    if (strstr(pCmd, "GPGGA") != NULL) {
-        if (GetGPGGA(this->ggaData) != CNMEAParserData::ERROR_OK) {
+    if (strstr(pCmd, "GPGGA") != NULL)
+    {
+        if (GetGPGGA(this->ggaData) != CNMEAParserData::ERROR_OK)
+        {
+            perror("Error: Sentence parsing was unsuccessful.");
+        }
+    }
+    else if (strstr(pCmd, "GAGSV") != NULL)
+    {
+        if (GetGAGSV(this->ggaData) != CNMEAParserData::ERROR_OK)
+        {
             perror("Error: Sentence parsing was unsuccessful.");
         }
     }
 
     return CNMEAParserData::ERROR_OK;
 }
-
 
 PA1010D::~PA1010D() {}
