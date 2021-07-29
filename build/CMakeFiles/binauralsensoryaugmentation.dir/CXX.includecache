@@ -8,12 +8,6 @@
 
 ../include/I2CDevice.h
 
-../include/LSM303AGR_MAG.h
-I2CDevice.h
-../include/I2CDevice.h
-stdint.h
--
-
 ../include/PA1010D.h
 I2CDevice.h
 ../include/I2CDevice.h
@@ -103,18 +97,4 @@ NMEAParserData.h
 /home/pi/masters_project/binauralsensoryaugmentation/src/PA1010D.cpp
 PA1010D.h
 /home/pi/masters_project/binauralsensoryaugmentation/src/PA1010D.h
-
-/home/pi/masters_project/binauralsensoryaugmentation/src/main.cpp
-I2CDevice.h
-/home/pi/masters_project/binauralsensoryaugmentation/src/I2CDevice.h
-PA1010D.h
-/home/pi/masters_project/binauralsensoryaugmentation/src/PA1010D.h
-LSM303AGR_MAG.h
-/home/pi/masters_project/binauralsensoryaugmentation/src/LSM303AGR_MAG.h
-iostream
--
-unistd.h
--
-fstream
--
 

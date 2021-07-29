@@ -37,13 +37,11 @@ void PA1010D::OnError(CNMEAParserData::ERROR_E nError, char *pCmd)
     printf("Error for Cmd: %s, Number: %d\n", pCmd, nError);
 }
 
-PA1010D::PA1010D(char *sentenceFormat,
+PA1010D::PA1010D(std::string sentenceFormat,
                  unsigned int I2CBus, unsigned int I2CAddress) : sentenceFormat(sentenceFormat), I2CDevice(I2CBus, I2CAddress)
 {
     // Initialize the buffer to store the byte info from the GPS
     this->buffer = new char[BUFFER_SIZE];
-
-    this->sentenceFormat = sentenceFormat;
 
     // Set the command settings
     this->gp_enabled = GP_DISABLE;
@@ -114,12 +112,18 @@ unsigned short PA1010D::getChecksum(std::string cmd)
 
 int PA1010D::readSensorState()
 {
+    char senForm [this->sentenceFormat.size() + 1];
+
+    // Copy the sentence format into a variable that is not constant for 
+    //  manipulation in the NMEAParser Library
+    strcpy(senForm, this->sentenceFormat.c_str());
+
     // Take in the full buffer for processing
-    this->buffer = reinterpret_cast<char *>(
+    this->buffer = reinterpret_cast<char*>(
         this->readRegisters(BUFFER_SIZE, 0x00));
 
     // Process the buffer of characters
-    this->ProcessRxCommand(this->sentenceFormat, this->buffer);
+    this->ProcessRxCommand(senForm, this->buffer);
 
     return 0;
 }
@@ -161,11 +165,13 @@ void PA1010D::displayGSVData()
             this->gsvData.nTotalNumberOfSentences);
     printf("   Sentence number:           %d\n",
             this->gsvData.nSentenceNumber);
-    printf("   # of satellites in view:            %.01fM\n",
+    printf("   # of satellites in view:            %d\n",
             this->gsvData.nSatsInView);
 
+
     printf("   SatInfo:         \n");
-    for(i = 0; i < CNMEAParserData::c_nMaxConstellation; i++)
+    for(i = 0; i < this->gsvData.nSatsInView && 
+        i < CNMEAParserData::c_nMaxConstellation; i++)
     {
         printf("   Azimuth:             %f\n",
                 this->gsvData.SatInfo[i].dAzimuth);
@@ -184,28 +190,35 @@ void PA1010D::displayRMCData()
     printf("   Time:                %02d:%02d:%02d\n",
             this->rmcData.m_nHour, this->rmcData.m_nMinute,
             this->rmcData.m_nSecond);
+    printf("   Fractional Second:            %f\n",
+            this->rmcData.m_dSecond);        
     printf("   Latitude:            %f\n",
             this->rmcData.m_dLatitude);
     printf("   Longitude:           %f\n",
             this->rmcData.m_dLongitude);
     printf("   Altitude:            %.01fM\n",
             this->rmcData.m_dAltitudeMSL);
-    printf("   GPS Quality:         %d\n",
-            this->rmcData.m_nGPSQuality);
-    printf("   Satellites in view:  %d\n",
-            this->rmcData.m_nSatsInView);
-    printf("   HDOP:                %.02f\n",
-            this->rmcData.m_dHDOP);
-    printf("   Differential ID:     %d\n",
-            this->rmcData.m_nDifferentialID);
-    printf("   Differential age:    %f\n",
-            this->rmcData.m_dDifferentialAge);
-    printf("   Geoidal Separation:  %f\n",
-            this->rmcData.m_dGeoidalSep);
-    printf("   Vertical Speed:      %.02f\n",
-            this->rmcData.m_dVertSpeed);
+    printf("   Status:         %d\n",
+            this->rmcData.m_nStatus);
+    printf("   Speed (knots):  %d\n",
+            this->rmcData.m_dSpeedKnots);
+    printf("   Track Angle:                %.02f\n",
+            this->rmcData.m_dTrackAngle);
+    printf("   Day:     %d\n",
+            this->rmcData.m_nDay);
+    printf("   Month:    %f\n",
+            this->rmcData.m_nMonth);
+    printf("   Year:  %f\n",
+            this->rmcData.m_nYear);
+    printf("   Magnetic Variation:      %.02f\n",
+            this->rmcData.m_dMagneticVariation);
 }
 
+/**
+ * @description: Displays the selected data at stdout if the data is meaningful.
+ * @params: Number of iterations to display the data
+ *          The delay in microseconds between iterations
+ */
 void PA1010D::displaySentenceData(int iterations, int delay_us)
 {
     int i;
@@ -214,7 +227,13 @@ void PA1010D::displaySentenceData(int iterations, int delay_us)
     {
         readSensorState();
         fflush(stdout);
-        displayGGAData();
+
+        // If the desired format matches print the position data in terms of the
+        //  data format.
+        if(this->sentenceFormat.find("GSV") != std::string::npos)
+        {
+            displayGSVData();   
+        }
 
         usleep(delay_us);
     }
@@ -227,19 +246,31 @@ CNMEAParserData::ERROR_E PA1010D::ProcessRxCommand(
     CNMEAParser::ProcessRxCommand(pCmd, pData);
 
     // Check if this is the GPGGA command. If it is, then display some data
-    if (strstr(pCmd, "GPGGA") != NULL)
+    if (strstr(pCmd, "GAGGA") != NULL)
     {
-        if (GetGPGGA(this->ggaData) != CNMEAParserData::ERROR_OK)
+        if (GetGAGGA(this->ggaData) != CNMEAParserData::ERROR_OK)
         {
             perror("Error: Sentence parsing was unsuccessful.");
         }
     }
     else if (strstr(pCmd, "GAGSV") != NULL)
     {
-        if (GetGAGSV(this->ggaData) != CNMEAParserData::ERROR_OK)
+        if (GetGAGSV(this->gsvData) != CNMEAParserData::ERROR_OK)
         {
             perror("Error: Sentence parsing was unsuccessful.");
         }
+    }
+    else if(strstr(pCmd, "GARMC") != NULL)
+    {
+        if (GetGARMC(this->rmcData) != CNMEAParserData::ERROR_OK)
+        {
+            perror("Error: Sentence parsing was unsuccessful.");
+        }
+    }
+    else
+    {
+        perror("Error: Invalid sentence format.");
+        return CNMEAParserData::ERROR_FAIL;
     }
 
     return CNMEAParserData::ERROR_OK;

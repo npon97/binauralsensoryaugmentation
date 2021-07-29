@@ -38,8 +38,8 @@ int main(int argc, char* argv[])
     // Display the sensor data one after the other
     for(i = 0; i < NUM_DISPLAY_ITERATIONS; i++)
     {
-        magnetometer->displaySentenceData(1);
-        gps->displayGPSData(1);
+        magnetometer->displayPositionalData(1);
+        gps->displaySentenceData(1);
 
         usleep(SUPERLOOP_uS);
     }

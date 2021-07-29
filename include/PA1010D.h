@@ -49,7 +49,7 @@ public:
 
 private:
     unsigned int I2CBus, I2CAddress;
-    char* sentenceFormat;
+    std::string sentenceFormat;
     char *buffer;
     CNMEAParserData::GGA_DATA_T ggaData;
     CNMEAParserData::GSV_DATA_T gsvData;
@@ -62,7 +62,7 @@ private:
     virtual void OnError(CNMEAParserData::ERROR_E nError, char *pCmd);
     virtual unsigned short getChecksum(std::string cmd);
 public:
-    PA1010D(char* sentenceFormat, 
+    PA1010D(std::string sentenceFormat, 
         unsigned int I2CBus, unsigned int I2CAddress = 0x10);
     virtual int readSensorState();
     virtual int compileAndSendPMTK353Command();
