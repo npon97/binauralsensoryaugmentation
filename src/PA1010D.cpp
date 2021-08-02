@@ -38,10 +38,58 @@ void PA1010D::OnError(CNMEAParserData::ERROR_E nError, char *pCmd)
 }
 
 PA1010D::PA1010D(std::string sentenceFormat,
-                 unsigned int I2CBus, unsigned int I2CAddress) : sentenceFormat(sentenceFormat), I2CDevice(I2CBus, I2CAddress)
+                 unsigned int I2CBus, unsigned int I2CAddress) : 
+                 sentenceFormat(sentenceFormat), I2CDevice(I2CBus, I2CAddress)
 {
+    int i;
+
     // Initialize the buffer to store the byte info from the GPS
     this->buffer = new char[BUFFER_SIZE];
+
+    // Initialize the GGA data
+    this->ggaData.m_nHour = 0, this->ggaData.m_nMinute = 0, 
+        this->ggaData.m_nSecond = 0;
+	this->ggaData.m_dLatitude = 0.0;
+	this->ggaData.m_dLongitude = 0.0;
+	this->ggaData.m_dAltitudeMSL = 0.0;
+	this->ggaData.m_nGPSQuality = 
+        CNMEAParserData::GPS_QUALITY_E::GQ_FIX_NOT_AVAILABLE;
+	this->ggaData.m_nSatsInView = 0;
+	this->ggaData.m_dHDOP = 0.0;
+	this->ggaData.m_dGeoidalSep = 0.0;
+	this->ggaData.m_dDifferentialAge = 0.0;
+	this->ggaData.m_nDifferentialID = 0;
+	this->ggaData.m_dVertSpeed = 0.0;
+
+    // Initialize the GSV data
+    this->gsvData.nTotalNumberOfSentences = 0;
+	this->gsvData.nSentenceNumber = 0;
+	this->gsvData.nSatsInView = 0;
+    for(i = 0; i < CNMEAParserData::c_nMaxConstellation; i++)
+    {
+        this->gsvData.SatInfo[i].dAzimuth = 0.0;
+        this->gsvData.SatInfo[i].dElevation = 0.0;
+        this->gsvData.SatInfo[i].nPRN = 0;
+        this->gsvData.SatInfo[i].nSNR = 0;
+    }
+
+    // Initialize the RMC data
+    this->rmcData.m_timeGGA =
+    		time_t			;												///< Time in GGA sentence
+		int				m_nHour;												///< hour
+		int				m_nMinute;												///< Minute
+		int				m_nSecond;												///< Second
+		double			m_dSecond;												///< Fractional second
+		double			m_dLatitude;											///< Latitude (Decimal degrees, S < 0 > N)
+		double			m_dLongitude;											///< Longitude (Decimal degrees, W < 0 > E)
+		double			m_dAltitudeMSL;											///< Altitude (Meters)
+		RMC_STATUS_E	m_nStatus;												///< Status
+		double			m_dSpeedKnots;											///< Speed over the ground in knots
+	    double			m_dTrackAngle;											///< Track angle in degrees True North
+	    int				m_nMonth;												///< Month
+	    int				m_nDay;													///< Day
+	    int				m_nYear;												///< Year
+	    double			m_dMagneticVariation;									///< Magnetic Variation
 
     // Set the command settings
     this->gp_enabled = GP_DISABLE;
@@ -110,23 +158,6 @@ unsigned short PA1010D::getChecksum(std::string cmd)
     return checksum;
 }
 
-int PA1010D::readSensorState()
-{
-    char senForm [this->sentenceFormat.size() + 1];
-
-    // Copy the sentence format into a variable that is not constant for 
-    //  manipulation in the NMEAParser Library
-    strcpy(senForm, this->sentenceFormat.c_str());
-
-    // Take in the full buffer for processing
-    this->buffer = reinterpret_cast<char*>(
-        this->readRegisters(BUFFER_SIZE, 0x00));
-
-    // Process the buffer of characters
-    this->ProcessRxCommand(senForm, this->buffer);
-
-    return 0;
-}
 
 void PA1010D::displayGGAData()
 {
@@ -237,6 +268,24 @@ void PA1010D::displaySentenceData(int iterations, int delay_us)
 
         usleep(delay_us);
     }
+}
+
+int PA1010D::readSensorState()
+{
+    char senForm [this->sentenceFormat.size() + 1];
+
+    // Copy the sentence format into a variable that is not constant for 
+    //  manipulation in the NMEAParser Library
+    strcpy(senForm, this->sentenceFormat.c_str());
+
+    // Take in the full buffer for processing
+    this->buffer = reinterpret_cast<char*>(
+        this->readRegisters(BUFFER_SIZE, 0x00));
+
+    // Process the buffer of characters
+    this->ProcessRxCommand(senForm, this->buffer);
+
+    return 0;
 }
 
 CNMEAParserData::ERROR_E PA1010D::ProcessRxCommand(
