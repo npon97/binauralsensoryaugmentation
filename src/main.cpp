@@ -39,7 +39,7 @@ int main(int argc, char* argv[])
     for(i = 0; i < NUM_DISPLAY_ITERATIONS; i++)
     {
         magnetometer->displayPositionalData(1);
-        gps->displaySentenceData(1);
+        //gps->displaySentenceData(1);
 
         usleep(SUPERLOOP_uS);
     }

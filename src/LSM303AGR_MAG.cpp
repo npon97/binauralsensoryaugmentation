@@ -31,6 +31,7 @@
 #include <unistd.h>
 #include <math.h>
 #include <fstream>
+#include <limits>
 
 /* Register Mapping */
 #define OFFSET_X_REG_L 0x45 // X hard-iron offset least significant bit (LSB).
@@ -75,6 +76,8 @@
 #define CSV_STORE_SUPERLOOP_uS 100000
 #define DISPLAY_COL_WIDTH     11
 
+typedef std::numeric_limits<float> FLOAT_LIM;
+
 // Constructor
 LSM303AGR_MAG::LSM303AGR_MAG(unsigned int I2CBus, unsigned int I2CAddress)
     : I2CDevice(I2CBus, I2CAddress)
@@ -90,6 +93,10 @@ LSM303AGR_MAG::LSM303AGR_MAG(unsigned int I2CBus, unsigned int I2CAddress)
     this->magZ_mG = 0.0f;
     this->azimuth_deg = 0.0;
     this->elevation_deg = 0.0;
+    this->isHardIronDistortion = true; // Assume there is hard iron distortion
+    this->max_magX_mG = FLOAT_LIM::min(), this->min_magX_mG = FLOAT_LIM::max();
+    this->max_magY_mG = FLOAT_LIM::min(), this->min_magY_mG = FLOAT_LIM::max();
+    this->max_magZ_mG = FLOAT_LIM::min(), this->min_magZ_mG = FLOAT_LIM::max();
     this->resolution = LSM303AGR_MAG::HIGH;
     this->outputDataRate = LSM303AGR_MAG::TEN_HERTZ;
     this->systemMode = LSM303AGR_MAG::CONTINUOUS;
@@ -196,6 +203,12 @@ int LSM303AGR_MAG::readSensorState()
                         *(registers + OUTZ_H_REG), *(registers + OUTZ_L_REG))) *
                     M_GN;
 
+    // Do calibration due to magnetic distortion
+    if(this->isHardIronDistortion)
+    {
+        this->offsetHardIron();
+    }
+
     // Calculate the resulting azimuth which depends on the 
     //  previous magnetic data
     this->calculateAzimuthAndElevation();
@@ -247,6 +260,29 @@ void LSM303AGR_MAG::calculateAzimuthAndElevation()
         std::cerr << "Caught: " <<  e.what() << '\n';
         std::cerr << "Type: " << typeid(e).name() << '\n';
     }
+}
+
+/**
+ * Takes the known strength of a hard iron distortion away from the magnetic 
+ * field of interest. A hard iron distortion is a known magnetic field close to 
+ * the magnetometer.
+ * */
+void LSM303AGR_MAG::offsetHardIron()
+{
+    // Check and assign max and mins of X, Y and Z magnetometer if the current
+    //  value excedes the max/min of the max/min recorded.
+    if(this->magX_mG > this->max_magX_mG) this->max_magX_mG = this->magX_mG;
+    if(this->magX_mG < this->min_magX_mG) this->min_magX_mG = this->magX_mG;  
+    if(this->magY_mG > this->max_magY_mG) this->max_magY_mG = this->magY_mG;  
+    if(this->magY_mG < this->min_magY_mG) this->min_magY_mG = this->magY_mG;  
+    if(this->magZ_mG > this->max_magZ_mG) this->max_magZ_mG = this->magZ_mG;  
+    if(this->magZ_mG < this->min_magZ_mG) this->min_magZ_mG = this->magZ_mG;  
+    
+    // Take the average value away from the current value for hard iron 
+    //  calibration.
+    this->magX_mG -= (max_magX_mG + min_magX_mG) / 2;
+    this->magY_mG -= (max_magY_mG + min_magY_mG) / 2;
+    this->magZ_mG -= (max_magZ_mG + min_magZ_mG) / 2;
 }
 
 /**

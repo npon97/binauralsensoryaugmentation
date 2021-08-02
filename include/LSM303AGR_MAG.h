@@ -78,12 +78,16 @@ private:
     SYSTEM_MODE systemMode;
     LOW_PASS_FILTER lpf;
     OFFSET_CANCELLATION off_canc;
-    float magX_mG, magY_mG, magZ_mG; //sensitivity adjusted magnetic values
+    float magX_mG, magY_mG, magZ_mG; // Sensitivity adjusted magnetic values
     double azimuth_deg, elevation_deg;
+    bool isHardIronDistortion; // Distortion attributes
+    float max_magX_mG, max_magY_mG, max_magZ_mG,
+          min_magX_mG, min_magY_mG, min_magZ_mG;
 
     short combineRegisters(unsigned char msb, unsigned char lsb);
 
     void calculateAzimuthAndElevation();
+    void offsetHardIron();
     virtual int updateRegisters();
 
 public:
