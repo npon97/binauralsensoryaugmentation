@@ -41,9 +41,13 @@ CNMEAParserData::ERROR_E CNMEASentenceGSV::ProcessSentence(char * pCmd, char * p
     UNUSED_PARAM(pCmd);
     char szField[c_nMaxField];
 
+	printf("REACHED 44 GSV. The conditional is: %d\n", 
+		GetField(pData, szField, 0, c_nMaxField) == CNMEAParserData::ERROR_OK);
+
 	// Number of sentences
 	if (GetField(pData, szField, 0, c_nMaxField) == CNMEAParserData::ERROR_OK) {
 		m_SentenceData.nTotalNumberOfSentences = atoi(szField);
+		printf("REACHED 49 GSV\n");
 	}
 
 	// Number of sentences

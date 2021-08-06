@@ -263,6 +263,7 @@ CNMEAParserData::ERROR_E CNMEAParser::ProcessRxCommand(char * pCmd, char * pData
 	}
 	else if (strcmp(pCmd, "GAGSV") == 0) {
 		DataAccessSemaphoreLock();
+		printf("REACHED m_GAGSV.ProcessSentence(pCmd, pData);\n");
 		m_GAGSV.ProcessSentence(pCmd, pData);
 		DataAccessSemaphoreUnlock();
 	}

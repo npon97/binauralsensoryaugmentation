@@ -5,8 +5,8 @@
 #include <unistd.h>
 #include <fstream>
 
-#define SUPERLOOP_uS 1000000
-#define NUM_DISPLAY_ITERATIONS 1000
+#define SUPERLOOP_uS 100000
+#define NUM_DISPLAY_ITERATIONS 100000
 
 int main(int argc, char* argv[])
 {
@@ -39,7 +39,7 @@ int main(int argc, char* argv[])
     for(i = 0; i < NUM_DISPLAY_ITERATIONS; i++)
     {
         magnetometer->displayPositionalData(1);
-        //gps->displaySentenceData(1);
+        gps->displaySentenceData(1);
 
         usleep(SUPERLOOP_uS);
     }

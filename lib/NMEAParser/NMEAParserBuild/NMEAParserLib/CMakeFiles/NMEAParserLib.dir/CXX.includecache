@@ -76,6 +76,14 @@ NMEASentenceBase.h
 NMEAParserData.h
 /home/pi/masters_project/binauralsensoryaugmentation/lib/NMEAParser/Software/NMEAParserLib/NMEAParserData.h
 
+/home/pi/masters_project/binauralsensoryaugmentation/lib/NMEAParser/Software/NMEAParserLib/NMEASentenceGSV.cpp
+NMEASentenceGSV.h
+/home/pi/masters_project/binauralsensoryaugmentation/lib/NMEAParser/Software/NMEAParserLib/NMEASentenceGSV.h
+stdlib.h
+-
+string.h
+-
+
 /home/pi/masters_project/binauralsensoryaugmentation/lib/NMEAParser/Software/NMEAParserLib/NMEASentenceGSV.h
 NMEASentenceBase.h
 /home/pi/masters_project/binauralsensoryaugmentation/lib/NMEAParser/Software/NMEAParserLib/NMEASentenceBase.h

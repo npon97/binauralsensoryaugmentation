@@ -74,22 +74,21 @@ PA1010D::PA1010D(std::string sentenceFormat,
     }
 
     // Initialize the RMC data
-    this->rmcData.m_timeGGA =
-    		time_t			;												///< Time in GGA sentence
-		int				m_nHour;												///< hour
-		int				m_nMinute;												///< Minute
-		int				m_nSecond;												///< Second
-		double			m_dSecond;												///< Fractional second
-		double			m_dLatitude;											///< Latitude (Decimal degrees, S < 0 > N)
-		double			m_dLongitude;											///< Longitude (Decimal degrees, W < 0 > E)
-		double			m_dAltitudeMSL;											///< Altitude (Meters)
-		RMC_STATUS_E	m_nStatus;												///< Status
-		double			m_dSpeedKnots;											///< Speed over the ground in knots
-	    double			m_dTrackAngle;											///< Track angle in degrees True North
-	    int				m_nMonth;												///< Month
-	    int				m_nDay;													///< Day
-	    int				m_nYear;												///< Year
-	    double			m_dMagneticVariation;									///< Magnetic Variation
+    this->rmcData.m_timeGGA = 0;
+	this->rmcData.m_nHour = 0;
+	this->rmcData.m_nMinute = 0;
+	this->rmcData.m_nSecond = 0;
+	this->rmcData.m_dSecond = 0.0;
+	this->rmcData.m_dLatitude = 0.0;
+	this->rmcData.m_dLongitude = 0.0;
+	this->rmcData.m_dAltitudeMSL = 0.0;
+	this->rmcData.m_nStatus = CNMEAParserData::RMC_STATUS_E::RMC_STATUS_VOID;
+	this->rmcData.m_dSpeedKnots = 0.0;
+	this->rmcData.m_dTrackAngle = 0.0;
+	this->rmcData.m_nMonth = 0;
+	this->rmcData.m_nDay = 0;
+	this->rmcData.m_nYear = 0;
+	this->rmcData.m_dMagneticVariation = 0.0;
 
     // Set the command settings
     this->gp_enabled = GP_DISABLE;
@@ -114,7 +113,7 @@ int PA1010D::compileAndSendPMTK353Command()
     cmd += std::to_string(this->gp_enabled) + ",";
     cmd += std::to_string(this->gl_enabled) + ",";
     cmd += std::to_string(this->ga_enabled) + ",";
-    cmd += "0,";                                   // GALILEO_FULL_ENABLED is phased out. Keep at 0.
+    cmd += "0,";               // GALILEO_FULL_ENABLED is phased out. Keep at 0.
     cmd += std::to_string(this->be_enabled) + "*"; // '*' symbolises data end
     try
     { // Fail if the checksum is not calculated due to bad input
@@ -272,7 +271,7 @@ void PA1010D::displaySentenceData(int iterations, int delay_us)
 
 int PA1010D::readSensorState()
 {
-    char senForm [this->sentenceFormat.size() + 1];
+    char senForm [this->sentenceFormat.size()];
 
     // Copy the sentence format into a variable that is not constant for 
     //  manipulation in the NMEAParser Library
@@ -292,28 +291,30 @@ CNMEAParserData::ERROR_E PA1010D::ProcessRxCommand(
     char *pCmd, char *pData)
 {
     // Call base class to process the command
+	printf("START ProcessRxCommand\n");
     CNMEAParser::ProcessRxCommand(pCmd, pData);
+	printf("END ProcessRxCommand\n");
 
     // Check if this is the GPGGA command. If it is, then display some data
     if (strstr(pCmd, "GAGGA") != NULL)
     {
         if (GetGAGGA(this->ggaData) != CNMEAParserData::ERROR_OK)
         {
-            perror("Error: Sentence parsing was unsuccessful.");
+            perror("Error: GGA Sentence parsing was unsuccessful.");
         }
     }
     else if (strstr(pCmd, "GAGSV") != NULL)
     {
         if (GetGAGSV(this->gsvData) != CNMEAParserData::ERROR_OK)
         {
-            perror("Error: Sentence parsing was unsuccessful.");
+            perror("Error: GSV Sentence parsing was unsuccessful.");
         }
     }
     else if(strstr(pCmd, "GARMC") != NULL)
     {
         if (GetGARMC(this->rmcData) != CNMEAParserData::ERROR_OK)
         {
-            perror("Error: Sentence parsing was unsuccessful.");
+            perror("Error: RMC Sentence parsing was unsuccessful.");
         }
     }
     else
