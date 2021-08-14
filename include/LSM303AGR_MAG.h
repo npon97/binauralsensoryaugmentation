@@ -104,11 +104,11 @@ public:
     virtual LOW_PASS_FILTER getLPF();
     virtual void setOffsetCancellation(OFFSET_CANCELLATION off_canc);
     virtual OFFSET_CANCELLATION getOffsetCancellation();
-    virtual int getMagX() { return this->magX_mG; }
-    virtual int getMagY() { return this->magY_mG; }
-    virtual int getMagZ() { return this->magZ_mG; }
-    virtual int getAzimuth() { return this->azimuth_deg; }
-    virtual int getElevation() { return this->elevation_deg; }
+    virtual int getMagX();
+    virtual int getMagY();
+    virtual int getMagZ();
+    virtual int getAzimuth();
+    virtual int getElevation();
 
     virtual void displayPositionalData(int iterations = 600, int delay_us = 10);
     virtual void storePositionalDataInCSV(int iterations = 500);

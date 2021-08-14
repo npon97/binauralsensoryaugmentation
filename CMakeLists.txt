@@ -17,4 +17,5 @@ include_directories("${PROJECT_SOURCE_DIR}/include")
 file(GLOB SOURCES "src/*.cpp")
 
 add_executable(binauralsensoryaugmentation ${SOURCES})
+target_link_libraries(binauralsensoryaugmentation openal)
 target_link_libraries(binauralsensoryaugmentation ${PROJECT_LINK_LIBS} )

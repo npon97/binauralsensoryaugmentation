@@ -64,17 +64,17 @@
 *   should not be written to.
 */
 
-#define BUFFER_SIZE           0x70 // Size of buffer / Number of registers
+#define BUFFER_SIZE 0x70 // Size of buffer / Number of registers
 #define BUFFER_HARD_IRON_SIZE 0x06
-#define BUFFER_WHO_AM_I_SIZE  0x01
+#define BUFFER_WHO_AM_I_SIZE 0x01
 #define BUFFER_CFG_STATUS_DATA_SIZE 0x0E
 
 // Both constants come from the data sheet and NOT from math.h
-#define M_FS        49.152f // Magnetic Dynamic Range
-#define M_GN        1.5f    // Magnetic Sensitivity
+#define M_FS 49.152f // Magnetic Dynamic Range
+#define M_GN 1.5f    // Magnetic Sensitivity
 
 #define CSV_STORE_SUPERLOOP_uS 100000
-#define DISPLAY_COL_WIDTH     11
+#define DISPLAY_COL_WIDTH 11
 
 typedef std::numeric_limits<float> FLOAT_LIM;
 
@@ -86,7 +86,7 @@ LSM303AGR_MAG::LSM303AGR_MAG(unsigned int I2CBus, unsigned int I2CAddress)
     this->I2CBus = I2CBus;
     this->registers = new uint8_t[BUFFER_SIZE];
     this->hard_iron_reg = NULL;
-    this->who_am_i_reg  = NULL;
+    this->who_am_i_reg = NULL;
     this->cfg_status_data_reg = NULL;
     this->magX_mG = 0.0f;
     this->magY_mG = 0.0f;
@@ -124,14 +124,14 @@ short LSM303AGR_MAG::combineRegisters(unsigned char msb, unsigned char lsb)
 /**
  * Method that reads in the sensor state and sets the LSM303AGR attributes
  * @return an int that is -1 for read failure and 0 for read success.
- */ 
+ */
 int LSM303AGR_MAG::readSensorState()
 {
     int i;
 
     // Read in the register buffers that are allowed to be read from
     try
-    {    
+    {
         this->hard_iron_reg = this->readRegisters(
             BUFFER_HARD_IRON_SIZE, OFFSET_X_REG_L);
         this->who_am_i_reg = this->readRegisters(
@@ -139,7 +139,7 @@ int LSM303AGR_MAG::readSensorState()
         this->cfg_status_data_reg = this->readRegisters(
             BUFFER_CFG_STATUS_DATA_SIZE, CFG_REG_A);
     }
-    catch(const char * errmsg)
+    catch (const char *errmsg)
     {
         std::cerr << errmsg << std::endl;
         return -1;
@@ -147,33 +147,33 @@ int LSM303AGR_MAG::readSensorState()
 
     // Fill the register array with 0s in read forbidden register data and
     //  fill the other registers with the relevant data
-    for(i = 0; i < BUFFER_SIZE; i++)
+    for (i = 0; i < BUFFER_SIZE; i++)
     {
-        if((i >= 0) && (i < OFFSET_X_REG_L))
+        if ((i >= 0) && (i < OFFSET_X_REG_L))
         {
-            this->registers[i] = 0; 
+            this->registers[i] = 0;
         }
-        else if((i >= OFFSET_X_REG_L) && (i <= OFFSET_Z_REG_H))
+        else if ((i >= OFFSET_X_REG_L) && (i <= OFFSET_Z_REG_H))
         {
             this->registers[i] = this->hard_iron_reg[i - OFFSET_X_REG_L];
         }
-        else if((i > OFFSET_Z_REG_H) && (i < WHO_AM_I))
+        else if ((i > OFFSET_Z_REG_H) && (i < WHO_AM_I))
         {
             this->registers[i] = 0;
         }
-        else if(i == WHO_AM_I)
+        else if (i == WHO_AM_I)
         {
             this->registers[i] = this->who_am_i_reg[i - WHO_AM_I];
         }
-        else if((i > WHO_AM_I) && (i < CFG_REG_A))
+        else if ((i > WHO_AM_I) && (i < CFG_REG_A))
         {
             this->registers[i] = 0;
         }
-        else if((i >= CFG_REG_A) && (i <= OUTZ_H_REG))
+        else if ((i >= CFG_REG_A) && (i <= OUTZ_H_REG))
         {
             this->registers[i] = this->cfg_status_data_reg[i - CFG_REG_A];
         }
-        else if((i > OUTZ_H_REG) && (i < BUFFER_SIZE))
+        else if ((i > OUTZ_H_REG) && (i < BUFFER_SIZE))
         {
             this->registers[i] = 0;
         }
@@ -185,7 +185,7 @@ int LSM303AGR_MAG::readSensorState()
     }
 
     // Throw an error if the device ID doesnt match
-    if(*(this->registers+WHO_AM_I)!=0x40)
+    if (*(this->registers + WHO_AM_I) != 0x40)
     {
         perror("LSM303AGR Magnetometer: Failure Condition - Sensor ID invalid");
         return -1;
@@ -204,12 +204,12 @@ int LSM303AGR_MAG::readSensorState()
                     M_GN;
 
     // Do calibration due to magnetic distortion
-    if(this->isHardIronDistortion)
+    if (this->isHardIronDistortion)
     {
         this->offsetHardIron();
     }
 
-    // Calculate the resulting azimuth which depends on the 
+    // Calculate the resulting azimuth which depends on the
     //  previous magnetic data
     this->calculateAzimuthAndElevation();
 
@@ -217,24 +217,19 @@ int LSM303AGR_MAG::readSensorState()
     //  shifting the value back. Notice how the LP bit on the data sheet
     //  overlaps with the only HIGH binary bit.
     this->resolution = static_cast<LSM303AGR_MAG::RESOLUTION>(
-        (((*(registers + CFG_REG_A)) & 0b00010000) >> 4)
-    );
-    
+        (((*(registers + CFG_REG_A)) & 0b00010000) >> 4));
+
     this->outputDataRate = static_cast<LSM303AGR_MAG::OUTPUT_DATA_RATE>(
-        (((*(registers + CFG_REG_A)) & 0b00001100) >> 2)
-    );
+        (((*(registers + CFG_REG_A)) & 0b00001100) >> 2));
 
     this->systemMode = static_cast<LSM303AGR_MAG::SYSTEM_MODE>(
-        (((*(registers + CFG_REG_A)) & 0b00000011) )
-    );
+        (((*(registers + CFG_REG_A)) & 0b00000011)));
 
     this->off_canc = static_cast<LSM303AGR_MAG::OFFSET_CANCELLATION>(
-        (((*(registers + CFG_REG_B)) & 0b00000010) >> 1)
-    );
+        (((*(registers + CFG_REG_B)) & 0b00000010) >> 1));
 
     this->lpf = static_cast<LSM303AGR_MAG::LOW_PASS_FILTER>(
-        (((*(registers + CFG_REG_B)) & 0b00000001) )
-    );
+        (((*(registers + CFG_REG_B)) & 0b00000001)));
 
     return 0;
 }
@@ -249,15 +244,15 @@ void LSM303AGR_MAG::calculateAzimuthAndElevation()
     try
     {
         this->azimuth_deg = atan2(static_cast<double>(this->magY_mG),
-                                  static_cast<double>(this->magX_mG) ) *
+                                  static_cast<double>(this->magX_mG)) *
                             (180 / M_PI);
         this->elevation_deg = atan2(static_cast<double>(this->magZ_mG),
-                                    static_cast<double>(this->magY_mG) ) *
-                            (180 / M_PI);
+                                    static_cast<double>(this->magY_mG)) *
+                              (180 / M_PI);
     }
-    catch(const std::exception& e)
+    catch (const std::exception &e)
     {
-        std::cerr << "Caught: " <<  e.what() << '\n';
+        std::cerr << "Caught: " << e.what() << '\n';
         std::cerr << "Type: " << typeid(e).name() << '\n';
     }
 }
@@ -271,14 +266,20 @@ void LSM303AGR_MAG::offsetHardIron()
 {
     // Check and assign max and mins of X, Y and Z magnetometer if the current
     //  value excedes the max/min of the max/min recorded.
-    if(this->magX_mG > this->max_magX_mG) this->max_magX_mG = this->magX_mG;
-    if(this->magX_mG < this->min_magX_mG) this->min_magX_mG = this->magX_mG;  
-    if(this->magY_mG > this->max_magY_mG) this->max_magY_mG = this->magY_mG;  
-    if(this->magY_mG < this->min_magY_mG) this->min_magY_mG = this->magY_mG;  
-    if(this->magZ_mG > this->max_magZ_mG) this->max_magZ_mG = this->magZ_mG;  
-    if(this->magZ_mG < this->min_magZ_mG) this->min_magZ_mG = this->magZ_mG;  
-    
-    // Take the average value away from the current value for hard iron 
+    if (this->magX_mG > this->max_magX_mG)
+        this->max_magX_mG = this->magX_mG;
+    if (this->magX_mG < this->min_magX_mG)
+        this->min_magX_mG = this->magX_mG;
+    if (this->magY_mG > this->max_magY_mG)
+        this->max_magY_mG = this->magY_mG;
+    if (this->magY_mG < this->min_magY_mG)
+        this->min_magY_mG = this->magY_mG;
+    if (this->magZ_mG > this->max_magZ_mG)
+        this->max_magZ_mG = this->magZ_mG;
+    if (this->magZ_mG < this->min_magZ_mG)
+        this->min_magZ_mG = this->magZ_mG;
+
+    // Take the average value away from the current value for hard iron
     //  calibration.
     this->magX_mG -= (max_magX_mG + min_magX_mG) / 2;
     this->magY_mG -= (max_magY_mG + min_magY_mG) / 2;
@@ -303,16 +304,16 @@ int LSM303AGR_MAG::updateRegisters()
     //  value to a single register value.
     cfg_reg_a = cfg_reg_a | (static_cast<uint8_t>(this->resolution) << 4);
     cfg_reg_a = cfg_reg_a | (static_cast<uint8_t>(this->outputDataRate) << 2);
-    cfg_reg_a = cfg_reg_a | (static_cast<uint8_t>(this->systemMode) );
+    cfg_reg_a = cfg_reg_a | (static_cast<uint8_t>(this->systemMode));
 
-    // Updates the updateStatus by ANDing with the returned value of the 
-    //  write register function which should return 0 for success and 1 
-    //  otherwise. This means that the updateRegisters function will only return 
+    // Updates the updateStatus by ANDing with the returned value of the
+    //  write register function which should return 0 for success and 1
+    //  otherwise. This means that the updateRegisters function will only return
     //  0 if the writing action completes successfully.
     updateStatus = updateStatus && (this->writeRegister(CFG_REG_A, cfg_reg_a));
 
     // Update CFG_REG_B and check write success
-    cfg_reg_b = cfg_reg_b | (static_cast<uint8_t>(this->lpf) );
+    cfg_reg_b = cfg_reg_b | (static_cast<uint8_t>(this->lpf));
     cfg_reg_b = cfg_reg_b | (static_cast<uint8_t>(this->off_canc) << 1);
     updateStatus = updateStatus && (this->writeRegister(CFG_REG_B, cfg_reg_b));
 
@@ -333,7 +334,7 @@ LSM303AGR_MAG::RESOLUTION LSM303AGR_MAG::getResolution()
 }
 
 void LSM303AGR_MAG::setOutputDataRate(
-        LSM303AGR_MAG::OUTPUT_DATA_RATE outputDataRate)
+    LSM303AGR_MAG::OUTPUT_DATA_RATE outputDataRate)
 {
     this->outputDataRate = outputDataRate;
     this->updateRegisters();
@@ -378,12 +379,37 @@ LSM303AGR_MAG::OFFSET_CANCELLATION LSM303AGR_MAG::getOffsetCancellation()
     return this->off_canc;
 }
 
+int LSM303AGR_MAG::getMagX()
+{
+    this->readSensorState();
+    return this->magX_mG;
+}
+int LSM303AGR_MAG::getMagY()
+{
+    this->readSensorState();
+    return this->magY_mG;
+}
+int LSM303AGR_MAG::getMagZ()
+{
+    this->readSensorState();
+    return this->magZ_mG;
+}
+int LSM303AGR_MAG::getAzimuth()
+{
+    this->readSensorState();
+    return this->azimuth_deg;
+}
+int LSM303AGR_MAG::getElevation()
+{
+    this->readSensorState();
+    return this->elevation_deg;
+}
 
 void LSM303AGR_MAG::displayPositionalData(int iterations, int delay_us)
 {
     int i;
 
-    for(i = 0; i < iterations; i++)
+    for (i = 0; i < iterations; i++)
     {
         // Read the sensor and then print the values
         // Trailing spaces are to overwrite the previous printed values
@@ -420,27 +446,25 @@ void LSM303AGR_MAG::storePositionalDataInCSV(int iterations)
 
     csvfile.open(
         "/home/pi/masters_project/binauralsensoryaugmentation/coordinates.csv",
-        std::ios::out | std::ios::app );
+        std::ios::out | std::ios::app);
 
     // Setup the first row which are the column names
-    csvfile << "Azimuth (degrees), Elevation (degrees), " <<
-        "x (milliGauss), y (milliGauss), z (milliGauss)\n";
+    csvfile << "Azimuth (degrees), Elevation (degrees), "
+            << "x (milliGauss), y (milliGauss), z (milliGauss)\n";
 
-    for(i = 0; i < iterations; i++)
+    for (i = 0; i < iterations; i++)
     {
         // Read the sensor and then store the values in a csv file
         // Trailing spaces are to overwrite the previous stored values
         this->readSensorState();
-        csvfile << this->azimuth_deg << ", " << this->elevation_deg << ", " 
-            << this->magX_mG << ", " 
-            << this->magY_mG << ", " 
-            << this->magZ_mG << "\n";
+        csvfile << this->azimuth_deg << ", " << this->elevation_deg << ", "
+                << this->magX_mG << ", "
+                << this->magY_mG << ", "
+                << this->magZ_mG << "\n";
         usleep(CSV_STORE_SUPERLOOP_uS);
     }
 
-
     csvfile.close();
 }
-
 
 LSM303AGR_MAG::~LSM303AGR_MAG() {}
