@@ -1,4 +1,4 @@
-# Install script for directory: /home/pi/masters_project/binauralsensoryaugmentation
+# Install script for directory: /home/pi/Projects/mece2021/binauralsensoryaugmentation
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -45,5 +45,5 @@ endif()
 
 string(REPLACE ";" "\n" CMAKE_INSTALL_MANIFEST_CONTENT
        "${CMAKE_INSTALL_MANIFEST_FILES}")
-file(WRITE "/home/pi/masters_project/binauralsensoryaugmentation/build/${CMAKE_INSTALL_MANIFEST}"
+file(WRITE "/home/pi/Projects/mece2021/binauralsensoryaugmentation/build/${CMAKE_INSTALL_MANIFEST}"
      "${CMAKE_INSTALL_MANIFEST_CONTENT}")

@@ -4,13 +4,13 @@ set(CMAKE_DEPENDS_LANGUAGES
   )
 # The set of files for implicit dependencies of each language:
 set(CMAKE_DEPENDS_CHECK_CXX
-  "/home/pi/masters_project/binauralsensoryaugmentation/lib/NMEAParser/Software/NMEAParserLib/NMEAParser.cpp" "/home/pi/masters_project/binauralsensoryaugmentation/lib/NMEAParser/NMEAParserBuild/NMEAParserLib/CMakeFiles/NMEAParserLib.dir/NMEAParser.cpp.o"
-  "/home/pi/masters_project/binauralsensoryaugmentation/lib/NMEAParser/Software/NMEAParserLib/NMEAParserPacket.cpp" "/home/pi/masters_project/binauralsensoryaugmentation/lib/NMEAParser/NMEAParserBuild/NMEAParserLib/CMakeFiles/NMEAParserLib.dir/NMEAParserPacket.cpp.o"
-  "/home/pi/masters_project/binauralsensoryaugmentation/lib/NMEAParser/Software/NMEAParserLib/NMEASentenceBase.cpp" "/home/pi/masters_project/binauralsensoryaugmentation/lib/NMEAParser/NMEAParserBuild/NMEAParserLib/CMakeFiles/NMEAParserLib.dir/NMEASentenceBase.cpp.o"
-  "/home/pi/masters_project/binauralsensoryaugmentation/lib/NMEAParser/Software/NMEAParserLib/NMEASentenceGGA.cpp" "/home/pi/masters_project/binauralsensoryaugmentation/lib/NMEAParser/NMEAParserBuild/NMEAParserLib/CMakeFiles/NMEAParserLib.dir/NMEASentenceGGA.cpp.o"
-  "/home/pi/masters_project/binauralsensoryaugmentation/lib/NMEAParser/Software/NMEAParserLib/NMEASentenceGSA.cpp" "/home/pi/masters_project/binauralsensoryaugmentation/lib/NMEAParser/NMEAParserBuild/NMEAParserLib/CMakeFiles/NMEAParserLib.dir/NMEASentenceGSA.cpp.o"
-  "/home/pi/masters_project/binauralsensoryaugmentation/lib/NMEAParser/Software/NMEAParserLib/NMEASentenceGSV.cpp" "/home/pi/masters_project/binauralsensoryaugmentation/lib/NMEAParser/NMEAParserBuild/NMEAParserLib/CMakeFiles/NMEAParserLib.dir/NMEASentenceGSV.cpp.o"
-  "/home/pi/masters_project/binauralsensoryaugmentation/lib/NMEAParser/Software/NMEAParserLib/NMEASentenceRMC.cpp" "/home/pi/masters_project/binauralsensoryaugmentation/lib/NMEAParser/NMEAParserBuild/NMEAParserLib/CMakeFiles/NMEAParserLib.dir/NMEASentenceRMC.cpp.o"
+  "/home/pi/Projects/mece2021/binauralsensoryaugmentation/lib/NMEAParser/Software/NMEAParserLib/NMEAParser.cpp" "/home/pi/Projects/mece2021/binauralsensoryaugmentation/lib/NMEAParser/NMEAParserBuild/NMEAParserLib/CMakeFiles/NMEAParserLib.dir/NMEAParser.cpp.o"
+  "/home/pi/Projects/mece2021/binauralsensoryaugmentation/lib/NMEAParser/Software/NMEAParserLib/NMEAParserPacket.cpp" "/home/pi/Projects/mece2021/binauralsensoryaugmentation/lib/NMEAParser/NMEAParserBuild/NMEAParserLib/CMakeFiles/NMEAParserLib.dir/NMEAParserPacket.cpp.o"
+  "/home/pi/Projects/mece2021/binauralsensoryaugmentation/lib/NMEAParser/Software/NMEAParserLib/NMEASentenceBase.cpp" "/home/pi/Projects/mece2021/binauralsensoryaugmentation/lib/NMEAParser/NMEAParserBuild/NMEAParserLib/CMakeFiles/NMEAParserLib.dir/NMEASentenceBase.cpp.o"
+  "/home/pi/Projects/mece2021/binauralsensoryaugmentation/lib/NMEAParser/Software/NMEAParserLib/NMEASentenceGGA.cpp" "/home/pi/Projects/mece2021/binauralsensoryaugmentation/lib/NMEAParser/NMEAParserBuild/NMEAParserLib/CMakeFiles/NMEAParserLib.dir/NMEASentenceGGA.cpp.o"
+  "/home/pi/Projects/mece2021/binauralsensoryaugmentation/lib/NMEAParser/Software/NMEAParserLib/NMEASentenceGSA.cpp" "/home/pi/Projects/mece2021/binauralsensoryaugmentation/lib/NMEAParser/NMEAParserBuild/NMEAParserLib/CMakeFiles/NMEAParserLib.dir/NMEASentenceGSA.cpp.o"
+  "/home/pi/Projects/mece2021/binauralsensoryaugmentation/lib/NMEAParser/Software/NMEAParserLib/NMEASentenceGSV.cpp" "/home/pi/Projects/mece2021/binauralsensoryaugmentation/lib/NMEAParser/NMEAParserBuild/NMEAParserLib/CMakeFiles/NMEAParserLib.dir/NMEASentenceGSV.cpp.o"
+  "/home/pi/Projects/mece2021/binauralsensoryaugmentation/lib/NMEAParser/Software/NMEAParserLib/NMEASentenceRMC.cpp" "/home/pi/Projects/mece2021/binauralsensoryaugmentation/lib/NMEAParser/NMEAParserBuild/NMEAParserLib/CMakeFiles/NMEAParserLib.dir/NMEASentenceRMC.cpp.o"
   )
 set(CMAKE_CXX_COMPILER_ID "GNU")
 

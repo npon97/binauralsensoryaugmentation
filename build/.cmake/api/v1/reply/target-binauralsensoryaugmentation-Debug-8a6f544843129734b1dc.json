@@ -2,7 +2,7 @@
 	"artifacts" : 
 	[
 		{
-			"path" : "/home/pi/masters_project/binauralsensoryaugmentation/bin/binauralsensoryaugmentation"
+			"path" : "/home/pi/Projects/mece2021/binauralsensoryaugmentation/bin/binauralsensoryaugmentation"
 		}
 	],
 	"backtrace" : 1,
@@ -62,11 +62,11 @@
 			[
 				{
 					"backtrace" : 3,
-					"path" : "/home/pi/masters_project/binauralsensoryaugmentation/lib/NMEAParser/Software/NMEAParserLib"
+					"path" : "/home/pi/Projects/mece2021/binauralsensoryaugmentation/lib/NMEAParser/Software/NMEAParserLib"
 				},
 				{
 					"backtrace" : 4,
-					"path" : "/home/pi/masters_project/binauralsensoryaugmentation/include"
+					"path" : "/home/pi/Projects/mece2021/binauralsensoryaugmentation/include"
 				}
 			],
 			"language" : "CXX",
@@ -94,11 +94,11 @@
 			},
 			{
 				"backtrace" : 2,
-				"fragment" : "-L/home/pi/masters_project/binauralsensoryaugmentation/lib/NMEAParser/NMEAParserBuild/NMEAParserLib",
+				"fragment" : "-L/home/pi/Projects/mece2021/binauralsensoryaugmentation/lib/NMEAParser/NMEAParserBuild/NMEAParserLib",
 				"role" : "libraryPath"
 			},
 			{
-				"fragment" : "-Wl,-rpath,/home/pi/masters_project/binauralsensoryaugmentation/lib/NMEAParser/NMEAParserBuild/NMEAParserLib",
+				"fragment" : "-Wl,-rpath,/home/pi/Projects/mece2021/binauralsensoryaugmentation/lib/NMEAParser/NMEAParserBuild/NMEAParserLib",
 				"role" : "libraries"
 			},
 			{

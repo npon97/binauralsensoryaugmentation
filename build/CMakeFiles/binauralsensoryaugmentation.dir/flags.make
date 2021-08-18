@@ -6,5 +6,5 @@ CXX_FLAGS = -g -DDEBUG
 
 CXX_DEFINES = 
 
-CXX_INCLUDES = -I/home/pi/masters_project/binauralsensoryaugmentation/lib/NMEAParser/Software/NMEAParserLib -I/home/pi/masters_project/binauralsensoryaugmentation/include 
+CXX_INCLUDES = -I/home/pi/Projects/mece2021/binauralsensoryaugmentation/lib/NMEAParser/Software/NMEAParserLib -I/home/pi/Projects/mece2021/binauralsensoryaugmentation/include 
 

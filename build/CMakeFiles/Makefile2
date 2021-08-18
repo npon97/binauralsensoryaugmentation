@@ -44,10 +44,10 @@ RM = /usr/bin/cmake -E remove -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/pi/masters_project/binauralsensoryaugmentation
+CMAKE_SOURCE_DIR = /home/pi/Projects/mece2021/binauralsensoryaugmentation
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/pi/masters_project/binauralsensoryaugmentation/build
+CMAKE_BINARY_DIR = /home/pi/Projects/mece2021/binauralsensoryaugmentation/build
 
 #=============================================================================
 # Directory level rules for the build root directory
@@ -74,14 +74,14 @@ clean: CMakeFiles/binauralsensoryaugmentation.dir/clean
 CMakeFiles/binauralsensoryaugmentation.dir/all:
 	$(MAKE) -f CMakeFiles/binauralsensoryaugmentation.dir/build.make CMakeFiles/binauralsensoryaugmentation.dir/depend
 	$(MAKE) -f CMakeFiles/binauralsensoryaugmentation.dir/build.make CMakeFiles/binauralsensoryaugmentation.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/pi/masters_project/binauralsensoryaugmentation/build/CMakeFiles --progress-num=1,2,3,4,5 "Built target binauralsensoryaugmentation"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/pi/Projects/mece2021/binauralsensoryaugmentation/build/CMakeFiles --progress-num=1,2,3,4,5 "Built target binauralsensoryaugmentation"
 .PHONY : CMakeFiles/binauralsensoryaugmentation.dir/all
 
 # Build rule for subdir invocation for target.
 CMakeFiles/binauralsensoryaugmentation.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/pi/masters_project/binauralsensoryaugmentation/build/CMakeFiles 5
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/pi/Projects/mece2021/binauralsensoryaugmentation/build/CMakeFiles 5
 	$(MAKE) -f CMakeFiles/Makefile2 CMakeFiles/binauralsensoryaugmentation.dir/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/pi/masters_project/binauralsensoryaugmentation/build/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/pi/Projects/mece2021/binauralsensoryaugmentation/build/CMakeFiles 0
 .PHONY : CMakeFiles/binauralsensoryaugmentation.dir/rule
 
 # Convenience name for target.

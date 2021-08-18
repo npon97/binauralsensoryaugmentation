@@ -1,8 +1,8 @@
-/home/pi/masters_project/binauralsensoryaugmentation/lib/NMEAParser/NMEAParserBuild/CMakeFiles/rebuild_cache.dir
-/home/pi/masters_project/binauralsensoryaugmentation/lib/NMEAParser/NMEAParserBuild/CMakeFiles/edit_cache.dir
-/home/pi/masters_project/binauralsensoryaugmentation/lib/NMEAParser/NMEAParserBuild/NMEAParserLib/CMakeFiles/rebuild_cache.dir
-/home/pi/masters_project/binauralsensoryaugmentation/lib/NMEAParser/NMEAParserBuild/NMEAParserLib/CMakeFiles/NMEAParserLib.dir
-/home/pi/masters_project/binauralsensoryaugmentation/lib/NMEAParser/NMEAParserBuild/NMEAParserLib/CMakeFiles/edit_cache.dir
-/home/pi/masters_project/binauralsensoryaugmentation/lib/NMEAParser/NMEAParserBuild/NMEAParserTest/CMakeFiles/rebuild_cache.dir
-/home/pi/masters_project/binauralsensoryaugmentation/lib/NMEAParser/NMEAParserBuild/NMEAParserTest/CMakeFiles/NMEAParserTest.dir
-/home/pi/masters_project/binauralsensoryaugmentation/lib/NMEAParser/NMEAParserBuild/NMEAParserTest/CMakeFiles/edit_cache.dir
+/home/pi/Projects/mece2021/binauralsensoryaugmentation/lib/NMEAParser/NMEAParserBuild/CMakeFiles/rebuild_cache.dir
+/home/pi/Projects/mece2021/binauralsensoryaugmentation/lib/NMEAParser/NMEAParserBuild/CMakeFiles/edit_cache.dir
+/home/pi/Projects/mece2021/binauralsensoryaugmentation/lib/NMEAParser/NMEAParserBuild/NMEAParserLib/CMakeFiles/rebuild_cache.dir
+/home/pi/Projects/mece2021/binauralsensoryaugmentation/lib/NMEAParser/NMEAParserBuild/NMEAParserLib/CMakeFiles/NMEAParserLib.dir
+/home/pi/Projects/mece2021/binauralsensoryaugmentation/lib/NMEAParser/NMEAParserBuild/NMEAParserLib/CMakeFiles/edit_cache.dir
+/home/pi/Projects/mece2021/binauralsensoryaugmentation/lib/NMEAParser/NMEAParserBuild/NMEAParserTest/CMakeFiles/rebuild_cache.dir
+/home/pi/Projects/mece2021/binauralsensoryaugmentation/lib/NMEAParser/NMEAParserBuild/NMEAParserTest/CMakeFiles/NMEAParserTest.dir
+/home/pi/Projects/mece2021/binauralsensoryaugmentation/lib/NMEAParser/NMEAParserBuild/NMEAParserTest/CMakeFiles/edit_cache.dir

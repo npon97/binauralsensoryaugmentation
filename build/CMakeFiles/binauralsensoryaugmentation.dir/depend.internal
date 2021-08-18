@@ -3,11 +3,11 @@
 
 CMakeFiles/binauralsensoryaugmentation.dir/src/I2CDevice.cpp.o
  ../include/I2CDevice.h
- /home/pi/masters_project/binauralsensoryaugmentation/src/I2CDevice.cpp
+ /home/pi/Projects/mece2021/binauralsensoryaugmentation/src/I2CDevice.cpp
 CMakeFiles/binauralsensoryaugmentation.dir/src/LSM303AGR_MAG.cpp.o
  ../include/I2CDevice.h
  ../include/LSM303AGR_MAG.h
- /home/pi/masters_project/binauralsensoryaugmentation/src/LSM303AGR_MAG.cpp
+ /home/pi/Projects/mece2021/binauralsensoryaugmentation/src/LSM303AGR_MAG.cpp
 CMakeFiles/binauralsensoryaugmentation.dir/src/PA1010D.cpp.o
  ../include/I2CDevice.h
  ../include/PA1010D.h
@@ -19,7 +19,7 @@ CMakeFiles/binauralsensoryaugmentation.dir/src/PA1010D.cpp.o
  ../lib/NMEAParser/Software/NMEAParserLib/NMEASentenceGSA.h
  ../lib/NMEAParser/Software/NMEAParserLib/NMEASentenceGSV.h
  ../lib/NMEAParser/Software/NMEAParserLib/NMEASentenceRMC.h
- /home/pi/masters_project/binauralsensoryaugmentation/src/PA1010D.cpp
+ /home/pi/Projects/mece2021/binauralsensoryaugmentation/src/PA1010D.cpp
 CMakeFiles/binauralsensoryaugmentation.dir/src/main.cpp.o
  ../include/I2CDevice.h
  ../include/LSM303AGR_MAG.h
@@ -32,4 +32,4 @@ CMakeFiles/binauralsensoryaugmentation.dir/src/main.cpp.o
  ../lib/NMEAParser/Software/NMEAParserLib/NMEASentenceGSA.h
  ../lib/NMEAParser/Software/NMEAParserLib/NMEASentenceGSV.h
  ../lib/NMEAParser/Software/NMEAParserLib/NMEASentenceRMC.h
- /home/pi/masters_project/binauralsensoryaugmentation/src/main.cpp
+ /home/pi/Projects/mece2021/binauralsensoryaugmentation/src/main.cpp

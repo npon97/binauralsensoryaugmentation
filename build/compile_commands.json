@@ -1,22 +1,22 @@
 [
 {
-  "directory": "/home/pi/masters_project/binauralsensoryaugmentation/build",
-  "command": "/bin/g++-8   -I/home/pi/masters_project/binauralsensoryaugmentation/lib/NMEAParser/Software/NMEAParserLib -I/home/pi/masters_project/binauralsensoryaugmentation/include  -g -DDEBUG   -o CMakeFiles/binauralsensoryaugmentation.dir/src/I2CDevice.cpp.o -c /home/pi/masters_project/binauralsensoryaugmentation/src/I2CDevice.cpp",
-  "file": "/home/pi/masters_project/binauralsensoryaugmentation/src/I2CDevice.cpp"
+  "directory": "/home/pi/Projects/mece2021/binauralsensoryaugmentation/build",
+  "command": "/bin/g++-8   -I/home/pi/Projects/mece2021/binauralsensoryaugmentation/lib/NMEAParser/Software/NMEAParserLib -I/home/pi/Projects/mece2021/binauralsensoryaugmentation/include  -g -DDEBUG   -o CMakeFiles/binauralsensoryaugmentation.dir/src/I2CDevice.cpp.o -c /home/pi/Projects/mece2021/binauralsensoryaugmentation/src/I2CDevice.cpp",
+  "file": "/home/pi/Projects/mece2021/binauralsensoryaugmentation/src/I2CDevice.cpp"
 },
 {
-  "directory": "/home/pi/masters_project/binauralsensoryaugmentation/build",
-  "command": "/bin/g++-8   -I/home/pi/masters_project/binauralsensoryaugmentation/lib/NMEAParser/Software/NMEAParserLib -I/home/pi/masters_project/binauralsensoryaugmentation/include  -g -DDEBUG   -o CMakeFiles/binauralsensoryaugmentation.dir/src/LSM303AGR_MAG.cpp.o -c /home/pi/masters_project/binauralsensoryaugmentation/src/LSM303AGR_MAG.cpp",
-  "file": "/home/pi/masters_project/binauralsensoryaugmentation/src/LSM303AGR_MAG.cpp"
+  "directory": "/home/pi/Projects/mece2021/binauralsensoryaugmentation/build",
+  "command": "/bin/g++-8   -I/home/pi/Projects/mece2021/binauralsensoryaugmentation/lib/NMEAParser/Software/NMEAParserLib -I/home/pi/Projects/mece2021/binauralsensoryaugmentation/include  -g -DDEBUG   -o CMakeFiles/binauralsensoryaugmentation.dir/src/LSM303AGR_MAG.cpp.o -c /home/pi/Projects/mece2021/binauralsensoryaugmentation/src/LSM303AGR_MAG.cpp",
+  "file": "/home/pi/Projects/mece2021/binauralsensoryaugmentation/src/LSM303AGR_MAG.cpp"
 },
 {
-  "directory": "/home/pi/masters_project/binauralsensoryaugmentation/build",
-  "command": "/bin/g++-8   -I/home/pi/masters_project/binauralsensoryaugmentation/lib/NMEAParser/Software/NMEAParserLib -I/home/pi/masters_project/binauralsensoryaugmentation/include  -g -DDEBUG   -o CMakeFiles/binauralsensoryaugmentation.dir/src/PA1010D.cpp.o -c /home/pi/masters_project/binauralsensoryaugmentation/src/PA1010D.cpp",
-  "file": "/home/pi/masters_project/binauralsensoryaugmentation/src/PA1010D.cpp"
+  "directory": "/home/pi/Projects/mece2021/binauralsensoryaugmentation/build",
+  "command": "/bin/g++-8   -I/home/pi/Projects/mece2021/binauralsensoryaugmentation/lib/NMEAParser/Software/NMEAParserLib -I/home/pi/Projects/mece2021/binauralsensoryaugmentation/include  -g -DDEBUG   -o CMakeFiles/binauralsensoryaugmentation.dir/src/PA1010D.cpp.o -c /home/pi/Projects/mece2021/binauralsensoryaugmentation/src/PA1010D.cpp",
+  "file": "/home/pi/Projects/mece2021/binauralsensoryaugmentation/src/PA1010D.cpp"
 },
 {
-  "directory": "/home/pi/masters_project/binauralsensoryaugmentation/build",
-  "command": "/bin/g++-8   -I/home/pi/masters_project/binauralsensoryaugmentation/lib/NMEAParser/Software/NMEAParserLib -I/home/pi/masters_project/binauralsensoryaugmentation/include  -g -DDEBUG   -o CMakeFiles/binauralsensoryaugmentation.dir/src/main.cpp.o -c /home/pi/masters_project/binauralsensoryaugmentation/src/main.cpp",
-  "file": "/home/pi/masters_project/binauralsensoryaugmentation/src/main.cpp"
+  "directory": "/home/pi/Projects/mece2021/binauralsensoryaugmentation/build",
+  "command": "/bin/g++-8   -I/home/pi/Projects/mece2021/binauralsensoryaugmentation/lib/NMEAParser/Software/NMEAParserLib -I/home/pi/Projects/mece2021/binauralsensoryaugmentation/include  -g -DDEBUG   -o CMakeFiles/binauralsensoryaugmentation.dir/src/main.cpp.o -c /home/pi/Projects/mece2021/binauralsensoryaugmentation/src/main.cpp",
+  "file": "/home/pi/Projects/mece2021/binauralsensoryaugmentation/src/main.cpp"
 }
 ]

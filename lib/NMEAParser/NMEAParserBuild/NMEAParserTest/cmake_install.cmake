@@ -1,4 +1,4 @@
-# Install script for directory: /home/pi/masters_project/binauralsensoryaugmentation/lib/NMEAParser/Software/NMEAParserTest
+# Install script for directory: /home/pi/Projects/mece2021/binauralsensoryaugmentation/lib/NMEAParser/Software/NMEAParserTest
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)

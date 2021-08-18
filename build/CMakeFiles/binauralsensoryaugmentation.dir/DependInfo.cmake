@@ -4,10 +4,10 @@ set(CMAKE_DEPENDS_LANGUAGES
   )
 # The set of files for implicit dependencies of each language:
 set(CMAKE_DEPENDS_CHECK_CXX
-  "/home/pi/masters_project/binauralsensoryaugmentation/src/I2CDevice.cpp" "/home/pi/masters_project/binauralsensoryaugmentation/build/CMakeFiles/binauralsensoryaugmentation.dir/src/I2CDevice.cpp.o"
-  "/home/pi/masters_project/binauralsensoryaugmentation/src/LSM303AGR_MAG.cpp" "/home/pi/masters_project/binauralsensoryaugmentation/build/CMakeFiles/binauralsensoryaugmentation.dir/src/LSM303AGR_MAG.cpp.o"
-  "/home/pi/masters_project/binauralsensoryaugmentation/src/PA1010D.cpp" "/home/pi/masters_project/binauralsensoryaugmentation/build/CMakeFiles/binauralsensoryaugmentation.dir/src/PA1010D.cpp.o"
-  "/home/pi/masters_project/binauralsensoryaugmentation/src/main.cpp" "/home/pi/masters_project/binauralsensoryaugmentation/build/CMakeFiles/binauralsensoryaugmentation.dir/src/main.cpp.o"
+  "/home/pi/Projects/mece2021/binauralsensoryaugmentation/src/I2CDevice.cpp" "/home/pi/Projects/mece2021/binauralsensoryaugmentation/build/CMakeFiles/binauralsensoryaugmentation.dir/src/I2CDevice.cpp.o"
+  "/home/pi/Projects/mece2021/binauralsensoryaugmentation/src/LSM303AGR_MAG.cpp" "/home/pi/Projects/mece2021/binauralsensoryaugmentation/build/CMakeFiles/binauralsensoryaugmentation.dir/src/LSM303AGR_MAG.cpp.o"
+  "/home/pi/Projects/mece2021/binauralsensoryaugmentation/src/PA1010D.cpp" "/home/pi/Projects/mece2021/binauralsensoryaugmentation/build/CMakeFiles/binauralsensoryaugmentation.dir/src/PA1010D.cpp.o"
+  "/home/pi/Projects/mece2021/binauralsensoryaugmentation/src/main.cpp" "/home/pi/Projects/mece2021/binauralsensoryaugmentation/build/CMakeFiles/binauralsensoryaugmentation.dir/src/main.cpp.o"
   )
 set(CMAKE_CXX_COMPILER_ID "GNU")
 

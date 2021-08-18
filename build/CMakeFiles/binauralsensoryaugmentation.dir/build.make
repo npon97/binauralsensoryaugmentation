@@ -43,10 +43,10 @@ RM = /usr/bin/cmake -E remove -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/pi/masters_project/binauralsensoryaugmentation
+CMAKE_SOURCE_DIR = /home/pi/Projects/mece2021/binauralsensoryaugmentation
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/pi/masters_project/binauralsensoryaugmentation/build
+CMAKE_BINARY_DIR = /home/pi/Projects/mece2021/binauralsensoryaugmentation/build
 
 # Include any dependencies generated for this target.
 include CMakeFiles/binauralsensoryaugmentation.dir/depend.make
@@ -59,55 +59,55 @@ include CMakeFiles/binauralsensoryaugmentation.dir/flags.make
 
 CMakeFiles/binauralsensoryaugmentation.dir/src/I2CDevice.cpp.o: CMakeFiles/binauralsensoryaugmentation.dir/flags.make
 CMakeFiles/binauralsensoryaugmentation.dir/src/I2CDevice.cpp.o: ../src/I2CDevice.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/pi/masters_project/binauralsensoryaugmentation/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/binauralsensoryaugmentation.dir/src/I2CDevice.cpp.o"
-	/bin/g++-8  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/binauralsensoryaugmentation.dir/src/I2CDevice.cpp.o -c /home/pi/masters_project/binauralsensoryaugmentation/src/I2CDevice.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/pi/Projects/mece2021/binauralsensoryaugmentation/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/binauralsensoryaugmentation.dir/src/I2CDevice.cpp.o"
+	/bin/g++-8  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/binauralsensoryaugmentation.dir/src/I2CDevice.cpp.o -c /home/pi/Projects/mece2021/binauralsensoryaugmentation/src/I2CDevice.cpp
 
 CMakeFiles/binauralsensoryaugmentation.dir/src/I2CDevice.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/binauralsensoryaugmentation.dir/src/I2CDevice.cpp.i"
-	/bin/g++-8 $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/pi/masters_project/binauralsensoryaugmentation/src/I2CDevice.cpp > CMakeFiles/binauralsensoryaugmentation.dir/src/I2CDevice.cpp.i
+	/bin/g++-8 $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/pi/Projects/mece2021/binauralsensoryaugmentation/src/I2CDevice.cpp > CMakeFiles/binauralsensoryaugmentation.dir/src/I2CDevice.cpp.i
 
 CMakeFiles/binauralsensoryaugmentation.dir/src/I2CDevice.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/binauralsensoryaugmentation.dir/src/I2CDevice.cpp.s"
-	/bin/g++-8 $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/pi/masters_project/binauralsensoryaugmentation/src/I2CDevice.cpp -o CMakeFiles/binauralsensoryaugmentation.dir/src/I2CDevice.cpp.s
+	/bin/g++-8 $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/pi/Projects/mece2021/binauralsensoryaugmentation/src/I2CDevice.cpp -o CMakeFiles/binauralsensoryaugmentation.dir/src/I2CDevice.cpp.s
 
 CMakeFiles/binauralsensoryaugmentation.dir/src/LSM303AGR_MAG.cpp.o: CMakeFiles/binauralsensoryaugmentation.dir/flags.make
 CMakeFiles/binauralsensoryaugmentation.dir/src/LSM303AGR_MAG.cpp.o: ../src/LSM303AGR_MAG.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/pi/masters_project/binauralsensoryaugmentation/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/binauralsensoryaugmentation.dir/src/LSM303AGR_MAG.cpp.o"
-	/bin/g++-8  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/binauralsensoryaugmentation.dir/src/LSM303AGR_MAG.cpp.o -c /home/pi/masters_project/binauralsensoryaugmentation/src/LSM303AGR_MAG.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/pi/Projects/mece2021/binauralsensoryaugmentation/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/binauralsensoryaugmentation.dir/src/LSM303AGR_MAG.cpp.o"
+	/bin/g++-8  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/binauralsensoryaugmentation.dir/src/LSM303AGR_MAG.cpp.o -c /home/pi/Projects/mece2021/binauralsensoryaugmentation/src/LSM303AGR_MAG.cpp
 
 CMakeFiles/binauralsensoryaugmentation.dir/src/LSM303AGR_MAG.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/binauralsensoryaugmentation.dir/src/LSM303AGR_MAG.cpp.i"
-	/bin/g++-8 $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/pi/masters_project/binauralsensoryaugmentation/src/LSM303AGR_MAG.cpp > CMakeFiles/binauralsensoryaugmentation.dir/src/LSM303AGR_MAG.cpp.i
+	/bin/g++-8 $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/pi/Projects/mece2021/binauralsensoryaugmentation/src/LSM303AGR_MAG.cpp > CMakeFiles/binauralsensoryaugmentation.dir/src/LSM303AGR_MAG.cpp.i
 
 CMakeFiles/binauralsensoryaugmentation.dir/src/LSM303AGR_MAG.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/binauralsensoryaugmentation.dir/src/LSM303AGR_MAG.cpp.s"
-	/bin/g++-8 $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/pi/masters_project/binauralsensoryaugmentation/src/LSM303AGR_MAG.cpp -o CMakeFiles/binauralsensoryaugmentation.dir/src/LSM303AGR_MAG.cpp.s
+	/bin/g++-8 $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/pi/Projects/mece2021/binauralsensoryaugmentation/src/LSM303AGR_MAG.cpp -o CMakeFiles/binauralsensoryaugmentation.dir/src/LSM303AGR_MAG.cpp.s
 
 CMakeFiles/binauralsensoryaugmentation.dir/src/PA1010D.cpp.o: CMakeFiles/binauralsensoryaugmentation.dir/flags.make
 CMakeFiles/binauralsensoryaugmentation.dir/src/PA1010D.cpp.o: ../src/PA1010D.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/pi/masters_project/binauralsensoryaugmentation/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/binauralsensoryaugmentation.dir/src/PA1010D.cpp.o"
-	/bin/g++-8  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/binauralsensoryaugmentation.dir/src/PA1010D.cpp.o -c /home/pi/masters_project/binauralsensoryaugmentation/src/PA1010D.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/pi/Projects/mece2021/binauralsensoryaugmentation/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/binauralsensoryaugmentation.dir/src/PA1010D.cpp.o"
+	/bin/g++-8  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/binauralsensoryaugmentation.dir/src/PA1010D.cpp.o -c /home/pi/Projects/mece2021/binauralsensoryaugmentation/src/PA1010D.cpp
 
 CMakeFiles/binauralsensoryaugmentation.dir/src/PA1010D.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/binauralsensoryaugmentation.dir/src/PA1010D.cpp.i"
-	/bin/g++-8 $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/pi/masters_project/binauralsensoryaugmentation/src/PA1010D.cpp > CMakeFiles/binauralsensoryaugmentation.dir/src/PA1010D.cpp.i
+	/bin/g++-8 $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/pi/Projects/mece2021/binauralsensoryaugmentation/src/PA1010D.cpp > CMakeFiles/binauralsensoryaugmentation.dir/src/PA1010D.cpp.i
 
 CMakeFiles/binauralsensoryaugmentation.dir/src/PA1010D.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/binauralsensoryaugmentation.dir/src/PA1010D.cpp.s"
-	/bin/g++-8 $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/pi/masters_project/binauralsensoryaugmentation/src/PA1010D.cpp -o CMakeFiles/binauralsensoryaugmentation.dir/src/PA1010D.cpp.s
+	/bin/g++-8 $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/pi/Projects/mece2021/binauralsensoryaugmentation/src/PA1010D.cpp -o CMakeFiles/binauralsensoryaugmentation.dir/src/PA1010D.cpp.s
 
 CMakeFiles/binauralsensoryaugmentation.dir/src/main.cpp.o: CMakeFiles/binauralsensoryaugmentation.dir/flags.make
 CMakeFiles/binauralsensoryaugmentation.dir/src/main.cpp.o: ../src/main.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/pi/masters_project/binauralsensoryaugmentation/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object CMakeFiles/binauralsensoryaugmentation.dir/src/main.cpp.o"
-	/bin/g++-8  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/binauralsensoryaugmentation.dir/src/main.cpp.o -c /home/pi/masters_project/binauralsensoryaugmentation/src/main.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/pi/Projects/mece2021/binauralsensoryaugmentation/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object CMakeFiles/binauralsensoryaugmentation.dir/src/main.cpp.o"
+	/bin/g++-8  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/binauralsensoryaugmentation.dir/src/main.cpp.o -c /home/pi/Projects/mece2021/binauralsensoryaugmentation/src/main.cpp
 
 CMakeFiles/binauralsensoryaugmentation.dir/src/main.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/binauralsensoryaugmentation.dir/src/main.cpp.i"
-	/bin/g++-8 $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/pi/masters_project/binauralsensoryaugmentation/src/main.cpp > CMakeFiles/binauralsensoryaugmentation.dir/src/main.cpp.i
+	/bin/g++-8 $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/pi/Projects/mece2021/binauralsensoryaugmentation/src/main.cpp > CMakeFiles/binauralsensoryaugmentation.dir/src/main.cpp.i
 
 CMakeFiles/binauralsensoryaugmentation.dir/src/main.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/binauralsensoryaugmentation.dir/src/main.cpp.s"
-	/bin/g++-8 $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/pi/masters_project/binauralsensoryaugmentation/src/main.cpp -o CMakeFiles/binauralsensoryaugmentation.dir/src/main.cpp.s
+	/bin/g++-8 $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/pi/Projects/mece2021/binauralsensoryaugmentation/src/main.cpp -o CMakeFiles/binauralsensoryaugmentation.dir/src/main.cpp.s
 
 # Object files for target binauralsensoryaugmentation
 binauralsensoryaugmentation_OBJECTS = \
@@ -125,7 +125,7 @@ binauralsensoryaugmentation_EXTERNAL_OBJECTS =
 ../bin/binauralsensoryaugmentation: CMakeFiles/binauralsensoryaugmentation.dir/src/main.cpp.o
 ../bin/binauralsensoryaugmentation: CMakeFiles/binauralsensoryaugmentation.dir/build.make
 ../bin/binauralsensoryaugmentation: CMakeFiles/binauralsensoryaugmentation.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/pi/masters_project/binauralsensoryaugmentation/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Linking CXX executable ../bin/binauralsensoryaugmentation"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/pi/Projects/mece2021/binauralsensoryaugmentation/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Linking CXX executable ../bin/binauralsensoryaugmentation"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/binauralsensoryaugmentation.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.
@@ -138,6 +138,6 @@ CMakeFiles/binauralsensoryaugmentation.dir/clean:
 .PHONY : CMakeFiles/binauralsensoryaugmentation.dir/clean
 
 CMakeFiles/binauralsensoryaugmentation.dir/depend:
-	cd /home/pi/masters_project/binauralsensoryaugmentation/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/pi/masters_project/binauralsensoryaugmentation /home/pi/masters_project/binauralsensoryaugmentation /home/pi/masters_project/binauralsensoryaugmentation/build /home/pi/masters_project/binauralsensoryaugmentation/build /home/pi/masters_project/binauralsensoryaugmentation/build/CMakeFiles/binauralsensoryaugmentation.dir/DependInfo.cmake --color=$(COLOR)
+	cd /home/pi/Projects/mece2021/binauralsensoryaugmentation/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/pi/Projects/mece2021/binauralsensoryaugmentation /home/pi/Projects/mece2021/binauralsensoryaugmentation /home/pi/Projects/mece2021/binauralsensoryaugmentation/build /home/pi/Projects/mece2021/binauralsensoryaugmentation/build /home/pi/Projects/mece2021/binauralsensoryaugmentation/build/CMakeFiles/binauralsensoryaugmentation.dir/DependInfo.cmake --color=$(COLOR)
 .PHONY : CMakeFiles/binauralsensoryaugmentation.dir/depend
 

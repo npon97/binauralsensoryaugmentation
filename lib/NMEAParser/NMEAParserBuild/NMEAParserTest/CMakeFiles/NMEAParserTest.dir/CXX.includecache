@@ -6,7 +6,7 @@
 
 #IncludeRegexTransform: 
 
-/home/pi/masters_project/binauralsensoryaugmentation/lib/NMEAParser/Software/NMEAParserLib/NMEAParser.h
+/home/pi/Projects/mece2021/binauralsensoryaugmentation/lib/NMEAParser/Software/NMEAParserLib/NMEAParser.h
 cstddef
 -
 stdint.h
@@ -14,19 +14,19 @@ stdint.h
 map
 -
 NMEAParserData.h
-/home/pi/masters_project/binauralsensoryaugmentation/lib/NMEAParser/Software/NMEAParserLib/NMEAParserData.h
+/home/pi/Projects/mece2021/binauralsensoryaugmentation/lib/NMEAParser/Software/NMEAParserLib/NMEAParserData.h
 NMEAParserPacket.h
-/home/pi/masters_project/binauralsensoryaugmentation/lib/NMEAParser/Software/NMEAParserLib/NMEAParserPacket.h
+/home/pi/Projects/mece2021/binauralsensoryaugmentation/lib/NMEAParser/Software/NMEAParserLib/NMEAParserPacket.h
 NMEASentenceGGA.h
-/home/pi/masters_project/binauralsensoryaugmentation/lib/NMEAParser/Software/NMEAParserLib/NMEASentenceGGA.h
+/home/pi/Projects/mece2021/binauralsensoryaugmentation/lib/NMEAParser/Software/NMEAParserLib/NMEASentenceGGA.h
 NMEASentenceGSV.h
-/home/pi/masters_project/binauralsensoryaugmentation/lib/NMEAParser/Software/NMEAParserLib/NMEASentenceGSV.h
+/home/pi/Projects/mece2021/binauralsensoryaugmentation/lib/NMEAParser/Software/NMEAParserLib/NMEASentenceGSV.h
 NMEASentenceGSA.h
-/home/pi/masters_project/binauralsensoryaugmentation/lib/NMEAParser/Software/NMEAParserLib/NMEASentenceGSA.h
+/home/pi/Projects/mece2021/binauralsensoryaugmentation/lib/NMEAParser/Software/NMEAParserLib/NMEASentenceGSA.h
 NMEASentenceRMC.h
-/home/pi/masters_project/binauralsensoryaugmentation/lib/NMEAParser/Software/NMEAParserLib/NMEASentenceRMC.h
+/home/pi/Projects/mece2021/binauralsensoryaugmentation/lib/NMEAParser/Software/NMEAParserLib/NMEASentenceRMC.h
 
-/home/pi/masters_project/binauralsensoryaugmentation/lib/NMEAParser/Software/NMEAParserLib/NMEAParserData.h
+/home/pi/Projects/mece2021/binauralsensoryaugmentation/lib/NMEAParser/Software/NMEAParserLib/NMEAParserData.h
 cstddef
 -
 stdint.h
@@ -34,51 +34,51 @@ stdint.h
 time.h
 -
 
-/home/pi/masters_project/binauralsensoryaugmentation/lib/NMEAParser/Software/NMEAParserLib/NMEAParserPacket.h
+/home/pi/Projects/mece2021/binauralsensoryaugmentation/lib/NMEAParser/Software/NMEAParserLib/NMEAParserPacket.h
 cstddef
 -
 stdint.h
 -
 NMEAParserData.h
-/home/pi/masters_project/binauralsensoryaugmentation/lib/NMEAParser/Software/NMEAParserLib/NMEAParserData.h
+/home/pi/Projects/mece2021/binauralsensoryaugmentation/lib/NMEAParser/Software/NMEAParserLib/NMEAParserData.h
 
-/home/pi/masters_project/binauralsensoryaugmentation/lib/NMEAParser/Software/NMEAParserLib/NMEASentenceBase.h
+/home/pi/Projects/mece2021/binauralsensoryaugmentation/lib/NMEAParser/Software/NMEAParserLib/NMEASentenceBase.h
 string
 -
 NMEAParserData.h
-/home/pi/masters_project/binauralsensoryaugmentation/lib/NMEAParser/Software/NMEAParserLib/NMEAParserData.h
+/home/pi/Projects/mece2021/binauralsensoryaugmentation/lib/NMEAParser/Software/NMEAParserLib/NMEAParserData.h
 
-/home/pi/masters_project/binauralsensoryaugmentation/lib/NMEAParser/Software/NMEAParserLib/NMEASentenceGGA.h
+/home/pi/Projects/mece2021/binauralsensoryaugmentation/lib/NMEAParser/Software/NMEAParserLib/NMEASentenceGGA.h
 string
 -
 NMEAParserData.h
-/home/pi/masters_project/binauralsensoryaugmentation/lib/NMEAParser/Software/NMEAParserLib/NMEAParserData.h
+/home/pi/Projects/mece2021/binauralsensoryaugmentation/lib/NMEAParser/Software/NMEAParserLib/NMEAParserData.h
 NMEASentenceBase.h
-/home/pi/masters_project/binauralsensoryaugmentation/lib/NMEAParser/Software/NMEAParserLib/NMEASentenceBase.h
+/home/pi/Projects/mece2021/binauralsensoryaugmentation/lib/NMEAParser/Software/NMEAParserLib/NMEASentenceBase.h
 NMEAParserData.h
-/home/pi/masters_project/binauralsensoryaugmentation/lib/NMEAParser/Software/NMEAParserLib/NMEAParserData.h
+/home/pi/Projects/mece2021/binauralsensoryaugmentation/lib/NMEAParser/Software/NMEAParserLib/NMEAParserData.h
 
-/home/pi/masters_project/binauralsensoryaugmentation/lib/NMEAParser/Software/NMEAParserLib/NMEASentenceGSA.h
+/home/pi/Projects/mece2021/binauralsensoryaugmentation/lib/NMEAParser/Software/NMEAParserLib/NMEASentenceGSA.h
 string
 -
 NMEAParserData.h
-/home/pi/masters_project/binauralsensoryaugmentation/lib/NMEAParser/Software/NMEAParserLib/NMEAParserData.h
+/home/pi/Projects/mece2021/binauralsensoryaugmentation/lib/NMEAParser/Software/NMEAParserLib/NMEAParserData.h
 NMEASentenceBase.h
-/home/pi/masters_project/binauralsensoryaugmentation/lib/NMEAParser/Software/NMEAParserLib/NMEASentenceBase.h
+/home/pi/Projects/mece2021/binauralsensoryaugmentation/lib/NMEAParser/Software/NMEAParserLib/NMEASentenceBase.h
 NMEAParserData.h
-/home/pi/masters_project/binauralsensoryaugmentation/lib/NMEAParser/Software/NMEAParserLib/NMEAParserData.h
+/home/pi/Projects/mece2021/binauralsensoryaugmentation/lib/NMEAParser/Software/NMEAParserLib/NMEAParserData.h
 
-/home/pi/masters_project/binauralsensoryaugmentation/lib/NMEAParser/Software/NMEAParserLib/NMEASentenceGSV.h
+/home/pi/Projects/mece2021/binauralsensoryaugmentation/lib/NMEAParser/Software/NMEAParserLib/NMEASentenceGSV.h
 NMEASentenceBase.h
-/home/pi/masters_project/binauralsensoryaugmentation/lib/NMEAParser/Software/NMEAParserLib/NMEASentenceBase.h
+/home/pi/Projects/mece2021/binauralsensoryaugmentation/lib/NMEAParser/Software/NMEAParserLib/NMEASentenceBase.h
 
-/home/pi/masters_project/binauralsensoryaugmentation/lib/NMEAParser/Software/NMEAParserLib/NMEASentenceRMC.h
+/home/pi/Projects/mece2021/binauralsensoryaugmentation/lib/NMEAParser/Software/NMEAParserLib/NMEASentenceRMC.h
 NMEASentenceBase.h
-/home/pi/masters_project/binauralsensoryaugmentation/lib/NMEAParser/Software/NMEAParserLib/NMEASentenceBase.h
+/home/pi/Projects/mece2021/binauralsensoryaugmentation/lib/NMEAParser/Software/NMEAParserLib/NMEASentenceBase.h
 NMEAParserData.h
-/home/pi/masters_project/binauralsensoryaugmentation/lib/NMEAParser/Software/NMEAParserLib/NMEAParserData.h
+/home/pi/Projects/mece2021/binauralsensoryaugmentation/lib/NMEAParser/Software/NMEAParserLib/NMEAParserData.h
 
-/home/pi/masters_project/binauralsensoryaugmentation/lib/NMEAParser/Software/NMEAParserTest/main.cpp
+/home/pi/Projects/mece2021/binauralsensoryaugmentation/lib/NMEAParser/Software/NMEAParserTest/main.cpp
 stdio.h
 -
 string.h

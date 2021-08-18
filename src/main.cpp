@@ -95,7 +95,8 @@ int main(int argc, char* argv[])
     alGenBuffers( 1, &buffer );
     {
         long dataSize;
-        const ALvoid* data = load( "/home/pi/Downloads/footsteps.raw", &dataSize );
+        // TODO: SEGV fault on failure to find file. Implement work around or error.
+        const ALvoid* data = load( "/home/pi/Projects/mece2021/footsteps.raw", &dataSize ); 
         /* for simplicity, assume raw file is signed-16b at 44.1kHz */
         alBufferData( buffer, AL_FORMAT_MONO16, data, dataSize, 44100 );
         free( (void*)data );

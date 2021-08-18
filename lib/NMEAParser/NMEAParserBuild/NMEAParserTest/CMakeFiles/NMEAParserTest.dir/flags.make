@@ -6,5 +6,5 @@ CXX_FLAGS =  -Wall
 
 CXX_DEFINES = 
 
-CXX_INCLUDES = -I/home/pi/masters_project/binauralsensoryaugmentation/lib/NMEAParser/Software/NMEAParserTest/../NMEAParserLib 
+CXX_INCLUDES = -I/home/pi/Projects/mece2021/binauralsensoryaugmentation/lib/NMEAParser/Software/NMEAParserTest/../NMEAParserLib 
 

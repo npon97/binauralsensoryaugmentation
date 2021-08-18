@@ -38,7 +38,7 @@
 				{
 					"directoryIndex" : 0,
 					"id" : "binauralsensoryaugmentation::@6890427a1f51a3e7e1df",
-					"jsonFile" : "target-binauralsensoryaugmentation-Debug-b51a4a9a375e6e0d797a.json",
+					"jsonFile" : "target-binauralsensoryaugmentation-Debug-8a6f544843129734b1dc.json",
 					"name" : "binauralsensoryaugmentation",
 					"projectIndex" : 0
 				}
@@ -48,8 +48,8 @@
 	"kind" : "codemodel",
 	"paths" : 
 	{
-		"build" : "/home/pi/masters_project/binauralsensoryaugmentation/build",
-		"source" : "/home/pi/masters_project/binauralsensoryaugmentation"
+		"build" : "/home/pi/Projects/mece2021/binauralsensoryaugmentation/build",
+		"source" : "/home/pi/Projects/mece2021/binauralsensoryaugmentation"
 	},
 	"version" : 
 	{

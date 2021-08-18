@@ -48,10 +48,10 @@ RM = /usr/bin/cmake -E remove -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/pi/masters_project/binauralsensoryaugmentation/lib/NMEAParser/Software
+CMAKE_SOURCE_DIR = /home/pi/Projects/mece2021/binauralsensoryaugmentation/lib/NMEAParser/Software
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/pi/masters_project/binauralsensoryaugmentation/lib/NMEAParser/NMEAParserBuild
+CMAKE_BINARY_DIR = /home/pi/Projects/mece2021/binauralsensoryaugmentation/lib/NMEAParser/NMEAParserBuild
 
 #=============================================================================
 # Targets provided globally by CMake.
@@ -80,14 +80,14 @@ edit_cache/fast: edit_cache
 
 # The main all target
 all: cmake_check_build_system
-	cd /home/pi/masters_project/binauralsensoryaugmentation/lib/NMEAParser/NMEAParserBuild && $(CMAKE_COMMAND) -E cmake_progress_start /home/pi/masters_project/binauralsensoryaugmentation/lib/NMEAParser/NMEAParserBuild/CMakeFiles /home/pi/masters_project/binauralsensoryaugmentation/lib/NMEAParser/NMEAParserBuild/NMEAParserLib/CMakeFiles/progress.marks
-	cd /home/pi/masters_project/binauralsensoryaugmentation/lib/NMEAParser/NMEAParserBuild && $(MAKE) -f CMakeFiles/Makefile2 NMEAParserLib/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/pi/masters_project/binauralsensoryaugmentation/lib/NMEAParser/NMEAParserBuild/CMakeFiles 0
+	cd /home/pi/Projects/mece2021/binauralsensoryaugmentation/lib/NMEAParser/NMEAParserBuild && $(CMAKE_COMMAND) -E cmake_progress_start /home/pi/Projects/mece2021/binauralsensoryaugmentation/lib/NMEAParser/NMEAParserBuild/CMakeFiles /home/pi/Projects/mece2021/binauralsensoryaugmentation/lib/NMEAParser/NMEAParserBuild/NMEAParserLib/CMakeFiles/progress.marks
+	cd /home/pi/Projects/mece2021/binauralsensoryaugmentation/lib/NMEAParser/NMEAParserBuild && $(MAKE) -f CMakeFiles/Makefile2 NMEAParserLib/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/pi/Projects/mece2021/binauralsensoryaugmentation/lib/NMEAParser/NMEAParserBuild/CMakeFiles 0
 .PHONY : all
 
 # The main clean target
 clean:
-	cd /home/pi/masters_project/binauralsensoryaugmentation/lib/NMEAParser/NMEAParserBuild && $(MAKE) -f CMakeFiles/Makefile2 NMEAParserLib/clean
+	cd /home/pi/Projects/mece2021/binauralsensoryaugmentation/lib/NMEAParser/NMEAParserBuild && $(MAKE) -f CMakeFiles/Makefile2 NMEAParserLib/clean
 .PHONY : clean
 
 # The main clean target
@@ -97,22 +97,22 @@ clean/fast: clean
 
 # Prepare targets for installation.
 preinstall: all
-	cd /home/pi/masters_project/binauralsensoryaugmentation/lib/NMEAParser/NMEAParserBuild && $(MAKE) -f CMakeFiles/Makefile2 NMEAParserLib/preinstall
+	cd /home/pi/Projects/mece2021/binauralsensoryaugmentation/lib/NMEAParser/NMEAParserBuild && $(MAKE) -f CMakeFiles/Makefile2 NMEAParserLib/preinstall
 .PHONY : preinstall
 
 # Prepare targets for installation.
 preinstall/fast:
-	cd /home/pi/masters_project/binauralsensoryaugmentation/lib/NMEAParser/NMEAParserBuild && $(MAKE) -f CMakeFiles/Makefile2 NMEAParserLib/preinstall
+	cd /home/pi/Projects/mece2021/binauralsensoryaugmentation/lib/NMEAParser/NMEAParserBuild && $(MAKE) -f CMakeFiles/Makefile2 NMEAParserLib/preinstall
 .PHONY : preinstall/fast
 
 # clear depends
 depend:
-	cd /home/pi/masters_project/binauralsensoryaugmentation/lib/NMEAParser/NMEAParserBuild && $(CMAKE_COMMAND) -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 1
+	cd /home/pi/Projects/mece2021/binauralsensoryaugmentation/lib/NMEAParser/NMEAParserBuild && $(CMAKE_COMMAND) -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 1
 .PHONY : depend
 
 # Convenience name for target.
 NMEAParserLib/CMakeFiles/NMEAParserLib.dir/rule:
-	cd /home/pi/masters_project/binauralsensoryaugmentation/lib/NMEAParser/NMEAParserBuild && $(MAKE) -f CMakeFiles/Makefile2 NMEAParserLib/CMakeFiles/NMEAParserLib.dir/rule
+	cd /home/pi/Projects/mece2021/binauralsensoryaugmentation/lib/NMEAParser/NMEAParserBuild && $(MAKE) -f CMakeFiles/Makefile2 NMEAParserLib/CMakeFiles/NMEAParserLib.dir/rule
 .PHONY : NMEAParserLib/CMakeFiles/NMEAParserLib.dir/rule
 
 # Convenience name for target.
@@ -122,7 +122,7 @@ NMEAParserLib: NMEAParserLib/CMakeFiles/NMEAParserLib.dir/rule
 
 # fast build rule for target.
 NMEAParserLib/fast:
-	cd /home/pi/masters_project/binauralsensoryaugmentation/lib/NMEAParser/NMEAParserBuild && $(MAKE) -f NMEAParserLib/CMakeFiles/NMEAParserLib.dir/build.make NMEAParserLib/CMakeFiles/NMEAParserLib.dir/build
+	cd /home/pi/Projects/mece2021/binauralsensoryaugmentation/lib/NMEAParser/NMEAParserBuild && $(MAKE) -f NMEAParserLib/CMakeFiles/NMEAParserLib.dir/build.make NMEAParserLib/CMakeFiles/NMEAParserLib.dir/build
 .PHONY : NMEAParserLib/fast
 
 NMEAParser.o: NMEAParser.cpp.o
@@ -131,7 +131,7 @@ NMEAParser.o: NMEAParser.cpp.o
 
 # target to build an object file
 NMEAParser.cpp.o:
-	cd /home/pi/masters_project/binauralsensoryaugmentation/lib/NMEAParser/NMEAParserBuild && $(MAKE) -f NMEAParserLib/CMakeFiles/NMEAParserLib.dir/build.make NMEAParserLib/CMakeFiles/NMEAParserLib.dir/NMEAParser.cpp.o
+	cd /home/pi/Projects/mece2021/binauralsensoryaugmentation/lib/NMEAParser/NMEAParserBuild && $(MAKE) -f NMEAParserLib/CMakeFiles/NMEAParserLib.dir/build.make NMEAParserLib/CMakeFiles/NMEAParserLib.dir/NMEAParser.cpp.o
 .PHONY : NMEAParser.cpp.o
 
 NMEAParser.i: NMEAParser.cpp.i
@@ -140,7 +140,7 @@ NMEAParser.i: NMEAParser.cpp.i
 
 # target to preprocess a source file
 NMEAParser.cpp.i:
-	cd /home/pi/masters_project/binauralsensoryaugmentation/lib/NMEAParser/NMEAParserBuild && $(MAKE) -f NMEAParserLib/CMakeFiles/NMEAParserLib.dir/build.make NMEAParserLib/CMakeFiles/NMEAParserLib.dir/NMEAParser.cpp.i
+	cd /home/pi/Projects/mece2021/binauralsensoryaugmentation/lib/NMEAParser/NMEAParserBuild && $(MAKE) -f NMEAParserLib/CMakeFiles/NMEAParserLib.dir/build.make NMEAParserLib/CMakeFiles/NMEAParserLib.dir/NMEAParser.cpp.i
 .PHONY : NMEAParser.cpp.i
 
 NMEAParser.s: NMEAParser.cpp.s
@@ -149,7 +149,7 @@ NMEAParser.s: NMEAParser.cpp.s
 
 # target to generate assembly for a file
 NMEAParser.cpp.s:
-	cd /home/pi/masters_project/binauralsensoryaugmentation/lib/NMEAParser/NMEAParserBuild && $(MAKE) -f NMEAParserLib/CMakeFiles/NMEAParserLib.dir/build.make NMEAParserLib/CMakeFiles/NMEAParserLib.dir/NMEAParser.cpp.s
+	cd /home/pi/Projects/mece2021/binauralsensoryaugmentation/lib/NMEAParser/NMEAParserBuild && $(MAKE) -f NMEAParserLib/CMakeFiles/NMEAParserLib.dir/build.make NMEAParserLib/CMakeFiles/NMEAParserLib.dir/NMEAParser.cpp.s
 .PHONY : NMEAParser.cpp.s
 
 NMEAParserPacket.o: NMEAParserPacket.cpp.o
@@ -158,7 +158,7 @@ NMEAParserPacket.o: NMEAParserPacket.cpp.o
 
 # target to build an object file
 NMEAParserPacket.cpp.o:
-	cd /home/pi/masters_project/binauralsensoryaugmentation/lib/NMEAParser/NMEAParserBuild && $(MAKE) -f NMEAParserLib/CMakeFiles/NMEAParserLib.dir/build.make NMEAParserLib/CMakeFiles/NMEAParserLib.dir/NMEAParserPacket.cpp.o
+	cd /home/pi/Projects/mece2021/binauralsensoryaugmentation/lib/NMEAParser/NMEAParserBuild && $(MAKE) -f NMEAParserLib/CMakeFiles/NMEAParserLib.dir/build.make NMEAParserLib/CMakeFiles/NMEAParserLib.dir/NMEAParserPacket.cpp.o
 .PHONY : NMEAParserPacket.cpp.o
 
 NMEAParserPacket.i: NMEAParserPacket.cpp.i
@@ -167,7 +167,7 @@ NMEAParserPacket.i: NMEAParserPacket.cpp.i
 
 # target to preprocess a source file
 NMEAParserPacket.cpp.i:
-	cd /home/pi/masters_project/binauralsensoryaugmentation/lib/NMEAParser/NMEAParserBuild && $(MAKE) -f NMEAParserLib/CMakeFiles/NMEAParserLib.dir/build.make NMEAParserLib/CMakeFiles/NMEAParserLib.dir/NMEAParserPacket.cpp.i
+	cd /home/pi/Projects/mece2021/binauralsensoryaugmentation/lib/NMEAParser/NMEAParserBuild && $(MAKE) -f NMEAParserLib/CMakeFiles/NMEAParserLib.dir/build.make NMEAParserLib/CMakeFiles/NMEAParserLib.dir/NMEAParserPacket.cpp.i
 .PHONY : NMEAParserPacket.cpp.i
 
 NMEAParserPacket.s: NMEAParserPacket.cpp.s
@@ -176,7 +176,7 @@ NMEAParserPacket.s: NMEAParserPacket.cpp.s
 
 # target to generate assembly for a file
 NMEAParserPacket.cpp.s:
-	cd /home/pi/masters_project/binauralsensoryaugmentation/lib/NMEAParser/NMEAParserBuild && $(MAKE) -f NMEAParserLib/CMakeFiles/NMEAParserLib.dir/build.make NMEAParserLib/CMakeFiles/NMEAParserLib.dir/NMEAParserPacket.cpp.s
+	cd /home/pi/Projects/mece2021/binauralsensoryaugmentation/lib/NMEAParser/NMEAParserBuild && $(MAKE) -f NMEAParserLib/CMakeFiles/NMEAParserLib.dir/build.make NMEAParserLib/CMakeFiles/NMEAParserLib.dir/NMEAParserPacket.cpp.s
 .PHONY : NMEAParserPacket.cpp.s
 
 NMEASentenceBase.o: NMEASentenceBase.cpp.o
@@ -185,7 +185,7 @@ NMEASentenceBase.o: NMEASentenceBase.cpp.o
 
 # target to build an object file
 NMEASentenceBase.cpp.o:
-	cd /home/pi/masters_project/binauralsensoryaugmentation/lib/NMEAParser/NMEAParserBuild && $(MAKE) -f NMEAParserLib/CMakeFiles/NMEAParserLib.dir/build.make NMEAParserLib/CMakeFiles/NMEAParserLib.dir/NMEASentenceBase.cpp.o
+	cd /home/pi/Projects/mece2021/binauralsensoryaugmentation/lib/NMEAParser/NMEAParserBuild && $(MAKE) -f NMEAParserLib/CMakeFiles/NMEAParserLib.dir/build.make NMEAParserLib/CMakeFiles/NMEAParserLib.dir/NMEASentenceBase.cpp.o
 .PHONY : NMEASentenceBase.cpp.o
 
 NMEASentenceBase.i: NMEASentenceBase.cpp.i
@@ -194,7 +194,7 @@ NMEASentenceBase.i: NMEASentenceBase.cpp.i
 
 # target to preprocess a source file
 NMEASentenceBase.cpp.i:
-	cd /home/pi/masters_project/binauralsensoryaugmentation/lib/NMEAParser/NMEAParserBuild && $(MAKE) -f NMEAParserLib/CMakeFiles/NMEAParserLib.dir/build.make NMEAParserLib/CMakeFiles/NMEAParserLib.dir/NMEASentenceBase.cpp.i
+	cd /home/pi/Projects/mece2021/binauralsensoryaugmentation/lib/NMEAParser/NMEAParserBuild && $(MAKE) -f NMEAParserLib/CMakeFiles/NMEAParserLib.dir/build.make NMEAParserLib/CMakeFiles/NMEAParserLib.dir/NMEASentenceBase.cpp.i
 .PHONY : NMEASentenceBase.cpp.i
 
 NMEASentenceBase.s: NMEASentenceBase.cpp.s
@@ -203,7 +203,7 @@ NMEASentenceBase.s: NMEASentenceBase.cpp.s
 
 # target to generate assembly for a file
 NMEASentenceBase.cpp.s:
-	cd /home/pi/masters_project/binauralsensoryaugmentation/lib/NMEAParser/NMEAParserBuild && $(MAKE) -f NMEAParserLib/CMakeFiles/NMEAParserLib.dir/build.make NMEAParserLib/CMakeFiles/NMEAParserLib.dir/NMEASentenceBase.cpp.s
+	cd /home/pi/Projects/mece2021/binauralsensoryaugmentation/lib/NMEAParser/NMEAParserBuild && $(MAKE) -f NMEAParserLib/CMakeFiles/NMEAParserLib.dir/build.make NMEAParserLib/CMakeFiles/NMEAParserLib.dir/NMEASentenceBase.cpp.s
 .PHONY : NMEASentenceBase.cpp.s
 
 NMEASentenceGGA.o: NMEASentenceGGA.cpp.o
@@ -212,7 +212,7 @@ NMEASentenceGGA.o: NMEASentenceGGA.cpp.o
 
 # target to build an object file
 NMEASentenceGGA.cpp.o:
-	cd /home/pi/masters_project/binauralsensoryaugmentation/lib/NMEAParser/NMEAParserBuild && $(MAKE) -f NMEAParserLib/CMakeFiles/NMEAParserLib.dir/build.make NMEAParserLib/CMakeFiles/NMEAParserLib.dir/NMEASentenceGGA.cpp.o
+	cd /home/pi/Projects/mece2021/binauralsensoryaugmentation/lib/NMEAParser/NMEAParserBuild && $(MAKE) -f NMEAParserLib/CMakeFiles/NMEAParserLib.dir/build.make NMEAParserLib/CMakeFiles/NMEAParserLib.dir/NMEASentenceGGA.cpp.o
 .PHONY : NMEASentenceGGA.cpp.o
 
 NMEASentenceGGA.i: NMEASentenceGGA.cpp.i
@@ -221,7 +221,7 @@ NMEASentenceGGA.i: NMEASentenceGGA.cpp.i
 
 # target to preprocess a source file
 NMEASentenceGGA.cpp.i:
-	cd /home/pi/masters_project/binauralsensoryaugmentation/lib/NMEAParser/NMEAParserBuild && $(MAKE) -f NMEAParserLib/CMakeFiles/NMEAParserLib.dir/build.make NMEAParserLib/CMakeFiles/NMEAParserLib.dir/NMEASentenceGGA.cpp.i
+	cd /home/pi/Projects/mece2021/binauralsensoryaugmentation/lib/NMEAParser/NMEAParserBuild && $(MAKE) -f NMEAParserLib/CMakeFiles/NMEAParserLib.dir/build.make NMEAParserLib/CMakeFiles/NMEAParserLib.dir/NMEASentenceGGA.cpp.i
 .PHONY : NMEASentenceGGA.cpp.i
 
 NMEASentenceGGA.s: NMEASentenceGGA.cpp.s
@@ -230,7 +230,7 @@ NMEASentenceGGA.s: NMEASentenceGGA.cpp.s
 
 # target to generate assembly for a file
 NMEASentenceGGA.cpp.s:
-	cd /home/pi/masters_project/binauralsensoryaugmentation/lib/NMEAParser/NMEAParserBuild && $(MAKE) -f NMEAParserLib/CMakeFiles/NMEAParserLib.dir/build.make NMEAParserLib/CMakeFiles/NMEAParserLib.dir/NMEASentenceGGA.cpp.s
+	cd /home/pi/Projects/mece2021/binauralsensoryaugmentation/lib/NMEAParser/NMEAParserBuild && $(MAKE) -f NMEAParserLib/CMakeFiles/NMEAParserLib.dir/build.make NMEAParserLib/CMakeFiles/NMEAParserLib.dir/NMEASentenceGGA.cpp.s
 .PHONY : NMEASentenceGGA.cpp.s
 
 NMEASentenceGSA.o: NMEASentenceGSA.cpp.o
@@ -239,7 +239,7 @@ NMEASentenceGSA.o: NMEASentenceGSA.cpp.o
 
 # target to build an object file
 NMEASentenceGSA.cpp.o:
-	cd /home/pi/masters_project/binauralsensoryaugmentation/lib/NMEAParser/NMEAParserBuild && $(MAKE) -f NMEAParserLib/CMakeFiles/NMEAParserLib.dir/build.make NMEAParserLib/CMakeFiles/NMEAParserLib.dir/NMEASentenceGSA.cpp.o
+	cd /home/pi/Projects/mece2021/binauralsensoryaugmentation/lib/NMEAParser/NMEAParserBuild && $(MAKE) -f NMEAParserLib/CMakeFiles/NMEAParserLib.dir/build.make NMEAParserLib/CMakeFiles/NMEAParserLib.dir/NMEASentenceGSA.cpp.o
 .PHONY : NMEASentenceGSA.cpp.o
 
 NMEASentenceGSA.i: NMEASentenceGSA.cpp.i
@@ -248,7 +248,7 @@ NMEASentenceGSA.i: NMEASentenceGSA.cpp.i
 
 # target to preprocess a source file
 NMEASentenceGSA.cpp.i:
-	cd /home/pi/masters_project/binauralsensoryaugmentation/lib/NMEAParser/NMEAParserBuild && $(MAKE) -f NMEAParserLib/CMakeFiles/NMEAParserLib.dir/build.make NMEAParserLib/CMakeFiles/NMEAParserLib.dir/NMEASentenceGSA.cpp.i
+	cd /home/pi/Projects/mece2021/binauralsensoryaugmentation/lib/NMEAParser/NMEAParserBuild && $(MAKE) -f NMEAParserLib/CMakeFiles/NMEAParserLib.dir/build.make NMEAParserLib/CMakeFiles/NMEAParserLib.dir/NMEASentenceGSA.cpp.i
 .PHONY : NMEASentenceGSA.cpp.i
 
 NMEASentenceGSA.s: NMEASentenceGSA.cpp.s
@@ -257,7 +257,7 @@ NMEASentenceGSA.s: NMEASentenceGSA.cpp.s
 
 # target to generate assembly for a file
 NMEASentenceGSA.cpp.s:
-	cd /home/pi/masters_project/binauralsensoryaugmentation/lib/NMEAParser/NMEAParserBuild && $(MAKE) -f NMEAParserLib/CMakeFiles/NMEAParserLib.dir/build.make NMEAParserLib/CMakeFiles/NMEAParserLib.dir/NMEASentenceGSA.cpp.s
+	cd /home/pi/Projects/mece2021/binauralsensoryaugmentation/lib/NMEAParser/NMEAParserBuild && $(MAKE) -f NMEAParserLib/CMakeFiles/NMEAParserLib.dir/build.make NMEAParserLib/CMakeFiles/NMEAParserLib.dir/NMEASentenceGSA.cpp.s
 .PHONY : NMEASentenceGSA.cpp.s
 
 NMEASentenceGSV.o: NMEASentenceGSV.cpp.o
@@ -266,7 +266,7 @@ NMEASentenceGSV.o: NMEASentenceGSV.cpp.o
 
 # target to build an object file
 NMEASentenceGSV.cpp.o:
-	cd /home/pi/masters_project/binauralsensoryaugmentation/lib/NMEAParser/NMEAParserBuild && $(MAKE) -f NMEAParserLib/CMakeFiles/NMEAParserLib.dir/build.make NMEAParserLib/CMakeFiles/NMEAParserLib.dir/NMEASentenceGSV.cpp.o
+	cd /home/pi/Projects/mece2021/binauralsensoryaugmentation/lib/NMEAParser/NMEAParserBuild && $(MAKE) -f NMEAParserLib/CMakeFiles/NMEAParserLib.dir/build.make NMEAParserLib/CMakeFiles/NMEAParserLib.dir/NMEASentenceGSV.cpp.o
 .PHONY : NMEASentenceGSV.cpp.o
 
 NMEASentenceGSV.i: NMEASentenceGSV.cpp.i
@@ -275,7 +275,7 @@ NMEASentenceGSV.i: NMEASentenceGSV.cpp.i
 
 # target to preprocess a source file
 NMEASentenceGSV.cpp.i:
-	cd /home/pi/masters_project/binauralsensoryaugmentation/lib/NMEAParser/NMEAParserBuild && $(MAKE) -f NMEAParserLib/CMakeFiles/NMEAParserLib.dir/build.make NMEAParserLib/CMakeFiles/NMEAParserLib.dir/NMEASentenceGSV.cpp.i
+	cd /home/pi/Projects/mece2021/binauralsensoryaugmentation/lib/NMEAParser/NMEAParserBuild && $(MAKE) -f NMEAParserLib/CMakeFiles/NMEAParserLib.dir/build.make NMEAParserLib/CMakeFiles/NMEAParserLib.dir/NMEASentenceGSV.cpp.i
 .PHONY : NMEASentenceGSV.cpp.i
 
 NMEASentenceGSV.s: NMEASentenceGSV.cpp.s
@@ -284,7 +284,7 @@ NMEASentenceGSV.s: NMEASentenceGSV.cpp.s
 
 # target to generate assembly for a file
 NMEASentenceGSV.cpp.s:
-	cd /home/pi/masters_project/binauralsensoryaugmentation/lib/NMEAParser/NMEAParserBuild && $(MAKE) -f NMEAParserLib/CMakeFiles/NMEAParserLib.dir/build.make NMEAParserLib/CMakeFiles/NMEAParserLib.dir/NMEASentenceGSV.cpp.s
+	cd /home/pi/Projects/mece2021/binauralsensoryaugmentation/lib/NMEAParser/NMEAParserBuild && $(MAKE) -f NMEAParserLib/CMakeFiles/NMEAParserLib.dir/build.make NMEAParserLib/CMakeFiles/NMEAParserLib.dir/NMEASentenceGSV.cpp.s
 .PHONY : NMEASentenceGSV.cpp.s
 
 NMEASentenceRMC.o: NMEASentenceRMC.cpp.o
@@ -293,7 +293,7 @@ NMEASentenceRMC.o: NMEASentenceRMC.cpp.o
 
 # target to build an object file
 NMEASentenceRMC.cpp.o:
-	cd /home/pi/masters_project/binauralsensoryaugmentation/lib/NMEAParser/NMEAParserBuild && $(MAKE) -f NMEAParserLib/CMakeFiles/NMEAParserLib.dir/build.make NMEAParserLib/CMakeFiles/NMEAParserLib.dir/NMEASentenceRMC.cpp.o
+	cd /home/pi/Projects/mece2021/binauralsensoryaugmentation/lib/NMEAParser/NMEAParserBuild && $(MAKE) -f NMEAParserLib/CMakeFiles/NMEAParserLib.dir/build.make NMEAParserLib/CMakeFiles/NMEAParserLib.dir/NMEASentenceRMC.cpp.o
 .PHONY : NMEASentenceRMC.cpp.o
 
 NMEASentenceRMC.i: NMEASentenceRMC.cpp.i
@@ -302,7 +302,7 @@ NMEASentenceRMC.i: NMEASentenceRMC.cpp.i
 
 # target to preprocess a source file
 NMEASentenceRMC.cpp.i:
-	cd /home/pi/masters_project/binauralsensoryaugmentation/lib/NMEAParser/NMEAParserBuild && $(MAKE) -f NMEAParserLib/CMakeFiles/NMEAParserLib.dir/build.make NMEAParserLib/CMakeFiles/NMEAParserLib.dir/NMEASentenceRMC.cpp.i
+	cd /home/pi/Projects/mece2021/binauralsensoryaugmentation/lib/NMEAParser/NMEAParserBuild && $(MAKE) -f NMEAParserLib/CMakeFiles/NMEAParserLib.dir/build.make NMEAParserLib/CMakeFiles/NMEAParserLib.dir/NMEASentenceRMC.cpp.i
 .PHONY : NMEASentenceRMC.cpp.i
 
 NMEASentenceRMC.s: NMEASentenceRMC.cpp.s
@@ -311,7 +311,7 @@ NMEASentenceRMC.s: NMEASentenceRMC.cpp.s
 
 # target to generate assembly for a file
 NMEASentenceRMC.cpp.s:
-	cd /home/pi/masters_project/binauralsensoryaugmentation/lib/NMEAParser/NMEAParserBuild && $(MAKE) -f NMEAParserLib/CMakeFiles/NMEAParserLib.dir/build.make NMEAParserLib/CMakeFiles/NMEAParserLib.dir/NMEASentenceRMC.cpp.s
+	cd /home/pi/Projects/mece2021/binauralsensoryaugmentation/lib/NMEAParser/NMEAParserBuild && $(MAKE) -f NMEAParserLib/CMakeFiles/NMEAParserLib.dir/build.make NMEAParserLib/CMakeFiles/NMEAParserLib.dir/NMEASentenceRMC.cpp.s
 .PHONY : NMEASentenceRMC.cpp.s
 
 # Help Target
@@ -355,6 +355,6 @@ help:
 # No rule that depends on this can have commands that come from listfiles
 # because they might be regenerated.
 cmake_check_build_system:
-	cd /home/pi/masters_project/binauralsensoryaugmentation/lib/NMEAParser/NMEAParserBuild && $(CMAKE_COMMAND) -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 0
+	cd /home/pi/Projects/mece2021/binauralsensoryaugmentation/lib/NMEAParser/NMEAParserBuild && $(CMAKE_COMMAND) -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 0
 .PHONY : cmake_check_build_system
 

@@ -100,13 +100,13 @@ NMEASentenceBase.h
 NMEAParserData.h
 ../lib/NMEAParser/Software/NMEAParserLib/NMEAParserData.h
 
-/home/pi/masters_project/binauralsensoryaugmentation/src/main.cpp
+/home/pi/Projects/mece2021/binauralsensoryaugmentation/src/main.cpp
 I2CDevice.h
-/home/pi/masters_project/binauralsensoryaugmentation/src/I2CDevice.h
+/home/pi/Projects/mece2021/binauralsensoryaugmentation/src/I2CDevice.h
 PA1010D.h
-/home/pi/masters_project/binauralsensoryaugmentation/src/PA1010D.h
+/home/pi/Projects/mece2021/binauralsensoryaugmentation/src/PA1010D.h
 LSM303AGR_MAG.h
-/home/pi/masters_project/binauralsensoryaugmentation/src/LSM303AGR_MAG.h
+/home/pi/Projects/mece2021/binauralsensoryaugmentation/src/LSM303AGR_MAG.h
 iostream
 -
 fstream

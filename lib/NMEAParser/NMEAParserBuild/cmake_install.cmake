@@ -1,4 +1,4 @@
-# Install script for directory: /home/pi/masters_project/binauralsensoryaugmentation/lib/NMEAParser/Software
+# Install script for directory: /home/pi/Projects/mece2021/binauralsensoryaugmentation/lib/NMEAParser/Software
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -39,8 +39,8 @@ endif()
 
 if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   # Include the install script for each subdirectory.
-  include("/home/pi/masters_project/binauralsensoryaugmentation/lib/NMEAParser/NMEAParserBuild/NMEAParserLib/cmake_install.cmake")
-  include("/home/pi/masters_project/binauralsensoryaugmentation/lib/NMEAParser/NMEAParserBuild/NMEAParserTest/cmake_install.cmake")
+  include("/home/pi/Projects/mece2021/binauralsensoryaugmentation/lib/NMEAParser/NMEAParserBuild/NMEAParserLib/cmake_install.cmake")
+  include("/home/pi/Projects/mece2021/binauralsensoryaugmentation/lib/NMEAParser/NMEAParserBuild/NMEAParserTest/cmake_install.cmake")
 
 endif()
 
@@ -52,5 +52,5 @@ endif()
 
 string(REPLACE ";" "\n" CMAKE_INSTALL_MANIFEST_CONTENT
        "${CMAKE_INSTALL_MANIFEST_FILES}")
-file(WRITE "/home/pi/masters_project/binauralsensoryaugmentation/lib/NMEAParser/NMEAParserBuild/${CMAKE_INSTALL_MANIFEST}"
+file(WRITE "/home/pi/Projects/mece2021/binauralsensoryaugmentation/lib/NMEAParser/NMEAParserBuild/${CMAKE_INSTALL_MANIFEST}"
      "${CMAKE_INSTALL_MANIFEST_CONTENT}")
