@@ -6,7 +6,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <unistd.h>  /* for usleep() */
-#include <math.h>    /* for sqrtf() */
+#include <math.h>    /* for sqrtf(), and trig functions */
 #include <time.h>    /* for time(), to seed srand() */
 /* OpenAL headers */
 #include <AL/al.h>
@@ -17,7 +17,7 @@
 #define NUM_DISPLAY_ITERATIONS 100000
 
 /*          FORWARD DECLARATIONS        */
-void randWalk( float *a );
+void changeSourcePosition( float *a , LSM303AGR_MAG* magnetometer);
 void* load( char *fname, long *bufsize );
 
 /*      MAIN FUNCTION       */
@@ -27,13 +27,12 @@ int main(int argc, char* argv[])
     LSM303AGR_MAG* magnetometer;
     PA1010D* gps;
     /* current position and where to walk to... start just 1m ahead */
-    float curr[3] = {0.,0.,-1.};
-    float targ[3] = {0.,0.,-1.};
+    float curr[3] = {0.,0.,0.};
+    float targ[3] = {0.,0.,0.};
     /* initialize OpenAL context, asking for 44.1kHz to match HRIR data */
     ALCint contextAttr[] = {ALC_FREQUENCY,44100,0};
     ALCdevice* device = alcOpenDevice( NULL );
-    ALCcontext* context = alcCreateContext( device, contextAttr );
-
+    ALCcontext* context;
 
     // Create an accelerometer object
     try
@@ -41,7 +40,7 @@ int main(int argc, char* argv[])
         magnetometer = new LSM303AGR_MAG(1, 0x1E);
         gps = new PA1010D("GAGSV", 1, 0x10);
     }
-    catch(int i) // Stops the program if any errors occur
+    catch(int i)
     {
         perror("\nAborting: Magnetometer Object could not be created.\n");
         return i;
@@ -73,15 +72,20 @@ int main(int argc, char* argv[])
     * @author: Tony Tavener
     */ 
 
-    alcMakeContextCurrent( context );
+    // Setup the device
+    if(device)
+    {
+        context = alcCreateContext( device, contextAttr );
+        alcMakeContextCurrent( context );
+    }
 
     /* listener at origin, facing down -z (ears at 1.5m height) */
     alListener3f( AL_POSITION, 0., 1.5, 0. );
-    alListener3f( AL_VELOCITY, 0., 0., 0. );
-    float orient[6] = { /*fwd:*/ 0., 0., -1., /*up:*/ 0., 1., 0. };
+    alListener3f( AL_VELOCITY, 0., 0., 0. ); /* the listener is stationary */
+    ALfloat orient[6] = { /*fwd:*/ 0., 0., -1., /*up:*/ 0., 1., 0. };
     alListenerfv( AL_ORIENTATION, orient );
 
-    /* this will be the source of ghostly footsteps... */
+    /* this will be the source of sound... */
     ALuint source;
     alGenSources( 1, &source );
     alSourcef( source, AL_PITCH, 1. );
@@ -114,13 +118,13 @@ int main(int argc, char* argv[])
 
     fflush( stderr ); /* in case OpenAL reported an error earlier */
 
-    /* loop forever... walking to random, adjacent, integer coordinates */
+    /* loop forever... */
     for(;;){
         float dx = targ[0]-curr[0];
         float dy = targ[1]-curr[1];
         float dz = targ[2]-curr[2];
         float dist = sqrtf( dx*dx + dy*dy + dz*dz );
-        if( dist < closeEnough ) randWalk(targ);
+        if( dist < closeEnough ) changeSourcePosition(targ, magnetometer);
         else{
             float toVel = vel/dist;
             float v[3] = {dx*toVel, dy*toVel, dz*toVel};
@@ -135,6 +139,7 @@ int main(int argc, char* argv[])
     }
 
     /* cleanup that should be done when you have a proper exit... ;) */
+    context = alcGetCurrentContext();
     alDeleteSources( 1, &source );
     alDeleteBuffers( 1, &buffer );
     alcDestroyContext( context );
@@ -166,13 +171,12 @@ void* load( char *fname, long *bufsize ){
 }
 
 /* randomly displace 'a' by one meter +/- in x or z */
-void randWalk( float *a ){
-   int r = rand() & 0x3;
-   switch(r){
-      case 0: a[0]-= 1.; break;
-      case 1: a[0]+= 1.; break;
-      case 2: a[2]-= 1.; break;
-      case 3: a[2]+= 1.; break;
-   }
-   printf("Walking to: %.1f,%.1f,%.1f\n",a[0],a[1],a[2]);
+void changeSourcePosition( float *a , LSM303AGR_MAG* magnetometer)
+{
+    // Work on the unit circle for changing the sound source based on the azimuth
+    // The x and z axes are parallel to the ground.
+
+    a[0] = cos(magnetometer->getAzimuth());
+    a[2] = tan(magnetometer->getAzimuth());
+    printf("Magnetomer reads: \nChanging sound source position to: %.1f,%.1f,%.1f\n",a[0],a[1],a[2]);
 }

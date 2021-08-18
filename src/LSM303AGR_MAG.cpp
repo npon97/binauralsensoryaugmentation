@@ -379,27 +379,27 @@ LSM303AGR_MAG::OFFSET_CANCELLATION LSM303AGR_MAG::getOffsetCancellation()
     return this->off_canc;
 }
 
-int LSM303AGR_MAG::getMagX()
+float LSM303AGR_MAG::getMagX()
 {
     this->readSensorState();
     return this->magX_mG;
 }
-int LSM303AGR_MAG::getMagY()
+float LSM303AGR_MAG::getMagY()
 {
     this->readSensorState();
     return this->magY_mG;
 }
-int LSM303AGR_MAG::getMagZ()
+float LSM303AGR_MAG::getMagZ()
 {
     this->readSensorState();
     return this->magZ_mG;
 }
-int LSM303AGR_MAG::getAzimuth()
+double LSM303AGR_MAG::getAzimuth()
 {
     this->readSensorState();
     return this->azimuth_deg;
 }
-int LSM303AGR_MAG::getElevation()
+double LSM303AGR_MAG::getElevation()
 {
     this->readSensorState();
     return this->elevation_deg;

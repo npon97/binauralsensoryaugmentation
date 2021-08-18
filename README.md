@@ -53,3 +53,9 @@ the changes to take effect:
 `   cd <project_root_dir>/build`  
 `   make clean`  
 `   make`  
+
+### The difference in Axes
+With OpenAL and the real world, the listener and source objects are located in 3D 
+space. With the LSM303AGR magnetometer, the axes are oriented in a different way to 
+the OpenAL framework. This difference is important when converting between the two 
+coordinate systems.
