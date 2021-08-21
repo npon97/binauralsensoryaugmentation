@@ -264,6 +264,7 @@ void LSM303AGR_MAG::calculateAzimuthAndElevation()
  * */
 void LSM303AGR_MAG::offsetHardIron()
 {
+    //std::cout << "OFFSETTING HARD IRON DISTORTION" << std::endl;
     // Check and assign max and mins of X, Y and Z magnetometer if the current
     //  value excedes the max/min of the max/min recorded.
     if (this->magX_mG > this->max_magX_mG)
@@ -445,7 +446,7 @@ void LSM303AGR_MAG::storePositionalDataInCSV(int iterations)
     std::fstream csvfile;
 
     csvfile.open(
-        "/home/pi/masters_project/binauralsensoryaugmentation/coordinates.csv",
+        "/home/pi/Projects/mece2021/coordinates_true.csv",
         std::ios::out | std::ios::app);
 
     // Setup the first row which are the column names

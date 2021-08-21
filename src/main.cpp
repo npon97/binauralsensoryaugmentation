@@ -33,6 +33,7 @@ int main(int argc, char* argv[])
     ALCint contextAttr[] = {ALC_FREQUENCY,44100,0};
     ALCdevice* device = alcOpenDevice( NULL );
     ALCcontext* context;
+    char key; // To exit the superloop
 
     // Create an accelerometer object
     try
@@ -46,14 +47,6 @@ int main(int argc, char* argv[])
         return i;
     }
 
-    if(argc == 1)
-    {
-        if(argv[1] == "--storecsv")
-        {
-            magnetometer->storePositionalDataInCSV();
-            return 0;
-        }
-    }
 
     // Display the sensor data one after the other
     // for(i = 0; i < NUM_DISPLAY_ITERATIONS; i++)
@@ -100,7 +93,8 @@ int main(int argc, char* argv[])
     {
         long dataSize;
         // TODO: SEGV fault on failure to find file. Implement work around or error.
-        const ALvoid* data = load( "/home/pi/Projects/mece2021/footsteps.raw", &dataSize ); 
+        const ALvoid* data = load( "/home/pi/Projects/mece2021/footsteps.raw", 
+            &dataSize); 
         /* for simplicity, assume raw file is signed-16b at 44.1kHz */
         alBufferData( buffer, AL_FORMAT_MONO16, data, dataSize, 44100 );
         free( (void*)data );
@@ -118,7 +112,8 @@ int main(int argc, char* argv[])
 
     fflush( stderr ); /* in case OpenAL reported an error earlier */
 
-    /* loop forever... */
+
+    /* loop until 'q' key pressed */
     for(;;){
         float dx = targ[0]-curr[0];
         float dy = targ[1]-curr[1];
@@ -134,7 +129,7 @@ int main(int argc, char* argv[])
 
             alSource3f( source, AL_POSITION, curr[0],curr[1],curr[2] );
             alSource3f( source, AL_VELOCITY, v[0],v[1],v[2] );
-            usleep( (int)(1e6*dt) );
+            usleep( /*(int)(1e6*dt)*/ SUPERLOOP_uS );
         }
     }
 
@@ -170,13 +165,17 @@ void* load( char *fname, long *bufsize ){
    return buf;
 }
 
-/* randomly displace 'a' by one meter +/- in x or z */
+/* Displace 'a' +/- in x and z */
 void changeSourcePosition( float *a , LSM303AGR_MAG* magnetometer)
 {
     // Work on the unit circle for changing the sound source based on the azimuth
     // The x and z axes are parallel to the ground.
+    float theta; // For changing the azimuth into a cartesian point on a unit circle.
 
-    a[0] = cos(magnetometer->getAzimuth());
-    a[2] = tan(magnetometer->getAzimuth());
-    printf("Magnetomer reads: \nChanging sound source position to: %.1f,%.1f,%.1f\n",a[0],a[1],a[2]);
+    theta = magnetometer->getAzimuth();
+    a[0] = sin(theta * M_PI/180);
+    a[2] = cos(theta * M_PI/180);
+    printf("Magnetomer reads: ");
+    magnetometer->displayPositionalData(1, 1); // Number of iterations and delay (ms) 
+    printf("Changing sound source position to: %.1f,%.1f,%.1f\n",a[0],a[1],a[2]);
 }
