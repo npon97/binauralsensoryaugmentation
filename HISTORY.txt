@@ -1,0 +1,246 @@
+    1  sudo raspi-config
+    2  ls
+    3  sudo raspi-config
+    4  ls
+    5  ls ..
+    6  sudo apt update && sudo apt dist-upgrade
+    7  i2cdetect -y 1
+    8  sudo apt install i2c-tools 
+    9  i2cdetect -y 1
+   10  sudo apt install freeglut3 freeglut3-dev 
+   11  sudo apt install libalut0 libalut-dev 
+   12  sudo apt install libsdl1.2-dev libsdl1.2debian
+   13  g++
+   14  ls
+   15  mkdir Projects
+   16  mv openal.cpp Projects/
+   17  cd Projects/
+   18  ls
+   19  mkdir mece2021
+   20  mv openal.cpp mece2021/
+   21  cd mece2021/
+   22  ls
+   23  la
+   24  ls -a
+   25  ssh-keygen
+   26  logout
+   27  ls
+   28  cd Projects/
+   29  ls
+   30  sudo shutdown now
+   31  vcgencmd temp
+   32  vcgencmd commands
+   33  vcgencmd measure_temp
+   34  ls
+   35  cd .ssh
+   36  ls
+   37  cat id_rsa.pub
+   38  ls
+   39  cd Projects/
+   40  ls
+   41  cd mece2021/
+   42  ls
+   43  ls ./../..
+   44  ls -a ./../..
+   45  git clone git@gitlab.com:nathan.phippsoneill2/binauralsensoryaugmentation.git
+   46  sudo apt install git
+   47  git clone git@gitlab.com:nathan.phippsoneill2/binauralsensoryaugmentation.git
+   48  sl
+   49  ls
+   50  gitk
+   51  cd build/
+   52  cmake ..
+   53  sudo apt install cmake make
+   54  cmake ..
+   55  make clean
+   56  make
+   57  ls
+   58  rm -rf *
+   59  ls
+   60  cmake ..
+   61  make
+   62  cd ../lib/NMEAParser/NMEAParserBuild/
+   63  cmake ../Software
+   64  ls
+   65  rm -rf *
+   66  ls
+   67  cmake ../Software
+   68  make
+   69  cd ../../../build/
+   70  make clean
+   71  make
+   72  sudo shutdown now
+   73  ./bin/binauralsensoryaugmentation 
+   74  cd build/
+   75  cmake ..
+   76  make
+   77  make clean
+   78  make
+   79  ls
+   80  cd ..
+   81  ls
+   82  ls src
+   83  ls bin
+   84  cd build/
+   85  rm -rf *
+   86  cmake ..
+   87  make
+   88  sudo shutdown now /usr/bin/env /bin/sh /tmp/Microsoft-MIEngine-Cmd-8pa2mxot.z3p 
+   89  cd ..
+   90  ls
+   91  cat openal.cpp 
+   92  mv openal.cpp openal_test.cpp
+   93  wget http://www.soundjay.com/footsteps/footsteps-4.wav
+   94  sox
+   95  sudo apt install sox
+   96  sudo apt update
+   97  sudo apt install sox
+   98  sudo apt autoremove
+   99  ./bin/binauralsensoryaugmentation 
+  100  cd binauralsensoryaugmentation/
+  101  ./bin/binauralsensoryaugmentation 
+  102  sox ../footsteps-4.wav -b 16 ../footsteps.raw channels 1 rate 44100
+  103  ./bin/binauralsensoryaugmentation 
+  104  ls
+  105  cd ..
+  106  ls
+  107  aplay footsteps-4.wav 
+  108  ls
+  109  g++ openal_test.cpp -g -o openal_test
+  110  g++ openal_test.cpp -g -o openal_test -lopenal
+  111  g++ openal_test.cpp -g -o openal_test -lopenal -sdl
+  112  g++ openal_test.cpp -g -o openal_test -lopenal -lsdl
+  113  g++ openal_test.cpp -g -o openal_test -lopenal -lSDL
+  114  ls
+  115  ./openal_test 
+  116  cd ../.
+  117  cd ..
+  118  ls
+  119  la
+  120  ls -a
+  121  nano .alsoftrc
+  122  cd Projects/mece2021/
+  123  ls
+  124  ./openal_test 
+  125  cd binauralsensoryaugmentation/
+  126  g++ ../openal_test.cpp -g -o ../openal_test -lopenal -lSDL
+  127  ls
+  128  ls ..
+  129  ./../openal_test 
+  130  ./bin/binauralsensoryaugmentation 
+  131  alsamixer
+  132  ./bin/binauralsensoryaugmentation 
+  133  /home/pi/Projects/mece2021/binauralsensoryaugmentation/bin/binauralsensoryaugmentation 
+  134  cd ..
+  135  ls
+  136  git config --global user.name "Nathan Phipps O'Neill"
+  137  git config --global user.email "nathan.phippsoneill2@mail.dcu.ie"
+  138  got config --list
+  139  git config --list
+  140  git push
+  141  ls ~/.alsoftrc 
+  142  cat ~/.alsoftrc 
+  143  /home/pi/Projects/mece2021/binauralsensoryaugmentation/bin/binauralsensoryaugmentation 
+  144  ls
+  145  git push
+  146  sudo shutdown now
+  147  ls
+  148  ./bin/binauralsensoryaugmentation --storecsv
+  149  ls ../..
+  150  pwd
+  151  touch ../coordinates.csv
+  152  ./bin/binauralsensoryaugmentation --storecsv
+  153  ls ..
+  154  cat ../coordinates.csv 
+  155  ./bin/binauralsensoryaugmentation
+  156  gnuplot
+  157  sudo apt update && sudo apt upgrade
+  158  cat ../coordinates.csv 
+  159  touch ../coordinates_false.csv
+  160  ./bin/binauralsensoryaugmentation
+  161  ./../openal_test 
+  162  ls ..
+  163  ./bin/binauralsensoryaugmentation 
+  164  /home/pi/Projects/mece2021/binauralsensoryaugmentation/bin/binauralsensoryaugmentation 
+  165  git status
+  166  sudo shutdown now
+  167  sudo shutdown now /usr/bin/env /bin/sh /tmp/Microsoft-MIEngine-Cmd-txl5eeke.n2u 
+  168  /home/pi/Projects/mece2021/binauralsensoryaugmentation/bin/binauralsensoryaugmentation 
+  169  alsamixer
+  170  sudo shutdown now
+  171  ls
+  172  cd Projects/mece2021/
+  173  ls
+  174  aplay -l
+  175  modinfo 
+  176  modinfo snd-aloop
+  177  sudo raspi-config
+  178  sudo modprobe snd-aloop
+  179  aplay -l
+  180  rmmod snd-aloop
+  181  sudo rmmod snd-aloop
+  182  aplay -l
+  183  sudo modprobe snd-aloop
+  184  aplay -l
+  185  sudo rmmod snd-aloop
+  186  aplay -l
+  187  sudo modprobe snd-aloop
+  188  sudo raspi-config
+  189  aplay -l
+  190  ls
+  191  aplay footsteps-4.wav 
+  192  aplay -D hw:1,0,0 footsteps-4.wav 
+  193  aplay -D hw:0,0,0 footsteps-4.wav 
+  194  aplay -D hw:0,0,1 footsteps-4.wav 
+  195  man arecord
+  196  aplay -l
+  197  sudo raspi-config
+  198  alsamizer
+  199  alsamixer
+  200  la
+  201  ls ../.. -a
+  202  cd ..
+  203  l
+  204  ls -a
+  205  cat .asoundrc 
+  206  sudo nano .asoundrc 
+  207  mv .asoundrc .asoundrc_bak
+  208  sudo nano .asoundrc 
+  209  cat .asoundrc
+  210  ls
+  211  cd Projects/mece2021/
+  212  ls
+  213  aplay footsteps-4.wav 
+  214  cd
+  215  sudo nano .asoundrc 
+  216  la
+  217  sudo nano .bashrc
+  218  la
+  219  source .bashrc
+  220  la
+  221  cat .wget-hsts 
+  222  aplay footsteps-4.wav 
+  223  cd Projects/mece2021/
+  224  aplay footsteps-4.wav 
+  225  ffmpeg -f alsa -channels 2 -sample_rate 44100 -i loopout out.wav
+  226  sudo apt update && sudo apt upgrade
+  227  sudo apt install ffmpeg
+  228  sudo reboot
+  229  aplay Projects/mece2021/
+  230  aplay Projects/mece2021/footsteps-4.wav 
+  231  aplay -l
+  232  la
+  233  cat .asoundrc
+  234  rm .asoundrc
+  235  mv .asoundrc_bak .asoundrc
+  236  aplay -l
+  237  aplay Projects/mece2021/footsteps-4.wav 
+  238  history | libopen
+  239  history | grep libopen
+  240  history | grep libopenal
+  241  history | grep libopenal-dev
+  242  history 
+  243  la
+  244  cat alsoftrc
+  245  cat .alsoftrc
+  246  history > Projects/mece2021/binauralsensoryaugmentation/HISTORY.txt
