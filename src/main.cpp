@@ -13,7 +13,7 @@
 #include <AL/alc.h>
 #include <AL/alext.h>
 
-#define SUPERLOOP_uS 1000000
+#define SUPERLOOP_uS 100000
 #define NUM_DISPLAY_ITERATIONS 30
 
 /*          FORWARD DECLARATIONS        */
@@ -26,7 +26,7 @@ int main(int argc, char* argv[])
     int i = 0;
     LSM303AGR_MAG* magnetometer;
     PA1010D* gps;
-    ALfloat sound_position[3] = {1.,0.,0.};
+    ALfloat sound_position[3] = {0.,0.,1.};
     ALfloat listener_position[3] = {0., 0., 0.};
     /* initialize OpenAL context, asking for 44.1kHz to match HRIR data */
     ALCint contextAttr[] = {ALC_FREQUENCY,44100,0};
@@ -48,12 +48,13 @@ int main(int argc, char* argv[])
 
 
     //Display the sensor data one after the other
+    // Do this for calibration
     for(i = 0; i < NUM_DISPLAY_ITERATIONS; i++)
     {
         magnetometer->displayPositionalData(1);
         //gps->displaySentenceData(1);
 
-        usleep(SUPERLOOP_uS);
+        usleep(SUPERLOOP_uS*10);
     }
 
     /** START of BINAURAL IMPLEMENTATION
@@ -94,7 +95,7 @@ int main(int argc, char* argv[])
     {
         long dataSize;
         // TODO: SEGV fault on failure to find file. Implement work around or error.
-        const ALvoid* data = load( "/home/pi/Projects/mece2021/footsteps.raw", 
+        const ALvoid* data = load( "/home/pi/Projects/mece2021/sparrows.raw", 
             &dataSize); 
         /* for simplicity, assume raw file is signed-16b at 44.1kHz */
         alBufferData( buffer, AL_FORMAT_MONO16, data, dataSize, 44100 );

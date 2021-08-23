@@ -44,6 +44,11 @@ the project to implement a scalable and structured code base. It also allows
 implementing test functionality and managing 3rd party dependencies with 
 relative ease (depending on your experience level of cmake).  
 
+### Using a beacon
+A .wav file is used in this project as a beacon. The literature shows that wide 
+spectrum sound clips are best for locating a sound source. An audio clip of sparrows 
+with faint background machinary can be used as an effective beacon sound.
+
 ### Building the project
 To build the project do these steps (where `<project_root_dir>` is the place 
 where the project was installed/cloned to):
