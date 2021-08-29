@@ -8,6 +8,11 @@ This project is a master's project by Nathan Phipps O'Neill. The code in this
 For a complete bash history of the setup, see HISTORY.txt. **Note:** *Most of the* 
 *commands in HISTORY.txt are redundant but could be a useful reference for anyone* 
 *who may be confused.*
+
+### Sensor Mount
+The sensor mount STL can be sound in SENSOR_MOUNT.stl and should be printed with TPU so 
+that the underside of the mount will wrap around the headset for rigidity.
+
 ### Setup of I2C interface
 The project was built on a Raspberry Pi 3 B+ with Raspbian OS (and Raspbian Lite OS)
  and I2C functionality enabled. To enable I2C functionality, first type 
