@@ -2,7 +2,10 @@
 
 This project is a master's project by Nathan Phipps O'Neill. The code in this 
  repository aims to interact with a GPS, magnetometer and headphones to augment
- a human's navigational ability with audio.
+ a human's navigational ability with audio. A portfolio will contain more information 
+ on this project implementation, especially the Project Design and Implementation 
+ appendix. It is recommended to read that document or reference it when more 
+ informative content is needed.
 
 ## Wiki
 For a complete bash history of the setup, see HISTORY.txt. **Note:** *Most of the* 
@@ -37,7 +40,7 @@ To save the file, hit `CTRL+X` on the keyboard, then `Y` to save and `ENTER` to
 confirm.
 
 
-### (Prerequisite) Building the project
+### Building the project with `cmake`
 Familiarise yourself with `cmake` as it is the build tool of choice for this 
 project. Briefly, cmake is a tool to manage building of source code and allows 
 the project to implement a scalable and structured code base. It also allows 
@@ -102,3 +105,24 @@ magnetometers coordinate system to the *-z* axis in the OpenAL coordinate system
 in the OpenAL coordinate system. This is a 90 degree rotation about the *x* axis. 
 ![Here is a visual aid of what was just described.](img/coordinateSystemRotation.png)
 
+### To record audio out
+In order to record the audio that is going to the headphones you will have to run 
+these commands. 
+First install the tools required:  
+```
+sudo apt update && sudo apt upgrade
+sudo apt install pulseaudio pulseaudio-utils lame
+```
+Then you need to run the recording command:  
+
+```
+parec -d alsa_output.platform-bcm2835_audio.analog-stereo.monitor | lame -r -V0 - OutputAudio.mp3 
+```
+
+### To play the recorded mp3 file
+In order to play the mp3 file that was just written to, run the following commands:  
+```
+sudo apt update && sudo apt upgrade
+sudo apt install mpg123
+```  
+You should be able to head the MP3 file at this point.

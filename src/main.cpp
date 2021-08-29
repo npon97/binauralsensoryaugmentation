@@ -14,7 +14,7 @@
 #include <AL/alext.h>
 
 #define SUPERLOOP_uS 100000
-#define NUM_DISPLAY_ITERATIONS 30
+#define NUM_DISPLAY_ITERATIONS 150
 
 /*          FORWARD DECLARATIONS        */
 void changeListenerPose( float *a , LSM303AGR_MAG* magnetometer);
@@ -54,7 +54,7 @@ int main(int argc, char* argv[])
         magnetometer->displayPositionalData(1);
         //gps->displaySentenceData(1);
 
-        usleep(SUPERLOOP_uS*10);
+        usleep(SUPERLOOP_uS);
     }
 
     /** START of BINAURAL IMPLEMENTATION
@@ -64,6 +64,14 @@ int main(int argc, char* argv[])
     * 
     * @author: Tony Tavener
     */ 
+
+    // Check if HRTF is available and obtain appropriate function pointers and enum 
+    //  values. Essentially this will enable HRTF filtering
+    if(alcIsExtensionPresent(device, "ALC_SOFT_HRTF") == ALC_FALSE)
+    {
+        printf("HRTF extension not available. Using interaural intensity \
+            difference only\n");
+    }
 
     // Setup the device
     if(device)
@@ -95,7 +103,7 @@ int main(int argc, char* argv[])
     {
         long dataSize;
         // TODO: SEGV fault on failure to find file. Implement work around or error.
-        const ALvoid* data = load( "/home/pi/Projects/mece2021/sparrows.raw", 
+        const ALvoid* data = load("/home/pi/Projects/mece2021/unitimpulsestereo.raw", 
             &dataSize); 
         /* for simplicity, assume raw file is signed-16b at 44.1kHz */
         alBufferData( buffer, AL_FORMAT_MONO16, data, dataSize, 44100 );
