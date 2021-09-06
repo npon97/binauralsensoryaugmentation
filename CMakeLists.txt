@@ -14,7 +14,8 @@ include_directories(
 
 include_directories("${PROJECT_SOURCE_DIR}/include")
 
-file(GLOB SOURCES "src/*.cpp")
+file(GLOB SOURCES "${PROJECT_SOURCE_DIR}/src/*.cpp"
+ "${PROJECT_SOURCE_DIR}/lib/NMEAParser/Software/NMEAParserLib/*.cpp")
 
 add_executable(binauralsensoryaugmentation ${SOURCES})
 target_link_libraries(binauralsensoryaugmentation openal)
